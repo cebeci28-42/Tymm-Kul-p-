@@ -1,5 +1,5 @@
 const CACHE='klup-dosyasi-v4';
-const APP=['./','./index.html','./manifest.json','./icons/icon-192.png','./icons/icon-512.png'];
+const APP=['./','./index.html','./manifest.json','./icon192.png','./icon512.png'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(APP)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>e.waitUntil(self.clients.claim()));
 self.addEventListener('fetch',e=>{
