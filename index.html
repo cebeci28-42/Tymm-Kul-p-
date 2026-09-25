@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#155eef">
+<meta name="description" content="Kulüp dosyası, öğrenci, plan, çalışma ve rapor yönetimi">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon-192.png">
+<title>Klüp Dosyası</title>
+<style>
+:root{--p:#155eef;--p2:#0b4acb;--bg:#f4f7fb;--card:#fff;--text:#172033;--muted:#667085;--danger:#d92d20;--ok:#039855}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+header{background:linear-gradient(135deg,#155eef,#0b4acb);color:#fff;padding:20px 16px;position:sticky;top:0;z-index:10;box-shadow:0 2px 10px #0002}
+header h1{margin:0;font-size:24px}header small{opacity:.9}
+main{max-width:1100px;margin:auto;padding:14px}
+nav{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-bottom:14px}
+button,.button{border:0;border-radius:9px;padding:11px 14px;font-weight:700;cursor:pointer;font-size:14px;background:var(--p);color:#fff}
+button.secondary{background:#667085}button.success{background:var(--ok)}button.danger{background:var(--danger)}button.light{background:#e8eefc;color:#1749a6}
+section{display:none}.active{display:block}.card{background:var(--card);border-radius:14px;padding:18px;margin-bottom:14px;box-shadow:0 2px 10px #10182812}
+h2{margin:0 0 14px;font-size:20px;color:#123f9c}h3{margin:8px 0}
+label{display:block;font-weight:700;margin:10px 0 5px}input,textarea,select{width:100%;padding:11px;border:1px solid #d0d5dd;border-radius:9px;font:inherit;background:#fff}
+textarea{min-height:100px;resize:vertical}.row{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.stat{background:#eef4ff;border-radius:12px;padding:15px;text-align:center}.stat b{display:block;font-size:28px;color:var(--p)}
+table{width:100%;border-collapse:collapse}th,td{padding:9px;border-bottom:1px solid #eaecf0;text-align:left;vertical-align:top}th{background:#f8fafc}
+.table-wrap{overflow:auto}.item{border:1px solid #e4e7ec;border-radius:10px;padding:12px;margin:9px 0}.muted{color:var(--muted);font-size:13px}
+.photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-top:10px}.photos img{width:100%;height:130px;object-fit:cover;border-radius:8px}
+.preview{display:flex;gap:10px;flex-wrap:wrap}.preview img{width:100px;height:80px;object-fit:cover;border-radius:7px}
+.badges label{display:inline-flex;align-items:center;gap:5px;background:#eef4ff;color:#1749a6;padding:6px 9px;border-radius:20px;margin:3px}.badges input{width:auto}
+.notice{padding:10px;border-radius:9px;background:#fffaeb;color:#7a5b00;margin:8px 0}.empty{color:var(--muted);padding:12px 0}
+#reportOutput{background:#fff;padding:20px}.report-photo{max-width:240px;max-height:180px;object-fit:cover;margin:5px}
+@media(max-width:650px){.row,.stats{grid-template-columns:1fr}.card{padding:14px}nav{grid-template-columns:repeat(2,1fr)}table{font-size:13px}}
+@media print{header,nav,.no-print{display:none!important}body{background:#fff}main{padding:0;max-width:none}.card{box-shadow:none;padding:0}#reportSection{display:block!important}#reportOutput{padding:0}.report-photo{max-width:220px;max-height:160px}}
+</style>
+</head>
+<body>
+<header><h1>📚 Klüp Dosyası</h1><small>Öğrenci • Plan • Faaliyet • Fotoğraf • Rapor</small></header>
+<main>
+<nav class="no-print">
+<button onclick="show('home')">🏠 Ana Sayfa</button>
+<button onclick="show('club')">🏫 Kulüp</button>
+<button onclick="show('students')">👨‍🎓 Öğrenciler</button>
+<button onclick="show('annual')">📅 Yıllık Plan</button>
+<button onclick="show('workplan')">📝 Çalışma Planı</button>
+<button onclick="show('activities')">📸 Faaliyetler</button>
+<button onclick="show('reports')">📊 Raporlar</button>
+</nav>
+
+<section id="home" class="active">
+<div class="card"><h2>Kulüp Özeti</h2><div class="stats">
+<div class="stat"><b id="sStudents">0</b>Öğrenci</div>
+<div class="stat"><b id="sActivities">0</b>Faaliyet</div>
+<div class="stat"><b id="sPlans">0</b>Plan / Dosya</div>
+</div></div>
+<div class="card"><h2>Bilgiler</h2><div id="homeInfo" class="empty">Henüz bilgi girilmedi.</div></div>
+<div class="card no-print"><h2>💾 Veri Yedekleme</h2><p class="muted">Tüm verilerinizi ve eklediğiniz dosyaları tek bir yedek dosyasına aktarabilir, sonra başka cihazda geri yükleyebilirsiniz.</p>
+<div class="actions"><button onclick="exportBackup()">⬇️ Yedek Al</button><label class="button secondary" style="display:inline-block">⬆️ Yedek Yükle<input id="backupInput" type="file" accept=".json" hidden onchange="importBackup(this.files[0])"></label></div></div>
+</section>
+
+<section id="club">
+<div class="card"><h2>🏫 Kulüp Bilgileri</h2>
+<label>Kulüp adı</label><input id="clubName" placeholder="Örn. Çevre Koruma Kulübü">
+<label>Danışman öğretmen</label><input id="advisor" placeholder="Ad Soyad">
+<label>Okul adı</label><input id="school" placeholder="Okul adı">
+<label>Eğitim-öğretim yılı</label><input id="schoolYear" placeholder="2026-2027">
+<div class="actions"><button onclick="saveClub()">💾 Kaydet</button></div></div>
+</section>
+
+<section id="students">
+<div class="card"><h2>👨‍🎓 Öğrenci Ekle</h2>
+<label>Tek öğrenci</label><input id="studentName" placeholder="Ad Soyad"><button onclick="addStudent()">➕ Ekle</button>
+<label>Toplu öğrenci</label><textarea id="bulkStudents" placeholder="Her satıra bir öğrenci yazın"></textarea><button class="success" onclick="addBulkStudents()">👥 Toplu Ekle</button></div>
+<div class="card"><h2>Öğrenci Listesi</h2><div class="table-wrap"><table><thead><tr><th>No</th><th>Ad Soyad</th><th></th></tr></thead><tbody id="studentTable"></tbody></table></div></div>
+</section>
+
+<section id="annual">
+<div class="card"><h2>📅 Yıllık Plan / Dosyalar</h2><p class="muted">PDF, Word, Excel, görsel veya başka bir dosya ekleyebilirsiniz. Dosyanın kendisi IndexedDB içinde saklanır.</p>
+<input id="annualFiles" type="file" multiple><div class="actions"><button onclick="addAnnualFiles()">📎 Dosyaları Ekle</button></div></div>
+<div class="card"><h2>Eklenen Dosyalar</h2><div id="annualList"></div></div>
+</section>
+
+<section id="workplan">
+<div class="card"><h2>📝 Çalışma Planı</h2>
+<div class="row"><div><label>Tarih</label><input id="wpDate" type="date"></div><div><label>Çalışma / Faaliyet</label><input id="wpTitle" placeholder="Faaliyet adı"></div></div>
+<label>Açıklama</label><textarea id="wpDesc" placeholder="Amaç, yapılacak işler vb."></textarea>
+<button onclick="addWorkPlan()">➕ Plana Ekle</button></div>
+<div class="card"><h2>Plan</h2><div class="table-wrap"><table><thead><tr><th>Tarih</th><th>Faaliyet</th><th>Açıklama</th><th></th></tr></thead><tbody id="workplanTable"></tbody></table></div></div>
+</section>
+
+<section id="activities">
+<div class="card"><h2>📸 Yapılan Çalışma</h2>
+<div class="row"><div><label>Tarih</label><input id="actDate" type="date"></div><div><label>Faaliyet adı</label><select id="actTitleSelect" onchange="activityTitleChanged()"></select><input id="actTitle" placeholder="Örn. Fidan dikimi" style="display:none"></div></div>
+<label>Açıklama / Yapılan çalışmalar</label><textarea id="actDesc"></textarea>
+<label>Katılan öğrenciler</label><div id="participants" class="badges"></div>
+<label>Fotoğraflar</label><input id="actPhotos" type="file" accept="image/*" multiple onchange="previewPhotos(this.files)">
+<div id="photoPreview" class="preview"></div>
+<div class="actions"><button class="success" onclick="addActivity()">💾 Faaliyeti Kaydet</button></div>
+</div>
+<div class="card"><h2>Kayıtlı Faaliyetler</h2><div id="activityList"></div></div>
+</section>
+
+<section id="reports">
+<div class="card no-print"><h2>📊 Rapor Oluştur</h2>
+<label>Rapor türü</label><select id="reportType" onchange="reportTypeChanged()"><option value="monthly">Aylık</option><option value="term">Dönemlik</option><option value="yearly">Yıllık</option></select>
+<div id="monthlyBox"><label>Ay</label><input id="reportMonth" type="month"></div>
+<div id="termBox" style="display:none"><label>Dönem</label><select id="reportTerm"><option value="1">1. Dönem (Eylül-Ocak)</option><option value="2">2. Dönem (Şubat-Haziran)</option></select></div>
+<div class="actions"><button onclick="makeReport()">📊 Raporu Oluştur</button><button class="success" onclick="window.print()">🖨️ PDF olarak yazdır / kaydet</button></div></div>
+<div id="reportSection"><div id="reportOutput"></div></div>
+</section>
+</main>
+
+<script>
+const DB_NAME='KlüpDosyasiDB_v2', DB_VERSION=1;
+let db;
+let state={club:{name:'',advisor:'',school:'',year:''},students:[],workplans:[],activities:[]};
+
+function openDB(){return new Promise((resolve,reject)=>{const r=indexedDB.open(DB_NAME,DB_VERSION);r.onupgradeneeded=()=>{const d=r.result;if(!d.objectStoreNames.contains('meta'))d.createObjectStore('meta',{keyPath:'key'});if(!d.objectStoreNames.contains('files'))d.createObjectStore('files',{keyPath:'id'});};r.onsuccess=()=>{db=r.result;resolve()};r.onerror=()=>reject(r.error)})}
+function tx(store,mode='readonly'){return db.transaction(store,mode).objectStore(store)}
+function getMeta(key){return new Promise((res,rej)=>{const r=tx('meta').get(key);r.onsuccess=()=>res(r.result?.value);r.onerror=()=>rej(r.error)})}
+function setMeta(key,value){return new Promise((res,rej)=>{const r=tx('meta','readwrite').put({key,value});r.onsuccess=()=>res();r.onerror=()=>rej(r.error)})}
+function getAllFiles(){return new Promise((res,rej)=>{const r=tx('files').getAll();r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
+function putFile(obj){return new Promise((res,rej)=>{const r=tx('files','readwrite').put(obj);r.onsuccess=()=>res();r.onerror=()=>rej(r.error)})}
+function delFile(id){return new Promise((res,rej)=>{const r=tx('files','readwrite').delete(id);r.onsuccess=()=>res();r.onerror=()=>rej(r.error)})}
+
+async function load(){
+ await openDB();
+ const s=await getMeta('state'); if(s) state=s;
+ clubName.value=state.club.name; advisor.value=state.club.advisor; school.value=state.club.school; schoolYear.value=state.club.year;
+ render();
+}
+async function saveState(){await setMeta('state',state);render()}
+function show(id){document.querySelectorAll('section').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');if(id==='activities')renderParticipants()}
+function saveClub(){state.club={name:clubName.value.trim(),advisor:advisor.value.trim(),school:school.value.trim(),year:schoolYear.value.trim()};saveState();alert('Kulüp bilgileri kaydedildi.')}
+function addStudent(){let n=studentName.value.trim();if(!n)return alert('Öğrenci adı yazın.');state.students.push({id:crypto.randomUUID(),name:n});studentName.value='';saveState()}
+function addBulkStudents(){let a=bulkStudents.value.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);a.forEach(n=>state.students.push({id:crypto.randomUUID(),name:n}));bulkStudents.value='';saveState();alert(a.length+' öğrenci eklendi.')}
+function removeStudent(id){if(confirm('Öğrenci silinsin mi?')){state.students=state.students.filter(x=>x.id!==id);state.activities.forEach(a=>a.participants=a.participants.filter(x=>x!==id));saveState()}}
+async function addAnnualFiles(){let fs=[...annualFiles.files];if(!fs.length)return alert('Dosya seçin.');for(const f of fs)await putFile({id:crypto.randomUUID(),kind:'annual',name:f.name,type:f.type,size:f.size,date:new Date().toISOString(),blob:f});annualFiles.value='';renderAnnual()}
+async function removeAnnual(id){if(confirm('Dosya silinsin mi?')){await delFile(id);renderAnnual()}}
+async function downloadFile(id){let all=await getAllFiles(),x=all.find(a=>a.id===id);if(!x)return;let u=URL.createObjectURL(x.blob),a=document.createElement('a');a.href=u;a.download=x.name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)}
+function addWorkPlan(){let date=wpDate.value,title=wpTitle.value.trim();if(!date||!title)return alert('Tarih ve faaliyet adı zorunlu.');state.workplans.push({id:crypto.randomUUID(),date,title,desc:wpDesc.value.trim()});wpDate.value='';wpTitle.value='';wpDesc.value='';saveState()}
+function removeWorkPlan(id){state.workplans=state.workplans.filter(x=>x.id!==id);saveState()}
+function renderParticipants(){participants.innerHTML=state.students.map(s=>`<label><input type="checkbox" value="${s.id}"> ${esc(s.name)}</label>`).join('')||'<span class="muted">Önce öğrenci ekleyin.</span>';populateActivityTitles()}
+function populateActivityTitles(){if(!window.actTitleSelect)return;let current=actTitleSelect.value;actTitleSelect.innerHTML='<option value="">— Çalışma planından faaliyet seç —</option>'+state.workplans.map(w=>`<option value="${w.id}">${esc(w.date)} — ${esc(w.title)}</option>`).join('')+'<option value="custom">✏️ Başka bir faaliyet adı gir</option>';if(current&&[...actTitleSelect.options].some(o=>o.value===current))actTitleSelect.value=current}
+function activityTitleChanged(){let v=actTitleSelect.value;if(v==='custom'){actTitle.style.display='block';actTitle.value=''}else{actTitle.style.display='none';let w=state.workplans.find(x=>x.id===v);if(w){actDate.value=w.date;actTitle.value=w.title}}}
+function previewPhotos(files){photoPreview.innerHTML='';[...files].forEach(f=>{let u=URL.createObjectURL(f),img=document.createElement('img');img.src=u;img.onload=()=>URL.revokeObjectURL(u);photoPreview.appendChild(img)})}
+async function addActivity(){let selectedPlan=actTitleSelect.value;let selectedWork=state.workplans.find(x=>x.id===selectedPlan);let date=actDate.value||selectedWork?.date||'';let title=(selectedWork?.title||actTitle.value).trim();if(selectedPlan==='custom')title=actTitle.value.trim();if(!date||!title)return alert('Tarih ve faaliyet adı zorunlu.');let ids=[...document.querySelectorAll('#participants input:checked')].map(x=>x.value);let photos=[];for(const f of actPhotos.files){if(!f.type.startsWith('image/'))continue;photos.push({id:crypto.randomUUID(),name:f.name,type:f.type,blob:f});}let aid=crypto.randomUUID();for(const p of photos)await putFile({...p,kind:'photo',activityId:aid});state.activities.push({id:aid,date,title,desc:actDesc.value.trim(),participants:ids,photoIds:photos.map(x=>x.id)});actDate.value='';actTitle.value='';actTitleSelect.value='';actTitle.style.display='none';actDesc.value='';actPhotos.value='';photoPreview.innerHTML='';state.activities.sort((a,b)=>b.date.localeCompare(a.date));await saveState();alert('Faaliyet kaydedildi.')}
+async function removeActivity(id){if(!confirm('Faaliyet ve fotoğrafları silinsin mi?'))return;let all=await getAllFiles();for(const f of all.filter(x=>x.activityId===id))await delFile(f.id);state.activities=state.activities.filter(x=>x.id!==id);await saveState()}
+function fmtDate(s){if(!s)return '';let [y,m,d]=s.split('-');return `${d}.${m}.${y}`}
+function esc(s=''){return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function render(){sStudents.textContent=state.students.length;sActivities.textContent=state.activities.length;sPlans.textContent=state.workplans.length;homeInfo.innerHTML=`<b>Kulüp:</b> ${esc(state.club.name)||'—'}<br><b>Danışman:</b> ${esc(state.club.advisor)||'—'}<br><b>Okul:</b> ${esc(state.club.school)||'—'}<br><b>Eğitim-öğretim yılı:</b> ${esc(state.club.year)||'—'}`;studentTable.innerHTML=state.students.map((s,i)=>`<tr><td>${i+1}</td><td>${esc(s.name)}</td><td><button class="danger" onclick="removeStudent('${s.id}')">Sil</button></td></tr>`).join('')||'<tr><td colspan="3">Öğrenci yok.</td></tr>';workplanTable.innerHTML=state.workplans.map(x=>`<tr><td>${fmtDate(x.date)}</td><td>${esc(x.title)}</td><td>${esc(x.desc)}</td><td><button class="danger" onclick="removeWorkPlan('${x.id}')">Sil</button></td></tr>`).join('')||'<tr><td colspan="4">Plan yok.</td></tr>';renderParticipants();renderActivities();renderAnnual()}
+async function renderAnnual(){let fs=(await getAllFiles()).filter(x=>x.kind==='annual');annualList.innerHTML=fs.map(x=>{let preview='';if(x.type&&x.type.startsWith('image/')){let u=URL.createObjectURL(x.blob);preview=`<div style="margin-top:10px"><img src="${u}" style="max-width:100%;max-height:360px;border-radius:9px;object-fit:contain"></div>`}else if(x.type==='application/pdf'){let u=URL.createObjectURL(x.blob);preview=`<div style="margin-top:10px"><iframe src="${u}" style="width:100%;height:500px;border:1px solid #ddd;border-radius:8px"></iframe></div>`}return `<div class="item"><b>📎 ${esc(x.name)}</b><div class="muted">${Math.round(x.size/1024)} KB</div>${preview}<div class="actions"><button class="light" onclick="downloadFile('${x.id}')">Aç / İndir</button><button class="danger" onclick="removeAnnual('${x.id}')">Sil</button></div></div>`}).join('')||'<div class="empty">Yıllık plan dosyası eklenmedi.</div>'}
+async function renderActivities(){let files=await getAllFiles();activityList.innerHTML=state.activities.map(a=>{let names=a.participants.map(id=>state.students.find(s=>s.id===id)?.name).filter(Boolean).join(', ')||'Belirtilmedi';let ps=files.filter(f=>a.photoIds.includes(f.id));let imgs=ps.map(f=>{let u=URL.createObjectURL(f.blob);return `<img class="activity-img" data-url="${u}" alt="${esc(f.name)}">`}).join('');return `<div class="item"><h3>${esc(a.title)}</h3><div><b>Tarih:</b> ${fmtDate(a.date)}</div><p>${esc(a.desc)}</p><div><b>Katılanlar:</b> ${esc(names)}</div><div class="photos">${imgs}</div><div class="actions no-print"><button class="danger" onclick="removeActivity('${a.id}')">🗑️ Sil</button></div></div>`}).join('')||'<div class="empty">Faaliyet yok.</div>';document.querySelectorAll('.activity-img').forEach(img=>img.onload=()=>{});}
+function reportTypeChanged(){let t=reportType.value;monthlyBox.style.display=t==='monthly'?'block':'none';termBox.style.display=t==='term'?'block':'none'}
+async function makeReport(){let t=reportType.value, arr=state.activities;let title='Yıllık Kulüp Faaliyet Raporu';if(t==='monthly'){let m=reportMonth.value;if(!m)return alert('Ay seçin.');arr=arr.filter(a=>a.date.startsWith(m));title=`${m.slice(0,4)} / ${m.slice(5)} Aylık Kulüp Faaliyet Raporu`}else if(t==='term'){let d=reportTerm.value;arr=arr.filter(a=>{let m=+a.date.slice(5,7);return d==='1'?m>=9||m<=1:m>=2&&m<=6});title=d==='1'?'1. Dönem Kulüp Faaliyet Raporu':'2. Dönem Kulüp Faaliyet Raporu'}let files=await getAllFiles();let html=`<h1 style="text-align:center">${esc(state.club.school||'')}</h1><h2 style="text-align:center">${esc(state.club.name||'KULÜP')}</h2><h2 style="text-align:center">${title}</h2><p><b>Danışman Öğretmen:</b> ${esc(state.club.advisor)}</p><p><b>Eğitim-öğretim yılı:</b> ${esc(state.club.year)}</p><p><b>Öğrenci sayısı:</b> ${state.students.length}</p><hr>`;if(!arr.length)html+='<p>Bu rapor döneminde kayıtlı faaliyet bulunmamaktadır.</p>';for(let i=0;i<arr.length;i++){let a=arr[i],names=a.participants.map(id=>state.students.find(s=>s.id===id)?.name).filter(Boolean).join(', ')||'Belirtilmedi';html+=`<article style="page-break-inside:avoid;margin-bottom:25px"><h3>${i+1}. ${esc(a.title)}</h3><p><b>Tarih:</b> ${fmtDate(a.date)}</p><p>${esc(a.desc)}</p><p><b>Katılan öğrenciler:</b> ${esc(names)}</p>`;let ps=files.filter(f=>a.photoIds.includes(f.id));for(const f of ps){let u=URL.createObjectURL(f.blob);html+=`<img class="report-photo" src="${u}">`}html+='</article>'}html+=`<div style="margin-top:45px;display:grid;grid-template-columns:1fr 1fr;gap:30px;text-align:center"><div style="min-height:100px"><b>Danışman Öğretmeni</b><br>${esc(state.club.advisor||'')}</div><div style="min-height:100px"><b>Okul Müdürü</b><br>____________________________</div></div>`;reportOutput.innerHTML=html}
+async function exportBackup(){let files=await getAllFiles();let encoded=[];for(const f of files){encoded.push({id:f.id,kind:f.kind,name:f.name,type:f.type,size:f.size,date:f.date,activityId:f.activityId||null,data:await blobToDataURL(f.blob)})}let out={version:2,state,files:encoded,created:new Date().toISOString()};let blob=new Blob([JSON.stringify(out)],{type:'application/json'}),u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download='klup-dosyasi-yedek.json';a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)}
+function blobToDataURL(blob){return new Promise((res,rej)=>{let r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(blob)})}
+function dataURLToBlob(data){let [head,b64]=data.split(',');let mime=(head.match(/:(.*?);/)||[])[1]||'application/octet-stream';let bin=atob(b64),arr=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)arr[i]=bin.charCodeAt(i);return new Blob([arr],{type:mime})}
+async function importBackup(file){if(!file)return;try{let x=JSON.parse(await file.text());if(!x.state||!Array.isArray(x.files))throw Error();state=x.state;for(const f of x.files)await putFile({...f,blob:dataURLToBlob(f.data)});await setMeta('state',state);await load();alert('Yedek başarıyla yüklendi.')}catch(e){alert('Yedek dosyası okunamadı.')}} 
+if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+load();
+</script>
+</body>
+</html>
