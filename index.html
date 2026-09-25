@@ -7,8 +7,9 @@
 <meta name="description" content="Kulüp dosyası, öğrenci, plan, çalışma ve rapor yönetimi">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icons/icon-192.png">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.8.0/mammoth.browser.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.8.0/mammoth.browser.min.js" onerror="window.mammoth=null"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" onerror="window.XLSX=null"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" onerror="window.pdfjsLib=null"></script>
 <title>Klüp Dosyası</title>
 <style>
 :root{--p:#155eef;--p2:#0b4acb;--bg:#f4f7fb;--card:#fff;--text:#172033;--muted:#667085;--danger:#d92d20;--ok:#039855}
@@ -25,7 +26,7 @@ label{display:block;font-weight:700;margin:10px 0 5px}input,textarea,select{widt
 textarea{min-height:100px;resize:vertical}.row{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.stat{background:#eef4ff;border-radius:12px;padding:15px;text-align:center}.stat b{display:block;font-size:28px;color:var(--p)}
 table{width:100%;border-collapse:collapse}th,td{padding:9px;border-bottom:1px solid #eaecf0;text-align:left;vertical-align:top}th{background:#f8fafc}
-.table-wrap{overflow:auto}.item{border:1px solid #e4e7ec;border-radius:10px;padding:12px;margin:9px 0}.file-preview{margin-top:12px;border:1px solid #d0d5dd;border-radius:10px;background:#f8fafc;padding:10px}.file-preview img{max-width:100%;max-height:500px;display:block;margin:auto;border-radius:8px}.file-preview iframe{width:100%;height:600px;border:0;border-radius:8px;background:#fff}.file-preview pre{white-space:pre-wrap;word-break:break-word;max-height:500px;overflow:auto;background:#fff;padding:12px;border-radius:8px}.file-preview table{background:#fff}.file-preview .office-html{background:#fff;padding:15px;max-height:600px;overflow:auto}.file-type{display:inline-block;padding:3px 7px;border-radius:20px;background:#eef4ff;color:#1749a6;font-size:12px;margin-left:5px}.muted{color:var(--muted);font-size:13px}
+.table-wrap{overflow:auto}.item{border:1px solid #e4e7ec;border-radius:10px;padding:12px;margin:9px 0}.file-preview{margin-top:12px;border:1px solid #d0d5dd;border-radius:10px;background:#f8fafc;padding:10px}.pdf-page{background:#fff;margin:0 auto 18px;padding:8px;border:1px solid #d0d5dd;border-radius:8px;box-shadow:0 2px 8px #0001}.pdf-page-no{text-align:center;font-size:12px;color:#667085;margin-bottom:7px}.file-preview img{max-width:100%;max-height:500px;display:block;margin:auto;border-radius:8px}.file-preview iframe{width:100%;height:600px;border:0;border-radius:8px;background:#fff}.pdf-viewer{background:#eef2f6}.pdf-viewer canvas{background:#fff;max-width:100%}.file-preview pre{white-space:pre-wrap;word-break:break-word;max-height:500px;overflow:auto;background:#fff;padding:12px;border-radius:8px}.file-preview table{background:#fff}.file-preview .office-html{background:#fff;padding:15px;max-height:600px;overflow:auto}.file-type{display:inline-block;padding:3px 7px;border-radius:20px;background:#eef4ff;color:#1749a6;font-size:12px;margin-left:5px}.muted{color:var(--muted);font-size:13px}
 .photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-top:10px}.photos img{width:100%;height:130px;object-fit:cover;border-radius:8px}
 .preview{display:flex;gap:10px;flex-wrap:wrap}.preview img{width:100px;height:80px;object-fit:cover;border-radius:7px}
 .badges label{display:inline-flex;align-items:center;gap:5px;background:#eef4ff;color:#1749a6;padding:6px 9px;border-radius:20px;margin:3px}.badges input{width:auto}
@@ -154,15 +155,65 @@ async function viewFile(id){
   let box=document.getElementById('fileViewer'),title=document.getElementById('viewerTitle'),content=document.getElementById('viewerContent');
   title.textContent='📂 '+f.name; content.innerHTML='<div class="notice">Dosya hazırlanıyor...</div>'; box.style.display='block'; box.scrollIntoView({behavior:'smooth',block:'start'});
   let u=URL.createObjectURL(f.blob),type=(f.type||'').toLowerCase(),name=f.name.toLowerCase();
-  if(type.startsWith('image/')) content.innerHTML=`<div class="file-preview"><img src="${u}" alt="${esc(f.name)}"></div>`;
-  else if(type==='application/pdf'||name.endsWith('.pdf')) content.innerHTML=`<div class="file-preview"><iframe src="${u}" title="${esc(f.name)}"></iframe></div>`;
+  // Android WebView'da PDF'yi iframe/embed ile açmak bazı APK paketlerinde siyah ekran verebilir.
+  // Bu nedenle PDF'yi doğrudan PDF.js ile canvas üzerine çiziyoruz.
+  if(type.startsWith('image/')) {
+    content.innerHTML=`<div class="file-preview"><img src="${u}" alt="${esc(f.name)}"></div>`;
+  }
+  else if(type==='application/pdf'||name.endsWith('.pdf')) {
+    content.innerHTML='<div class="file-preview pdf-viewer"><div id="pdfStatus" class="notice">PDF hazırlanıyor...</div><div id="pdfPages"></div><div id="pdfFallback" style="display:none" class="notice"></div></div>';
+    const showPdfFallback=(msg)=>{
+      const st=document.getElementById('pdfStatus'); if(st) st.remove();
+      const fb=document.getElementById('pdfFallback'); if(!fb)return;
+      fb.style.display='block';
+      fb.innerHTML='<b>PDF önizlemesi bu Android WebView içinde açılamadı.</b><br>'+msg+
+        '<div class="actions"><button class="light" onclick="openNativeFile(\''+f.id+'\')">📱 Cihazda PDF ile Aç</button>'+ 
+        '<button class="secondary" onclick="downloadFile(\''+f.id+'\')">⬇️ PDFyi İndir</button></div>';
+    };
+    try {
+      if(!window.pdfjsLib) { showPdfFallback('İnternet kapalıysa PDF.js yüklenememiş olabilir.'); }
+      else {
+        pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        let data=await f.blob.arrayBuffer();
+        let pdf=await Promise.race([
+          pdfjsLib.getDocument({data}).promise,
+          new Promise((_,rej)=>setTimeout(()=>rej(new Error('PDF zaman aşımı')),15000))
+        ]);
+        let pages=document.getElementById('pdfPages');
+        document.getElementById('pdfStatus').textContent=pdf.numPages+' sayfa görüntüleniyor...';
+        for(let pageNo=1;pageNo<=pdf.numPages;pageNo++){
+          let page=await pdf.getPage(pageNo);
+          let base=page.getViewport({scale:1});
+          let maxWidth=Math.min(900,Math.max(300,(content.clientWidth||360)-40));
+          let scale=maxWidth/base.width;
+          let viewport=page.getViewport({scale});
+          let wrap=document.createElement('div'); wrap.className='pdf-page';
+          wrap.innerHTML='<div class="pdf-page-no">Sayfa '+pageNo+' / '+pdf.numPages+'</div>';
+          let canvas=document.createElement('canvas');
+          canvas.width=Math.ceil(viewport.width); canvas.height=Math.ceil(viewport.height);
+          canvas.style.width='100%'; canvas.style.height='auto'; canvas.style.display='block';
+          wrap.appendChild(canvas); pages.appendChild(wrap);
+          await page.render({canvasContext:canvas.getContext('2d'),viewport}).promise;
+        }
+        const st=document.getElementById('pdfStatus'); if(st) st.remove();
+      }
+    } catch(e) {
+      console.error('PDF preview error',e); showPdfFallback('Güvenli geri dönüş seçeneğini kullanabilirsiniz.');
+    }
+  }
   else if(type.startsWith('text/')||/\.(txt|csv|json|md)$/i.test(name)){ try{let text=await f.blob.text(); content.innerHTML=`<div class="file-preview"><pre>${esc(text)}</pre></div>`}catch(e){content.innerHTML='<div class="notice">Bu metin dosyası görüntülenemedi.</div>'} }
   else if(name.endsWith('.docx') && window.mammoth){ try{let r=await mammoth.convertToHtml({arrayBuffer:await f.blob.arrayBuffer()}); content.innerHTML=`<div class="file-preview office-html">${r.value}</div>`}catch(e){content.innerHTML='<div class="notice">Word dosyası önizlenemedi. Aç/İndir düğmesini kullanabilirsiniz.</div>'} }
   else if((name.endsWith('.xlsx')||name.endsWith('.xls')) && window.XLSX){ try{let wb=XLSX.read(await f.blob.arrayBuffer(),{type:'array'}); let html=''; wb.SheetNames.forEach(n=>{html+=`<h3>${esc(n)}</h3>`+XLSX.utils.sheet_to_html(wb.Sheets[n],{editable:false})}); content.innerHTML=`<div class="file-preview office-html">${html}</div>`}catch(e){content.innerHTML='<div class="notice">Excel dosyası önizlenemedi. Aç/İndir düğmesini kullanabilirsiniz.</div>'} }
   else if(type.startsWith('video/')||type.startsWith('audio/')) content.innerHTML=type.startsWith('video/')?`<div class="file-preview"><video controls style="width:100%" src="${u}"></video></div>`:`<div class="file-preview"><audio controls style="width:100%" src="${u}"></audio></div>`;
   else content.innerHTML=`<div class="notice">Bu dosya türü tarayıcı içinde önizlenemiyor. <button class="light" onclick="downloadFile('${f.id}')">Aç / İndir</button></div>`;
 }
-function closeFileViewer(){document.getElementById('fileViewer').style.display='none';document.getElementById('viewerContent').innerHTML=''}
+async function openNativeFile(id){
+  let all=await getAllFiles(),x=all.find(a=>a.id===id); if(!x)return;
+  let u=URL.createObjectURL(x.blob);
+  let a=document.createElement('a'); a.href=u; a.target='_blank'; a.rel='noopener'; a.type=x.type||'application/pdf'; a.click();
+  setTimeout(()=>URL.revokeObjectURL(u),60000);
+}
+function closeFileViewer(){let c=document.getElementById('viewerContent');c.querySelectorAll('img,video,audio,iframe').forEach(el=>{if(el.src&&el.src.startsWith('blob:'))URL.revokeObjectURL(el.src)});document.getElementById('fileViewer').style.display='none';c.innerHTML=''}
 async function downloadFile(id){let all=await getAllFiles(),x=all.find(a=>a.id===id);if(!x)return;let u=URL.createObjectURL(x.blob),a=document.createElement('a');a.href=u;a.download=x.name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)}
 function parseDateFromText(line){
   let m=line.match(/\b(\d{1,2})[.\/-](\d{1,2})[.\/-](\d{4})\b/);
