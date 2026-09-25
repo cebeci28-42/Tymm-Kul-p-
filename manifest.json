@@ -1,16 +1,16 @@
 {
-  "name": "Klüp Dosyası",
-  "short_name": "Klüp Dosyası",
-  "description": "Kulüp dosyası ve faaliyet raporlama uygulaması",
-  "start_url": "./",
-  "scope": "./",
-  "display": "standalone",
-  "orientation": "portrait",
-  "background_color": "#f4f7fb",
-  "theme_color": "#155eef",
-  "lang": "tr",
-  "icons": [
-    {"src":"./icon192.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},
-    {"src":"./icon512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
+  "name":"Klüp Dosyası",
+  "short_name":"Klüp Dosyası",
+  "description":"Kulüp dosyası ve faaliyet raporlama uygulaması",
+  "start_url":"./",
+  "scope":"./",
+  "display":"standalone",
+  "orientation":"portrait",
+  "background_color":"#f4f7fb",
+  "theme_color":"#155eef",
+  "lang":"tr",
+  "icons":[
+    {"src":"icons/icon-192.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},
+    {"src":"icons/icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
   ]
 }
