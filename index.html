@@ -91,12 +91,15 @@ table{width:100%;border-collapse:collapse}th,td{padding:9px;border-bottom:1px so
 <div class="actions"><button class="success" onclick="extractAnnualPlanItems()">🔎 Kazanımları Çıkar</button><button class="light" onclick="createWorkPlanFromAnnualText()">📝 Metinden Çalışma Planı Oluştur</button><button class="light" onclick="clearAnnualPlanText()">Temizle</button></div>
 <div id="annualParseInfo" class="muted"></div>
 <div id="annualItemsEditor"></div></div>
+<div class="card"><h2>🗂️ Haftalara Göre Yıllık Plan</h2><p class="muted">Aynı haftaya ait kazanım, faaliyet/etkinlik ve amaç kayıtları tek bir hafta grubunda tutulur. Bir haftayı açıp o haftanın kayıtlarını ayrı ayrı düzenleyebilirsiniz.</p><div id="annualWeekGroups"></div></div>
 <div class="card"><h2>Eklenen Yıllık Planlar</h2><div id="annualList"></div></div>
 <div id="fileViewer" class="card" style="display:none"><div class="actions no-print"><button class="secondary" onclick="closeFileViewer()">✕ Görüntüleyiciyi Kapat</button></div><h2 id="viewerTitle">Dosya Görüntüleme</h2><div id="viewerContent"></div></div>
 </section>
 
 <section id="workplan">
 <div class="card"><h2>📝 Çalışma Planı</h2>
+<div class="notice"><b>Yıllık plandan seçim:</b> Önce haftayı, sonra o haftadaki tarihi seçin. Seçtiğiniz kayıt çalışma planına otomatik olarak doldurulur. Tüm alanlar sonradan değiştirilebilir.</div>
+<div class="row"><div><label>Yıllık plandan hafta seç</label><select id="wpWeekSelect" onchange="selectAnnualWeekForWorkPlan()"><option value="">— Hafta seç —</option></select></div><div><label>Seçilen haftadan tarih seç</label><select id="wpDateSelect" onchange="selectAnnualDateForWorkPlan()"><option value="">— Önce hafta seçin —</option></select></div></div>
 <div class="row"><div><label>Hafta</label><input id="wpWeek" placeholder="Örn. 1. Hafta"></div><div><label>Tarih</label><input id="wpDate" type="date"></div></div>
 <div class="row"><div><label>Kazanım</label><select id="wpOutcomeSelect" onchange="selectWorkOutcome()"><option value="">— Kazanımdan seç —</option></select></div><div><label>Faaliyet adı / etkinlik</label><input id="wpTitle" placeholder="Faaliyet veya etkinlik adı"></div></div>
 <label>Faaliyet açıklaması / Amaç</label><textarea id="wpDesc" placeholder="Yıllık plandaki amaç burada otomatik gelir; sonradan düzenleyebilirsiniz."></textarea>
@@ -159,7 +162,7 @@ function delFile(id){return new Promise((res,rej)=>{const r=tx('files','readwrit
 
 async function load(){
  await openDB();
- const s=await getMeta('state'); if(s){state=s;state.club=state.club||{name:'',advisor:'',school:'',year:'',principal:''};state.students=Array.isArray(state.students)?state.students:[];state.workplans=Array.isArray(state.workplans)?state.workplans:[];state.activities=Array.isArray(state.activities)?state.activities:[];state.annualItems=Array.isArray(state.annualItems)?state.annualItems:[];state.annualItems=state.annualItems.map(x=>({...makeAnnualItem(x),...x,purpose:x.purpose||x.desc||'',desc:x.desc||x.purpose||''}));state.workplans=state.workplans.map(x=>({...x,week:x.week||'',outcome:x.outcome||''}));}
+ const s=await getMeta('state'); if(s){state=s;state.club=state.club||{name:'',advisor:'',school:'',year:'',principal:''};state.students=Array.isArray(state.students)?state.students:[];state.workplans=Array.isArray(state.workplans)?state.workplans:[];state.activities=Array.isArray(state.activities)?state.activities:[];state.annualItems=Array.isArray(state.annualItems)?state.annualItems:[];state.annualItems=state.annualItems.map(x=>({...makeAnnualItem(x),...x,groupId:x.groupId||'',purpose:x.purpose||x.desc||'',desc:x.desc||x.purpose||''}));state.workplans=state.workplans.map(x=>({...x,week:x.week||'',outcome:x.outcome||''}));}
  clubName.value=state.club.name; advisor.value=state.club.advisor; school.value=state.club.school; principal.value=state.club.principal||''; schoolYear.value=state.club.year;
  render();
 }
@@ -267,32 +270,42 @@ function headerType(v){
 }
 function detectOutcome(text){let t=normalizeCell(text);return t.replace(/^\s*(kazanım|öğrenme çıktısı|hedef|amaç|faaliyet|etkinlik|açıklama)\s*[:：-]?\s*/i,'').trim()}
 function parseWeek(v){let t=normalizeCell(v);if(!t)return '';let m=t.match(/(\d{1,2})\s*\.?\s*hafta/i);if(m)return `${m[1]}. Hafta`;m=t.match(/hafta\s*[:\-]?\s*(\d{1,2})/i);if(m)return `${m[1]}. Hafta`;return t}
-function makeAnnualItem(o={}){return {id:crypto.randomUUID(),week:o.week||'',date:o.date||'',outcome:detectOutcome(o.outcome||''),activity:normalizeCell(o.activity||''),purpose:normalizeCell(o.purpose||''),desc:normalizeCell(o.desc||o.purpose||'')}}
+function makeAnnualItem(o={}){return {id:o.id||crypto.randomUUID(),groupId:o.groupId||'',week:parseWeek(o.week||''),date:o.date||'',outcome:detectOutcome(o.outcome||''),activity:normalizeCell(o.activity||''),purpose:normalizeCell(o.purpose||''),desc:normalizeCell(o.desc||o.purpose||'')}}
+function groupAnnualItems(items){
+  let groups=[],map=new Map(),lastWeek='';
+  for(const raw of items){
+    let x=makeAnnualItem(raw); if(x.week) lastWeek=x.week; else if(lastWeek)x.week=lastWeek;
+    let key=x.week||'Hafta belirtilmemiş';
+    if(!map.has(key)){let g={id:crypto.randomUUID(),week:key,items:[]};map.set(key,g);groups.push(g)}
+    let g=map.get(key); x.groupId=g.id; g.items.push(x);
+  }
+  return groups;
+}
+function rebuildAnnualGroups(){
+  let groups=groupAnnualItems(state.annualItems), out=[];
+  groups.forEach(g=>g.items.forEach(x=>out.push({...x,groupId:g.id}))); state.annualItems=out; return groups;
+}
 function guessAnnualRow(cells,headers=null){
   let vals=cells.map(normalizeCell), item={week:'',date:'',outcome:'',activity:'',purpose:'',desc:''};
   if(headers){cells.forEach((v,i)=>{let type=headerType(headers[i]);if(type==='week')item.week=parseWeek(v);else if(type==='date')item.date=parseDateFromText(v)||v;else if(type==='outcome')item.outcome=v;else if(type==='activity')item.activity=v;else if(type==='purpose')item.purpose=v;});}
   if(!headers || !Object.values(item).some(Boolean)){
     for(const v of vals){if(!v)continue;let d=parseDateFromText(v);if(d&&!item.date)item.date=d;else if(!item.week&&/hafta/i.test(v))item.week=parseWeek(v);}
     let nonDate=vals.filter(v=>v&&!parseDateFromText(v)&&!/^(hafta|tarih|no|ay)$/i.test(v));
-    if(!item.outcome&&nonDate.length) item.outcome=detectOutcome(nonDate.find(v=>/kazan|öğrenme|hedef/i.test(v))||nonDate[0]);
-    if(!item.activity&&nonDate.length>1) item.activity=nonDate.find(v=>/faaliyet|etkinlik|çalışma/i.test(v))||nonDate[1]||'';
-    if(!item.purpose&&nonDate.length>2) item.purpose=nonDate.find(v=>/amaç|açıklama/i.test(v))||nonDate[2]||'';
+    if(!item.outcome&&nonDate.length)item.outcome=detectOutcome(nonDate.find(v=>/kazan|öğrenme|hedef/i.test(v))||nonDate[0]);
+    if(!item.activity&&nonDate.length>1)item.activity=nonDate.find(v=>/faaliyet|etkinlik|çalışma/i.test(v))||nonDate[1]||'';
+    if(!item.purpose&&nonDate.length>2)item.purpose=nonDate.find(v=>/amaç|açıklama/i.test(v))||nonDate[2]||'';
     if(!item.activity&&item.outcome&&nonDate.length>1)item.activity=nonDate.find(v=>v!==item.outcome)||'';
   }
-  item.desc=item.purpose;
-  return (item.week||item.date||item.outcome||item.activity||item.purpose)?makeAnnualItem(item):null;
+  item.desc=item.purpose; return (item.week||item.date||item.outcome||item.activity||item.purpose)?makeAnnualItem(item):null;
 }
 function parseDelimitedAnnualText(text){
-  let rows=[],lines=text.split(/\r?\n/).map(x=>x.trim()).filter(Boolean), headers=null;
+  let rows=[],lines=text.split(/\r?\n/).map(x=>x.trim()).filter(Boolean),headers=null,lastWeek='';
   if(lines.length){let first=lines[0].split(/\t|\||;|,(?=\s)/).map(normalizeCell);if(first.some(x=>/hafta|tarih|kazan|faaliyet|etkinlik|amaç|açıklama/i.test(x)))headers=first;}
   for(let li=0;li<lines.length;li++){
-    let line=lines[li];if(headers&&li===0)continue;
-    let cells=line.split(/\t|\||;|,(?=\s)/).map(normalizeCell);
-    let row=guessAnnualRow(cells,headers);if(row)rows.push(row);else{
-      let date=parseDateFromText(line), title=line.replace(/\b\d{1,2}[.\/-]\d{1,2}[.\/-]\d{4}\b/,'').replace(/\b\d{4}[.\/-]\d{1,2}[.\/-]\d{1,2}\b/,'').replace(/^\s*[-–—:;|,]+\s*/,'').trim();
-      if(title.length>=3)rows.push(makeAnnualItem({date,outcome:title}));
-    }
-  }return rows;
+    let line=lines[li];if(headers&&li===0)continue;let cells=line.split(/\t|\||;|,(?=\s)/).map(normalizeCell);let row=guessAnnualRow(cells,headers);
+    if(row){if(!row.week&&lastWeek)row.week=lastWeek;if(row.week)lastWeek=row.week;rows.push(row)}
+    else {let date=parseDateFromText(line),title=line.replace(/\b\d{1,2}[.\/-]\d{1,2}[.\/-]\d{4}\b/,'').replace(/\b\d{4}[.\/-]\d{1,2}[.\/-]\d{1,2}\b/,'').replace(/^\s*[-–—:;|,]+\s*/,'').trim();if(title.length>=3)rows.push(makeAnnualItem({week:lastWeek,date,outcome:title}))}
+  } return rows;
 }
 async function extractDocxRows(file){
   if(!window.mammoth)return [];
@@ -318,18 +331,44 @@ async function extractAnnualPlanItems(){
   let seen=new Set();state.annualItems=[...state.annualItems,...rows].filter(r=>{let k=[r.week,r.date,r.outcome,r.activity,r.purpose].join('|').toLocaleLowerCase('tr-TR');if(seen.has(k))return false;seen.add(k);return true;});
   renderAnnualItems();saveState();annualParseInfo.textContent=`${state.annualItems.length} kayıt bulundu. Hafta, kazanım, faaliyet ve amaç alanlarını düzenleyebilirsiniz.`;
 }
-function renderAnnualItems(){let box=document.getElementById('annualItemsEditor');if(!box)return;if(!state.annualItems.length){box.innerHTML='<div class="empty">Henüz kayıt çıkarılmadı.</div>';return;}box.innerHTML='<h3>✏️ Tamamen Düzenlenebilir Yıllık Plan Kayıtları</h3>'+state.annualItems.map(x=>`<div class="item"><div class="row"><div><label>Hafta</label><input id="ao_week_${x.id}" value="${esc(x.week||'')}"></div><div><label>Tarih</label><input id="ao_date_${x.id}" type="date" value="${esc(x.date||'')}"></div></div><label>Kazanım</label><textarea id="ao_out_${x.id}">${esc(x.outcome||'')}</textarea><label>Faaliyet / Etkinlik</label><input id="ao_act_${x.id}" value="${esc(x.activity||'')}"><label>Amaç</label><textarea id="ao_purpose_${x.id}">${esc(x.purpose||'')}</textarea><label>Faaliyet açıklaması</label><textarea id="ao_desc_${x.id}">${esc(x.desc||x.purpose||'')}</textarea><div class="actions"><button class="success" onclick="saveAnnualItem('${x.id}')">💾 Kaydet</button><button onclick="addAnnualItemToWorkPlan('${x.id}')">➡️ Çalışma Planına Aktar</button><button class="danger" onclick="deleteAnnualItem('${x.id}')">Sil</button></div></div>`).join('')}
-function saveAnnualItem(id){let x=state.annualItems.find(a=>a.id===id);if(!x)return;x.week=document.getElementById('ao_week_'+id).value.trim();x.date=document.getElementById('ao_date_'+id).value;x.outcome=document.getElementById('ao_out_'+id).value.trim();x.activity=document.getElementById('ao_act_'+id).value.trim();x.purpose=document.getElementById('ao_purpose_'+id).value.trim();x.desc=document.getElementById('ao_desc_'+id).value.trim()||x.purpose;saveState();}
+function renderAnnualItems(){
+  let box=document.getElementById('annualItemsEditor');if(!box)return;
+  if(!state.annualItems.length){box.innerHTML='<div class="empty">Henüz kayıt çıkarılmadı.</div>';renderAnnualWeekGroups();populateWorkOutcomeSelect();populateAnnualWeekSelects();return;}
+  let groups=rebuildAnnualGroups();
+  box.innerHTML='<h3>✏️ Düzenlenebilir Yıllık Plan Kayıtları</h3>'+groups.map(g=>`<div class="item"><b>📅 ${esc(g.week)}</b><span class="muted"> — ${g.items.length} kayıt</span></div>`).join('');
+  renderAnnualWeekGroups();populateWorkOutcomeSelect();populateAnnualWeekSelects();
+}
+function renderAnnualWeekGroups(){
+  let box=document.getElementById('annualWeekGroups');if(!box)return;let groups=rebuildAnnualGroups();
+  if(!groups.length){box.innerHTML='<div class="empty">Henüz hafta grubu yok.</div>';return;}
+  box.innerHTML=groups.map(g=>`<details class="item" open><summary><b>📅 ${esc(g.week)}</b> <span class="muted">(${g.items.length} kayıt)</span></summary><div class="group-body">${g.items.map((x,i)=>`<div class="item" style="margin-top:10px"><div class="row"><div><label>Hafta</label><input id="ao_week_${x.id}" value="${esc(x.week)}"></div><div><label>Tarih</label><input id="ao_date_${x.id}" type="date" value="${esc(x.date)}"></div></div><label>Kazanım</label><textarea id="ao_out_${x.id}">${esc(x.outcome)}</textarea><label>Faaliyet / Etkinlik</label><textarea id="ao_act_${x.id}">${esc(x.activity)}</textarea><label>Amaç</label><textarea id="ao_purpose_${x.id}">${esc(x.purpose)}</textarea><label>Faaliyet açıklaması</label><textarea id="ao_desc_${x.id}">${esc(x.desc||x.purpose)}</textarea><div class="actions"><button class="success" onclick="saveAnnualItem('${x.id}')">💾 Kaydet</button><button onclick="addAnnualItemToWorkPlan('${x.id}')">➡️ Bu kaydı çalışma planına aktar</button><button class="danger" onclick="deleteAnnualItem('${x.id}')">Sil</button></div></div>`).join('')}</div></details>`).join('');
+}
+function saveAnnualItem(id){let x=state.annualItems.find(a=>a.id===id);if(!x)return;x.week=parseWeek(document.getElementById('ao_week_'+id).value.trim());x.date=document.getElementById('ao_date_'+id).value;x.outcome=document.getElementById('ao_out_'+id).value.trim();x.activity=document.getElementById('ao_act_'+id).value.trim();x.purpose=document.getElementById('ao_purpose_'+id).value.trim();x.desc=document.getElementById('ao_desc_'+id).value.trim()||x.purpose;saveState();}
 function deleteAnnualItem(id){state.annualItems=state.annualItems.filter(x=>x.id!==id);saveState()}
-function addAnnualItemToWorkPlan(id){saveAnnualItem(id);let x=state.annualItems.find(a=>a.id===id);if(!x)return;wpWeek.value=x.week||'';wpDate.value=x.date||'';wpOutcomeSelect.value=x.id;wpTitle.value=x.activity||'';wpDesc.value=x.purpose||x.desc||'';show('workplan')}
+function addAnnualItemToWorkPlan(id){saveAnnualItem(id);let x=state.annualItems.find(a=>a.id===id);if(!x)return;document.getElementById('wpWeek').value=x.week||'';document.getElementById('wpDate').value=x.date||'';document.getElementById('wpOutcomeSelect').value=x.id;document.getElementById('wpTitle').value=x.activity||'';document.getElementById('wpDesc').value=x.purpose||x.desc||'';show('workplan');populateAnnualWeekSelects();document.getElementById('wpWeekSelect').value=x.week||'';populateAnnualDateSelect(x.week);document.getElementById('wpDateSelect').value=x.id;}
 function populateWorkOutcomeSelect(){let s=document.getElementById('wpOutcomeSelect');if(!s)return;s.innerHTML='<option value="">— Kazanımdan seç —</option>'+state.annualItems.map(x=>`<option value="${x.id}">${esc((x.week?x.week+' — ':'')+(x.outcome||x.activity||'Kayıt'))}</option>`).join('')}
-function selectWorkOutcome(){let x=state.annualItems.find(a=>a.id===wpOutcomeSelect.value);if(!x)return;wpWeek.value=x.week||'';wpDate.value=x.date||'';wpTitle.value=x.activity||'';wpDesc.value=x.purpose||x.desc||''}
+function selectWorkOutcome(){let x=state.annualItems.find(a=>a.id===document.getElementById('wpOutcomeSelect').value);if(!x)return;document.getElementById('wpWeek').value=x.week||'';document.getElementById('wpDate').value=x.date||'';document.getElementById('wpTitle').value=x.activity||'';document.getElementById('wpDesc').value=x.purpose||x.desc||'';populateAnnualWeekSelects();document.getElementById('wpWeekSelect').value=x.week||'';populateAnnualDateSelect(x.week);document.getElementById('wpDateSelect').value=x.id}
+function populateAnnualWeekSelects(){let s=document.getElementById('wpWeekSelect');if(!s)return;let groups=rebuildAnnualGroups();s.innerHTML='<option value="">— Hafta seç —</option>'+groups.map(g=>`<option value="${esc(g.week)}">${esc(g.week)} (${g.items.length} kayıt)</option>`).join('');}
+function populateAnnualDateSelect(week){let s=document.getElementById('wpDateSelect');if(!s)return;let arr=state.annualItems.filter(x=>(x.week||'Hafta belirtilmemiş')===week);s.innerHTML='<option value="">— Tarih/kayıt seç —</option>'+arr.map(x=>`<option value="${x.id}">${esc(x.date?fmtDate(x.date):'Tarih yok')} — ${esc(x.activity||x.outcome||'Kayıt')}</option>`).join('');}
+function selectAnnualWeekForWorkPlan(){let week=document.getElementById('wpWeekSelect').value;if(!week){document.getElementById('wpDateSelect').innerHTML='<option value="">— Önce hafta seçin —</option>';return}document.getElementById('wpWeek').value=week;populateAnnualDateSelect(week);}
+function selectAnnualDateForWorkPlan(){
+  let id=document.getElementById('wpDateSelect').value;if(!id)return;
+  let x=state.annualItems.find(a=>a.id===id);if(!x)return;
+  document.getElementById('wpWeek').value=x.week||'';document.getElementById('wpDate').value=x.date||'';document.getElementById('wpOutcomeSelect').value=x.id;document.getElementById('wpTitle').value=x.activity||'';document.getElementById('wpDesc').value=x.purpose||x.desc||'';
+  let existing=state.workplans.find(w=>w.outcomeId===x.id || (w.week===x.week&&w.date===x.date&&w.title===(x.activity||x.outcome)));
+  if(existing){window.editingWorkPlanId=existing.id;annualParseInfo.textContent=`${x.week||'Seçilen hafta'} — ${x.date?fmtDate(x.date):'tarih'} çalışma planında zaten var; düzenleme moduna alındı.`;return;}
+  let plan={id:crypto.randomUUID(),week:x.week||'',date:x.date||'',title:x.activity||x.outcome||'Yeni faaliyet',desc:x.purpose||x.desc||'',outcomeId:x.id,outcome:x.outcome||'',annualItemId:x.id};
+  state.workplans.push(plan);state.workplans.sort((a,b)=>(a.date||'').localeCompare(b.date||''));saveState();
+  window.editingWorkPlanId=plan.id;
+  document.getElementById('wpWeek').value=plan.week;document.getElementById('wpDate').value=plan.date;document.getElementById('wpOutcomeSelect').value=plan.outcomeId;document.getElementById('wpTitle').value=plan.title;document.getElementById('wpDesc').value=plan.desc;
+  annualParseInfo.textContent=`${plan.week||'Seçilen hafta'} — ${plan.date?fmtDate(plan.date):'tarih'} çalışma planına eklendi. Alanların tamamını şimdi düzenleyebilirsiniz.`;
+}
 function populateActivityWorkSelect(){let s=document.getElementById('actWorkSelect');if(!s)return;s.innerHTML='<option value="">— Seç —</option>'+state.workplans.map(x=>`<option value="${x.id}">${esc((x.week?x.week+' — ':'')+(x.title||'Faaliyet'))}${x.date?' — '+fmtDate(x.date):''}</option>`).join('')}
-function selectActivityWorkPlan(){let x=state.workplans.find(a=>a.id===actWorkSelect.value);if(!x)return;actDate.value=x.date||'';actTitle.value=x.title||'';actDesc.value=x.desc||''}
+function selectActivityWorkPlan(){let x=state.workplans.find(a=>a.id===document.getElementById('actWorkSelect').value);if(!x)return;actDate.value=x.date||'';actTitle.value=x.title||'';actDesc.value=x.desc||''}
 function parseDateFromText(line){let m=line.match(/\b(\d{1,2})[.\/-](\d{1,2})[.\/-](\d{4})\b/);if(m)return `${m[3]}-${String(m[2]).padStart(2,'0')}-${String(m[1]).padStart(2,'0')}`;m=line.match(/\b(\d{4})[.\/-](\d{1,2})[.\/-](\d{1,2})\b/);if(m)return `${m[1]}-${String(m[2]).padStart(2,'0')}-${String(m[3]).padStart(2,'0')}`;m=line.match(/\b(\d{1,2})[.\/-](\d{1,2})\b/);if(m){let y=state.club.year.match(/(20\d{2})/);if(y)return `${y[1]}-${String(m[2]).padStart(2,'0')}-${String(m[1]).padStart(2,'0')}`}return ''}
 function createWorkPlanFromAnnualText(){let rows=parseDelimitedAnnualText(document.getElementById('annualPlanText').value);if(!rows.length)return alert('Yıllık plan metninden kayıt bulunamadı.');let added=0;for(const r of rows){let exists=state.workplans.some(w=>w.week===r.week&&w.date===r.date&&String(w.title).toLowerCase()===String(r.activity||r.outcome).toLowerCase());if(!exists){state.workplans.push({id:crypto.randomUUID(),week:r.week,date:r.date,title:r.activity||r.outcome,desc:r.purpose||r.desc||'',outcomeId:null,outcome:r.outcome||''});added++}}state.workplans.sort((a,b)=>(a.date||'').localeCompare(b.date||''));saveState();annualParseInfo.textContent=`${added} çalışma planı maddesi eklendi.`}
 function clearAnnualPlanText(){document.getElementById('annualPlanText').value='';annualParseInfo.textContent=''}
-function clearWorkPlanForm(){wpWeek.value='';wpDate.value='';wpOutcomeSelect.value='';wpTitle.value='';wpDesc.value=''}
+function clearWorkPlanForm(){document.getElementById('wpWeek').value='';document.getElementById('wpDate').value='';document.getElementById('wpWeekSelect').value='';document.getElementById('wpDateSelect').innerHTML='<option value="">— Önce hafta seçin —</option>';document.getElementById('wpOutcomeSelect').value='';document.getElementById('wpTitle').value='';document.getElementById('wpDesc').value=''}
 function addWorkPlan(){let date=wpDate.value,title=wpTitle.value.trim();if(!title)return alert('Faaliyet adı zorunlu.');let outcomeId=wpOutcomeSelect.value||null,outcome=state.annualItems.find(x=>x.id===outcomeId);state.workplans.push({id:crypto.randomUUID(),week:wpWeek.value.trim(),date:date||outcome?.date||'',title,desc:wpDesc.value.trim(),outcomeId,outcome:outcome?.outcome||''});clearWorkPlanForm();saveState()}
 function editWorkPlan(id){let x=state.workplans.find(a=>a.id===id);if(!x)return;wpWeek.value=x.week||'';wpDate.value=x.date||'';wpOutcomeSelect.value=x.outcomeId||'';wpTitle.value=x.title||'';wpDesc.value=x.desc||'';window.editingWorkPlanId=id;show('workplan');document.querySelector('#workplan .card')?.scrollIntoView({behavior:'smooth'})}
 function updateOrAddWorkPlan(){if(window.editingWorkPlanId){let x=state.workplans.find(a=>a.id===window.editingWorkPlanId);if(x){x.week=wpWeek.value.trim();x.date=wpDate.value;x.outcomeId=wpOutcomeSelect.value||null;let o=state.annualItems.find(a=>a.id===x.outcomeId);x.outcome=o?.outcome||x.outcome||'';x.title=wpTitle.value.trim();x.desc=wpDesc.value.trim();window.editingWorkPlanId=null;clearWorkPlanForm();saveState();return}}addWorkPlan()}
