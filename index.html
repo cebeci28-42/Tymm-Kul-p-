@@ -26,7 +26,7 @@ label{display:block;font-weight:700;margin:10px 0 5px}input,textarea,select{widt
 textarea{min-height:100px;resize:vertical}.row{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.stat{background:#eef4ff;border-radius:12px;padding:15px;text-align:center}.stat b{display:block;font-size:28px;color:var(--p)}
 table{width:100%;border-collapse:collapse}th,td{padding:9px;border-bottom:1px solid #eaecf0;text-align:left;vertical-align:top}th{background:#f8fafc}
-.table-wrap{overflow:auto}.item{border:1px solid #e4e7ec;border-radius:10px;padding:12px;margin:9px 0}.file-preview{margin-top:12px;border:1px solid #d0d5dd;border-radius:10px;background:#f8fafc;padding:10px}.pdf-page{background:#fff;margin:0 auto 18px;padding:8px;border:1px solid #d0d5dd;border-radius:8px;box-shadow:0 2px 8px #0001}.pdf-page-no{text-align:center;font-size:12px;color:#667085;margin-bottom:7px}.file-preview img{max-width:none;max-height:none;width:auto;height:auto;display:block;margin:auto;border-radius:8px;image-rendering:auto}.image-preview{overflow:auto;background:#fff;text-align:center}.image-preview img{display:block;margin:auto}.image-controls{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;margin-bottom:10px}.image-controls button{min-width:90px}.pdf-toolbar{position:sticky;top:0;z-index:2;background:#eef2f6;padding:8px;border-bottom:1px solid #d0d5dd;margin-bottom:10px}.pdf-page canvas{display:block;margin:auto;background:#fff;max-width:none}.pdf-scroll{overflow:auto;width:100%}.file-preview iframe{width:100%;height:70vh;min-height:480px;border:0;border-radius:8px;background:#fff}.pdf-viewer{background:#eef2f6}.pdf-viewer canvas{background:#fff;max-width:100%}.file-preview pre{white-space:pre-wrap;word-break:break-word;max-height:500px;overflow:auto;background:#fff;padding:12px;border-radius:8px}.file-preview table{background:#fff}.file-preview .office-html{background:#fff;padding:15px;max-height:600px;overflow:auto}.file-type{display:inline-block;padding:3px 7px;border-radius:20px;background:#eef4ff;color:#1749a6;font-size:12px;margin-left:5px}.muted{color:var(--muted);font-size:13px}
+.table-wrap{overflow:auto}.item{border:1px solid #e4e7ec;border-radius:10px;padding:12px;margin:9px 0}.file-preview{margin-top:12px;border:1px solid #d0d5dd;border-radius:10px;background:#f8fafc;padding:10px}.pdf-page{background:#fff;margin:0 auto 18px;padding:8px;border:1px solid #d0d5dd;border-radius:8px;box-shadow:0 2px 8px #0001}.pdf-page-no{text-align:center;font-size:12px;color:#667085;margin-bottom:7px}.file-preview img{max-width:none;max-height:none;width:auto;height:auto;display:block;margin:auto;border-radius:8px;image-rendering:auto}.image-preview{overflow:auto;background:#fff;text-align:center}.image-preview img{display:block;margin:auto}.image-controls{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;margin-bottom:10px}.image-controls button{min-width:90px}.pdf-toolbar{position:sticky;top:0;z-index:2;background:#eef2f6;padding:8px;border-bottom:1px solid #d0d5dd;margin-bottom:10px}.pdf-page canvas{display:block;margin:auto;background:#fff;max-width:none}.pdf-scroll{overflow:auto;width:100%}.file-preview iframe{width:100%;height:70vh;min-height:480px;border:0;border-radius:8px;background:#fff}.pdf-viewer{background:#eef2f6}.pdf-viewer canvas{background:#fff;max-width:100%}.file-preview pre{white-space:pre-wrap;word-break:break-word;max-height:500px;overflow:auto;background:#fff;padding:12px;border-radius:8px}.file-preview table{background:#fff}.file-preview .office-html{background:#fff;padding:15px;max-height:600px;overflow:auto}.file-type{display:inline-block;padding:3px 7px;border-radius:20px;background:#eef4ff;color:#1749a6;font-size:12px;margin-left:5px}.muted{color:var(--muted);font-size:13px}.card details{border:1px solid #e4e7ec;border-radius:10px;padding:12px;background:#fff}.card summary{cursor:pointer;color:#123f9c;font-size:16px}.card details p,.card details ul{line-height:1.65}.card details li{margin:5px 0}
 .photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-top:10px}.photos img{width:100%;height:130px;object-fit:cover;border-radius:8px}
 .preview{display:flex;gap:10px;flex-wrap:wrap}.preview img{width:100px;height:80px;object-fit:cover;border-radius:7px}
 .badges label{display:inline-flex;align-items:center;gap:5px;background:#eef4ff;color:#1749a6;padding:6px 9px;border-radius:20px;margin:3px}.badges input{width:auto}
@@ -47,6 +47,7 @@ table{width:100%;border-collapse:collapse}th,td{padding:9px;border-bottom:1px so
 <button onclick="show('workplan')">📝 Çalışma Planı</button>
 <button onclick="show('activities')">📸 Faaliyetler</button>
 <button onclick="show('reports')">📊 Raporlar</button>
+<button onclick="show('help')">❓ Yardım</button>
 </nav>
 
 <section id="home" class="active">
@@ -81,29 +82,32 @@ table{width:100%;border-collapse:collapse}th,td{padding:9px;border-bottom:1px so
 <div class="card"><h2>📅 Yıllık Plan Ekle</h2><p class="muted">Yıllık planınızı PDF, Word, Excel, CSV, TXT veya görsel olarak yükleyebilirsiniz. Dosya saklanır ve görüntülenebilir. Metin içeren planlardan çalışma planı oluşturmak için aşağıdaki alana plan metnini yapıştırabilirsiniz.</p>
 <input id="annualFiles" type="file" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.csv,.txt,.json,image/*">
 <div class="actions"><button onclick="addAnnualFiles()">📎 Yıllık Planı Ekle</button></div></div>
-<div class="card"><h2>🧾 Yıllık Plandan Çalışma Planı Oluştur</h2>
-<p class="muted">Yıllık planın metnini buraya yapıştırın. Uygulama tarih ve faaliyet adlarını satırlardan algılayıp çalışma planına ekler. CSV/TXT/JSON dosyaları da otomatik okunabilir.</p>
+<div class="card"><h2>🧾 Yıllık Plandan Kazanımları ve Faaliyetleri Çıkar</h2>
+<p class="muted">Excel veya Word yıllık planınızda bulunan <b>hafta, tarih, kazanım, yapılacak faaliyet/etkinlik ve amaç</b> bilgileri mümkün olduğunca ayrı alanlara çıkarılır. Amaç bilgisi otomatik olarak faaliyet açıklamasına aktarılır. Çıkartılan her alan aşağıda tek tek düzenlenebilir.</p>
+<div class="notice"><b>Önerilen sütunlar:</b> Hafta | Tarih | Kazanım / Öğrenme Çıktısı | Faaliyet / Etkinlik | Amaç / Açıklama</div>
 <textarea id="annualPlanText" rows="10" placeholder="Örnek:
-15.09.2026 - Kulüp tanıtımı ve görev dağılımı
-05.10.2026 - Çevre temizliği
-20.11.2026 - Fidan dikimi"></textarea>
-<div class="actions"><button class="success" onclick="createWorkPlanFromAnnualText()">📝 Çalışma Planını Oluştur</button><button class="light" onclick="clearAnnualPlanText()">Temizle</button></div>
-<div id="annualParseInfo" class="muted"></div></div>
+1. Hafta | 15.09.2026 | Kulüp çalışmalarının amacını açıklar | Kulüp tanıtımı ve görev dağılımı | Öğrencilerin kulübü ve görevlerini tanımasını sağlamak
+2. Hafta | 22.09.2026 | Çevre bilincini geliştirir | Okul çevresi temizliği | Çevre temizliği konusunda farkındalık oluşturmak"></textarea>
+<div class="actions"><button class="success" onclick="extractAnnualPlanItems()">🔎 Kazanımları Çıkar</button><button class="light" onclick="createWorkPlanFromAnnualText()">📝 Metinden Çalışma Planı Oluştur</button><button class="light" onclick="clearAnnualPlanText()">Temizle</button></div>
+<div id="annualParseInfo" class="muted"></div>
+<div id="annualItemsEditor"></div></div>
 <div class="card"><h2>Eklenen Yıllık Planlar</h2><div id="annualList"></div></div>
 <div id="fileViewer" class="card" style="display:none"><div class="actions no-print"><button class="secondary" onclick="closeFileViewer()">✕ Görüntüleyiciyi Kapat</button></div><h2 id="viewerTitle">Dosya Görüntüleme</h2><div id="viewerContent"></div></div>
 </section>
 
 <section id="workplan">
 <div class="card"><h2>📝 Çalışma Planı</h2>
-<div class="row"><div><label>Tarih</label><input id="wpDate" type="date"></div><div><label>Çalışma / Faaliyet</label><input id="wpTitle" placeholder="Faaliyet adı"></div></div>
-<label>Açıklama</label><textarea id="wpDesc" placeholder="Amaç, yapılacak işler vb."></textarea>
-<button onclick="addWorkPlan()">➕ Plana Ekle</button></div>
-<div class="card"><h2>Plan</h2><div class="table-wrap"><table><thead><tr><th>Tarih</th><th>Faaliyet</th><th>Açıklama</th><th></th></tr></thead><tbody id="workplanTable"></tbody></table></div></div>
+<div class="row"><div><label>Hafta</label><input id="wpWeek" placeholder="Örn. 1. Hafta"></div><div><label>Tarih</label><input id="wpDate" type="date"></div></div>
+<div class="row"><div><label>Kazanım</label><select id="wpOutcomeSelect" onchange="selectWorkOutcome()"><option value="">— Kazanımdan seç —</option></select></div><div><label>Faaliyet adı / etkinlik</label><input id="wpTitle" placeholder="Faaliyet veya etkinlik adı"></div></div>
+<label>Faaliyet açıklaması / Amaç</label><textarea id="wpDesc" placeholder="Yıllık plandaki amaç burada otomatik gelir; sonradan düzenleyebilirsiniz."></textarea>
+<div class="actions"><button onclick="updateOrAddWorkPlan()">➕ Plana Ekle / Güncelle</button><button class="light" onclick="clearWorkPlanForm()">Temizle</button></div></div>
+<div class="card"><h2>Plan</h2><div class="table-wrap"><table><thead><tr><th>Hafta</th><th>Tarih</th><th>Kazanım</th><th>Faaliyet / Etkinlik</th><th>Açıklama / Amaç</th><th></th></tr></thead><tbody id="workplanTable"></tbody></table></div></div>
 </section>
 
 <section id="activities">
 <div class="card"><h2>📸 Yapılan Çalışma</h2>
-<div class="row"><div><label>Tarih</label><input id="actDate" type="date"></div><div><label>Faaliyet adı</label><input id="actTitle" placeholder="Örn. Fidan dikimi"></div></div>
+<div class="row"><div><label>Tarih</label><input id="actDate" type="date"></div><div><label>Çalışma planından kazanım / faaliyet seç</label><select id="actWorkSelect" onchange="selectActivityWorkPlan()"><option value="">— Seç —</option></select></div></div>
+<label>Faaliyet adı</label><input id="actTitle" placeholder="Örn. Fidan dikimi">
 <label>Açıklama / Yapılan çalışmalar</label><textarea id="actDesc"></textarea>
 <label>Katılan öğrenciler</label><div id="participants" class="badges"></div>
 <label>Fotoğraflar</label><input id="actPhotos" type="file" accept="image/*" multiple onchange="previewPhotos(this.files)">
@@ -121,12 +125,29 @@ table{width:100%;border-collapse:collapse}th,td{padding:9px;border-bottom:1px so
 <div class="actions"><button onclick="makeReport()">📊 Raporu Oluştur</button><button class="success" onclick="window.print()">🖨️ PDF olarak yazdır / kaydet</button></div></div>
 <div id="reportSection"><div id="reportOutput"></div></div>
 </section>
+
+<section id="help">
+<div class="card"><h2>❓ Klüp Dosyası Kullanım Rehberi</h2><p>Bu bölüm, programı ilk kez kullananlar için uygulamanın nasıl kullanılacağını adım adım anlatır.</p><div class="notice"><b>Önerilen kullanım sırası:</b> 1. Kulüp Bilgileri → 2. Öğrenciler → 3. Yıllık Plan → 4. Çalışma Planı → 5. Faaliyetler → 6. Raporlar</div></div>
+<div class="card"><details open><summary><b>🏫 1. Kulüp Bilgileri</b></summary><p><b>Kulüp</b> menüsünden kulüp adı, danışman öğretmen, okul adı, okul müdürü ve eğitim-öğretim yılı bilgilerini girin. <b>Kaydet</b> düğmesine basın. Bu bilgiler raporlarda otomatik kullanılır.</p></details></div>
+<div class="card"><details><summary><b>👨‍🎓 2. Öğrencileri Ekleme</b></summary><p><b>Öğrenciler</b> bölümünde tek öğrenci ekleyebilir veya her satıra bir isim yazarak öğrencileri toplu ekleyebilirsiniz. Öğrenciler daha sonra faaliyetlerde katılımcı olarak seçilir.</p></details></div>
+<div class="card"><details><summary><b>📅 3. Yıllık Planı Yükleme</b></summary><p><b>Yıllık Plan</b> bölümünden Word, Excel, PDF, CSV, TXT veya görsel dosyanızı ekleyebilirsiniz. Eklenen dosyalar saklanır ve uygun dosyalar uygulama içinde görüntülenebilir.</p></details></div>
+<div class="card"><details><summary><b>🧾 4. Kazanımları Çıkarma ve Düzenleme</b></summary><p>Yıllık planınızı seçip <b>🔎 Kazanımları Çıkar</b> düğmesine basın. Bulunan kazanımlar ayrı ayrı listelenir. Tarih, kazanım ve açıklamayı düzenleyebilirsiniz. <b>➡️ Çalışma Planına Aktar</b> seçeneği seçilen kazanımı çalışma planı formuna getirir.</p></details></div>
+<div class="card"><details><summary><b>📝 5. Çalışma Planı Oluşturma</b></summary><p><b>Çalışma Planı</b> bölümünde kazanım seçildiğinde tarih, faaliyet adı ve açıklama alanları otomatik doldurulabilir. İsterseniz bilgileri değiştirip <b>Plana Ekle</b> ile kaydedin. Aynı kazanımdan birden fazla faaliyet oluşturabilirsiniz.</p></details></div>
+<div class="card"><details><summary><b>📸 6. Yapılan Faaliyetleri Kaydetme</b></summary><p><b>Faaliyetler</b> bölümünde çalışma planından bir faaliyet seçin. Tarih, faaliyet adı ve açıklamayı gerçekleşen çalışmaya göre düzenleyin, katılan öğrencileri işaretleyin ve isterseniz fotoğraflar ekleyin. Kaydettiğiniz faaliyetler raporlarda kullanılabilir.</p></details></div>
+<div class="card"><details><summary><b>📊 7. Rapor Hazırlama</b></summary><p><b>Raporlar</b> bölümünden aylık, dönemlik veya yıllık rapor oluşturabilirsiniz. Faaliyetler, katılan öğrenciler ve fotoğraflar rapora aktarılır. Rapor sonunda danışman öğretmeni ve okul müdürü için imza alanları bulunur. Tarayıcının yazdırma ekranından PDF olarak kaydedebilirsiniz.</p></details></div>
+<div class="card"><details><summary><b>📂 8. Dosyaları Görüntüleme</b></summary><p>Eklenen yıllık plan dosyalarının yanındaki <b>Programda Görüntüle</b> düğmesini kullanın. PDF, Word ve Excel için uygun görüntüleme yöntemleri kullanılır; desteklenmeyen dosyalarda <b>Aç / İndir</b> seçeneği kullanılabilir.</p></details></div>
+<div class="card"><details><summary><b>💾 9. Yedek Alma ve Geri Yükleme</b></summary><p>Ana Sayfa'daki <b>Yedek Al</b> düğmesiyle verilerinizi ve eklediğiniz dosyaları tek bir JSON dosyasında yedekleyebilirsiniz. <b>Yedek Yükle</b> ile bu dosyayı geri getirebilirsiniz.</p><div class="notice"><b>Önemli:</b> Düzenli yedek almanız önerilir.</div></details></div>
+<div class="card"><details><summary><b>📱 10. Telefonda / APK olarak Kullanım</b></summary><p>PWA olarak kurulduğunda uygulama telefonda ayrı bir uygulama penceresinde kullanılabilir. Cihaz veya tarayıcı değişikliğinden önce mutlaka yedek alın.</p></details></div>
+<div class="card"><details><summary><b>🔧 11. Sorun Olursa</b></summary><ul><li>Bilgi görünmüyorsa ilgili bölümde <b>Kaydet</b> düğmesine basın.</li><li>Dosya açılmıyorsa <b>Aç / İndir</b> seçeneğini deneyin.</li><li>Cihaz değiştirirken önce <b>Yedek Al</b> yapın.</li><li>Excel'den kazanım çıkarma beklediğiniz gibi olmazsa sütun başlıklarını ve satır düzenini kontrol edin.</li></ul></details></div>
+<div class="card"><h2>🧭 Uygulamanın Temel Akışı</h2><p><b>Yıllık Plan → Kazanımlar → Çalışma Planı → Yapılan Faaliyet → Rapor</b></p><p>Yani yıllık plandaki kazanımlar düzenlenir, çalışma planına aktarılır; gerçekleştirilen çalışmalar faaliyet olarak kaydedilir ve bu kayıtlar raporlara aktarılır.</p></div>
+</section>
+
 </main>
 
 <script>
 const DB_NAME='KlüpDosyasiDB_v2', DB_VERSION=1;
 let db;
-let state={club:{name:'',advisor:'',school:'',year:'',principal:''},students:[],workplans:[],activities:[]};
+let state={club:{name:'',advisor:'',school:'',year:'',principal:''},students:[],workplans:[],activities:[],annualItems:[]};
 
 function openDB(){return new Promise((resolve,reject)=>{const r=indexedDB.open(DB_NAME,DB_VERSION);r.onupgradeneeded=()=>{const d=r.result;if(!d.objectStoreNames.contains('meta'))d.createObjectStore('meta',{keyPath:'key'});if(!d.objectStoreNames.contains('files'))d.createObjectStore('files',{keyPath:'id'});};r.onsuccess=()=>{db=r.result;resolve()};r.onerror=()=>reject(r.error)})}
 function tx(store,mode='readonly'){return db.transaction(store,mode).objectStore(store)}
@@ -138,7 +159,7 @@ function delFile(id){return new Promise((res,rej)=>{const r=tx('files','readwrit
 
 async function load(){
  await openDB();
- const s=await getMeta('state'); if(s) state=s;
+ const s=await getMeta('state'); if(s){state=s;state.club=state.club||{name:'',advisor:'',school:'',year:'',principal:''};state.students=Array.isArray(state.students)?state.students:[];state.workplans=Array.isArray(state.workplans)?state.workplans:[];state.activities=Array.isArray(state.activities)?state.activities:[];state.annualItems=Array.isArray(state.annualItems)?state.annualItems:[];state.annualItems=state.annualItems.map(x=>({...makeAnnualItem(x),...x,purpose:x.purpose||x.desc||'',desc:x.desc||x.purpose||''}));state.workplans=state.workplans.map(x=>({...x,week:x.week||'',outcome:x.outcome||''}));}
  clubName.value=state.club.name; advisor.value=state.club.advisor; school.value=state.club.school; principal.value=state.club.principal||''; schoolYear.value=state.club.year;
  render();
 }
@@ -233,41 +254,92 @@ async function openNativeFile(id){
 }
 function closeFileViewer(){let c=document.getElementById('viewerContent');c.querySelectorAll('img,video,audio,iframe').forEach(el=>{if(el.src&&el.src.startsWith('blob:'))URL.revokeObjectURL(el.src)});document.getElementById('fileViewer').style.display='none';c.innerHTML=''}
 async function downloadFile(id){let all=await getAllFiles(),x=all.find(a=>a.id===id);if(!x)return;let u=URL.createObjectURL(x.blob),a=document.createElement('a');a.href=u;a.download=x.name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)}
-function parseDateFromText(line){
-  let m=line.match(/\b(\d{1,2})[.\/-](\d{1,2})[.\/-](\d{4})\b/);
-  if(m)return `${m[3]}-${String(m[2]).padStart(2,'0')}-${String(m[1]).padStart(2,'0')}`;
-  m=line.match(/\b(\d{4})[.\/-](\d{1,2})[.\/-](\d{1,2})\b/);
-  if(m)return `${m[1]}-${String(m[2]).padStart(2,'0')}-${String(m[3]).padStart(2,'0')}`;
-  m=line.match(/\b(\d{1,2})[.\/-](\d{1,2})\b/);
-  if(m){let y=state.club.year.match(/(20\d{2})/);if(y)return `${y[1]}-${String(m[2]).padStart(2,'0')}-${String(m[1]).padStart(2,'0')}`}
+function normalizeCell(v){return String(v??'').replace(/\s+/g,' ').trim()}
+function cleanHeader(v){return normalizeCell(v).toLocaleLowerCase('tr-TR').replace(/[ıİ]/g,'i').replace(/[ğĞ]/g,'g').replace(/[üÜ]/g,'u').replace(/[şŞ]/g,'s').replace(/[öÖ]/g,'o').replace(/[çÇ]/g,'c').replace(/[\n\r]+/g,' ')}
+function headerType(v){
+  let h=cleanHeader(v);
+  if(/(^|\s)(hafta|hafta no|hafta\s*no|week)(\s|$)/i.test(h))return 'week';
+  if(/tarih|date/i.test(h))return 'date';
+  if(/kazan|ogrenme cikti|ogrenme ciktisi|hedef|kazanim/i.test(h))return 'outcome';
+  if(/faaliyet|etkinlik|yapilacak|calisma|activity/i.test(h))return 'activity';
+  if(/amac|aciklama|neden|hedefi/i.test(h))return 'purpose';
   return '';
 }
-function parseAnnualLines(text){
-  let rows=[];
-  text.split(/\r?\n/).map(x=>x.trim()).filter(Boolean).forEach(line=>{
-    if(/^\s*(tarih|faaliyet|etkinlik|açıklama|ay|no)\b/i.test(line))return;
-    let date=parseDateFromText(line);
-    let title=line.replace(/\b\d{1,2}[.\/-]\d{1,2}[.\/-]\d{4}\b/,'').replace(/\b\d{4}[.\/-]\d{1,2}[.\/-]\d{1,2}\b/,'').replace(/^\s*[-–—:;|,]+\s*/,'').trim();
-    if(!date && /^\s*\d+\s*[.)-]/.test(line)) title=line.replace(/^\s*\d+\s*[.)-]\s*/,'').trim();
-    if(title.length>=3) rows.push({date,title,desc:''});
+function detectOutcome(text){let t=normalizeCell(text);return t.replace(/^\s*(kazanım|öğrenme çıktısı|hedef|amaç|faaliyet|etkinlik|açıklama)\s*[:：-]?\s*/i,'').trim()}
+function parseWeek(v){let t=normalizeCell(v);if(!t)return '';let m=t.match(/(\d{1,2})\s*\.?\s*hafta/i);if(m)return `${m[1]}. Hafta`;m=t.match(/hafta\s*[:\-]?\s*(\d{1,2})/i);if(m)return `${m[1]}. Hafta`;return t}
+function makeAnnualItem(o={}){return {id:crypto.randomUUID(),week:o.week||'',date:o.date||'',outcome:detectOutcome(o.outcome||''),activity:normalizeCell(o.activity||''),purpose:normalizeCell(o.purpose||''),desc:normalizeCell(o.desc||o.purpose||'')}}
+function guessAnnualRow(cells,headers=null){
+  let vals=cells.map(normalizeCell), item={week:'',date:'',outcome:'',activity:'',purpose:'',desc:''};
+  if(headers){cells.forEach((v,i)=>{let type=headerType(headers[i]);if(type==='week')item.week=parseWeek(v);else if(type==='date')item.date=parseDateFromText(v)||v;else if(type==='outcome')item.outcome=v;else if(type==='activity')item.activity=v;else if(type==='purpose')item.purpose=v;});}
+  if(!headers || !Object.values(item).some(Boolean)){
+    for(const v of vals){if(!v)continue;let d=parseDateFromText(v);if(d&&!item.date)item.date=d;else if(!item.week&&/hafta/i.test(v))item.week=parseWeek(v);}
+    let nonDate=vals.filter(v=>v&&!parseDateFromText(v)&&!/^(hafta|tarih|no|ay)$/i.test(v));
+    if(!item.outcome&&nonDate.length) item.outcome=detectOutcome(nonDate.find(v=>/kazan|öğrenme|hedef/i.test(v))||nonDate[0]);
+    if(!item.activity&&nonDate.length>1) item.activity=nonDate.find(v=>/faaliyet|etkinlik|çalışma/i.test(v))||nonDate[1]||'';
+    if(!item.purpose&&nonDate.length>2) item.purpose=nonDate.find(v=>/amaç|açıklama/i.test(v))||nonDate[2]||'';
+    if(!item.activity&&item.outcome&&nonDate.length>1)item.activity=nonDate.find(v=>v!==item.outcome)||'';
+  }
+  item.desc=item.purpose;
+  return (item.week||item.date||item.outcome||item.activity||item.purpose)?makeAnnualItem(item):null;
+}
+function parseDelimitedAnnualText(text){
+  let rows=[],lines=text.split(/\r?\n/).map(x=>x.trim()).filter(Boolean), headers=null;
+  if(lines.length){let first=lines[0].split(/\t|\||;|,(?=\s)/).map(normalizeCell);if(first.some(x=>/hafta|tarih|kazan|faaliyet|etkinlik|amaç|açıklama/i.test(x)))headers=first;}
+  for(let li=0;li<lines.length;li++){
+    let line=lines[li];if(headers&&li===0)continue;
+    let cells=line.split(/\t|\||;|,(?=\s)/).map(normalizeCell);
+    let row=guessAnnualRow(cells,headers);if(row)rows.push(row);else{
+      let date=parseDateFromText(line), title=line.replace(/\b\d{1,2}[.\/-]\d{1,2}[.\/-]\d{4}\b/,'').replace(/\b\d{4}[.\/-]\d{1,2}[.\/-]\d{1,2}\b/,'').replace(/^\s*[-–—:;|,]+\s*/,'').trim();
+      if(title.length>=3)rows.push(makeAnnualItem({date,outcome:title}));
+    }
+  }return rows;
+}
+async function extractDocxRows(file){
+  if(!window.mammoth)return [];
+  let html=(await mammoth.convertToHtml({arrayBuffer:await file.arrayBuffer()})).value,doc=new DOMParser().parseFromString(html,'text/html'),rows=[];
+  doc.querySelectorAll('table').forEach(table=>{
+    let trs=[...table.querySelectorAll('tr')];if(!trs.length)return;
+    let first=[...trs[0].children].map(x=>normalizeCell(x.textContent));
+    let hasHeaders=first.some(x=>/hafta|tarih|kazan|faaliyet|etkinlik|amaç|açıklama/i.test(x));
+    let headers=hasHeaders?first:null;
+    trs.slice(hasHeaders?1:0).forEach(tr=>{let cells=[...tr.children].map(x=>normalizeCell(x.textContent));let r=guessAnnualRow(cells,headers);if(r)rows.push(r)});
   });
+  if(!rows.length){let raw=doc.body.textContent||'';rows=parseDelimitedAnnualText(raw)}
   return rows;
 }
-function createWorkPlanFromAnnualText(){
-  let rows=parseAnnualLines(annualPlanText.value);if(!rows.length)return alert('Yıllık plan metninden tarih ve faaliyet bulunamadı. Örnek: 15.09.2026 - Kulüp tanıtımı');
-  let added=0;for(const r of rows){let exists=state.workplans.some(w=>w.date===r.date&&w.title.toLowerCase()===r.title.toLowerCase());if(!exists){state.workplans.push({id:crypto.randomUUID(),...r});added++}}
-  state.workplans.sort((a,b)=>a.date.localeCompare(b.date));saveState();annualParseInfo.textContent=`${added} çalışma planı maddesi eklendi. ${rows.length-added} benzer kayıt atlandı.`;
+async function extractAnnualPlanItems(){
+  let rows=[], text=document.getElementById('annualPlanText').value.trim(), input=document.getElementById('annualFiles'), files=[...(input?.files||[])];
+  for(const f of files){let n=f.name.toLowerCase();try{
+    if(n.endsWith('.docx')){let rs=await extractDocxRows(f);rows.push(...rs);if(!rs.length&&window.mammoth){let r=await mammoth.extractRawText({arrayBuffer:await f.arrayBuffer()});text+='\n'+r.value;}}
+    else if(n.endsWith('.xlsx')||n.endsWith('.xls')){if(!window.XLSX)continue;let wb=XLSX.read(await f.arrayBuffer(),{type:'array'});for(const sn of wb.SheetNames){let aoa=XLSX.utils.sheet_to_json(wb.Sheets[sn],{header:1,defval:''});let headerRow=-1,headers=null;for(let i=0;i<Math.min(aoa.length,10);i++){let h=aoa[i].map(normalizeCell);if(h.some(x=>/hafta|tarih|kazan|faaliyet|etkinlik|amaç|açıklama/i.test(x))){headerRow=i;headers=h;break;}}for(let i=headerRow>=0?headerRow+1:0;i<aoa.length;i++){let r=guessAnnualRow(aoa[i],headers);if(r)rows.push(r)}}}
+    else if(/\.(txt|csv|json)$/i.test(n))text+='\n'+await f.text();
+  }catch(e){console.error('Plan extraction',e)}}
+  if(text)rows.push(...parseDelimitedAnnualText(text));
+  let seen=new Set();state.annualItems=[...state.annualItems,...rows].filter(r=>{let k=[r.week,r.date,r.outcome,r.activity,r.purpose].join('|').toLocaleLowerCase('tr-TR');if(seen.has(k))return false;seen.add(k);return true;});
+  renderAnnualItems();saveState();annualParseInfo.textContent=`${state.annualItems.length} kayıt bulundu. Hafta, kazanım, faaliyet ve amaç alanlarını düzenleyebilirsiniz.`;
 }
-function clearAnnualPlanText(){annualPlanText.value='';annualParseInfo.textContent=''}
-function addWorkPlan(){let date=wpDate.value,title=wpTitle.value.trim();if(!date||!title)return alert('Tarih ve faaliyet adı zorunlu.');state.workplans.push({id:crypto.randomUUID(),date,title,desc:wpDesc.value.trim()});wpDate.value='';wpTitle.value='';wpDesc.value='';saveState()}
+function renderAnnualItems(){let box=document.getElementById('annualItemsEditor');if(!box)return;if(!state.annualItems.length){box.innerHTML='<div class="empty">Henüz kayıt çıkarılmadı.</div>';return;}box.innerHTML='<h3>✏️ Tamamen Düzenlenebilir Yıllık Plan Kayıtları</h3>'+state.annualItems.map(x=>`<div class="item"><div class="row"><div><label>Hafta</label><input id="ao_week_${x.id}" value="${esc(x.week||'')}"></div><div><label>Tarih</label><input id="ao_date_${x.id}" type="date" value="${esc(x.date||'')}"></div></div><label>Kazanım</label><textarea id="ao_out_${x.id}">${esc(x.outcome||'')}</textarea><label>Faaliyet / Etkinlik</label><input id="ao_act_${x.id}" value="${esc(x.activity||'')}"><label>Amaç</label><textarea id="ao_purpose_${x.id}">${esc(x.purpose||'')}</textarea><label>Faaliyet açıklaması</label><textarea id="ao_desc_${x.id}">${esc(x.desc||x.purpose||'')}</textarea><div class="actions"><button class="success" onclick="saveAnnualItem('${x.id}')">💾 Kaydet</button><button onclick="addAnnualItemToWorkPlan('${x.id}')">➡️ Çalışma Planına Aktar</button><button class="danger" onclick="deleteAnnualItem('${x.id}')">Sil</button></div></div>`).join('')}
+function saveAnnualItem(id){let x=state.annualItems.find(a=>a.id===id);if(!x)return;x.week=document.getElementById('ao_week_'+id).value.trim();x.date=document.getElementById('ao_date_'+id).value;x.outcome=document.getElementById('ao_out_'+id).value.trim();x.activity=document.getElementById('ao_act_'+id).value.trim();x.purpose=document.getElementById('ao_purpose_'+id).value.trim();x.desc=document.getElementById('ao_desc_'+id).value.trim()||x.purpose;saveState();}
+function deleteAnnualItem(id){state.annualItems=state.annualItems.filter(x=>x.id!==id);saveState()}
+function addAnnualItemToWorkPlan(id){saveAnnualItem(id);let x=state.annualItems.find(a=>a.id===id);if(!x)return;wpWeek.value=x.week||'';wpDate.value=x.date||'';wpOutcomeSelect.value=x.id;wpTitle.value=x.activity||'';wpDesc.value=x.purpose||x.desc||'';show('workplan')}
+function populateWorkOutcomeSelect(){let s=document.getElementById('wpOutcomeSelect');if(!s)return;s.innerHTML='<option value="">— Kazanımdan seç —</option>'+state.annualItems.map(x=>`<option value="${x.id}">${esc((x.week?x.week+' — ':'')+(x.outcome||x.activity||'Kayıt'))}</option>`).join('')}
+function selectWorkOutcome(){let x=state.annualItems.find(a=>a.id===wpOutcomeSelect.value);if(!x)return;wpWeek.value=x.week||'';wpDate.value=x.date||'';wpTitle.value=x.activity||'';wpDesc.value=x.purpose||x.desc||''}
+function populateActivityWorkSelect(){let s=document.getElementById('actWorkSelect');if(!s)return;s.innerHTML='<option value="">— Seç —</option>'+state.workplans.map(x=>`<option value="${x.id}">${esc((x.week?x.week+' — ':'')+(x.title||'Faaliyet'))}${x.date?' — '+fmtDate(x.date):''}</option>`).join('')}
+function selectActivityWorkPlan(){let x=state.workplans.find(a=>a.id===actWorkSelect.value);if(!x)return;actDate.value=x.date||'';actTitle.value=x.title||'';actDesc.value=x.desc||''}
+function parseDateFromText(line){let m=line.match(/\b(\d{1,2})[.\/-](\d{1,2})[.\/-](\d{4})\b/);if(m)return `${m[3]}-${String(m[2]).padStart(2,'0')}-${String(m[1]).padStart(2,'0')}`;m=line.match(/\b(\d{4})[.\/-](\d{1,2})[.\/-](\d{1,2})\b/);if(m)return `${m[1]}-${String(m[2]).padStart(2,'0')}-${String(m[3]).padStart(2,'0')}`;m=line.match(/\b(\d{1,2})[.\/-](\d{1,2})\b/);if(m){let y=state.club.year.match(/(20\d{2})/);if(y)return `${y[1]}-${String(m[2]).padStart(2,'0')}-${String(m[1]).padStart(2,'0')}`}return ''}
+function createWorkPlanFromAnnualText(){let rows=parseDelimitedAnnualText(document.getElementById('annualPlanText').value);if(!rows.length)return alert('Yıllık plan metninden kayıt bulunamadı.');let added=0;for(const r of rows){let exists=state.workplans.some(w=>w.week===r.week&&w.date===r.date&&String(w.title).toLowerCase()===String(r.activity||r.outcome).toLowerCase());if(!exists){state.workplans.push({id:crypto.randomUUID(),week:r.week,date:r.date,title:r.activity||r.outcome,desc:r.purpose||r.desc||'',outcomeId:null,outcome:r.outcome||''});added++}}state.workplans.sort((a,b)=>(a.date||'').localeCompare(b.date||''));saveState();annualParseInfo.textContent=`${added} çalışma planı maddesi eklendi.`}
+function clearAnnualPlanText(){document.getElementById('annualPlanText').value='';annualParseInfo.textContent=''}
+function clearWorkPlanForm(){wpWeek.value='';wpDate.value='';wpOutcomeSelect.value='';wpTitle.value='';wpDesc.value=''}
+function addWorkPlan(){let date=wpDate.value,title=wpTitle.value.trim();if(!title)return alert('Faaliyet adı zorunlu.');let outcomeId=wpOutcomeSelect.value||null,outcome=state.annualItems.find(x=>x.id===outcomeId);state.workplans.push({id:crypto.randomUUID(),week:wpWeek.value.trim(),date:date||outcome?.date||'',title,desc:wpDesc.value.trim(),outcomeId,outcome:outcome?.outcome||''});clearWorkPlanForm();saveState()}
+function editWorkPlan(id){let x=state.workplans.find(a=>a.id===id);if(!x)return;wpWeek.value=x.week||'';wpDate.value=x.date||'';wpOutcomeSelect.value=x.outcomeId||'';wpTitle.value=x.title||'';wpDesc.value=x.desc||'';window.editingWorkPlanId=id;show('workplan');document.querySelector('#workplan .card')?.scrollIntoView({behavior:'smooth'})}
+function updateOrAddWorkPlan(){if(window.editingWorkPlanId){let x=state.workplans.find(a=>a.id===window.editingWorkPlanId);if(x){x.week=wpWeek.value.trim();x.date=wpDate.value;x.outcomeId=wpOutcomeSelect.value||null;let o=state.annualItems.find(a=>a.id===x.outcomeId);x.outcome=o?.outcome||x.outcome||'';x.title=wpTitle.value.trim();x.desc=wpDesc.value.trim();window.editingWorkPlanId=null;clearWorkPlanForm();saveState();return}}addWorkPlan()}
 function removeWorkPlan(id){state.workplans=state.workplans.filter(x=>x.id!==id);saveState()}
-function renderParticipants(){participants.innerHTML=state.students.map(s=>`<label><input type="checkbox" value="${s.id}"> ${esc(s.name)}</label>`).join('')||'<span class="muted">Önce öğrenci ekleyin.</span>'}
 function previewPhotos(files){photoPreview.innerHTML='';[...files].forEach(f=>{let u=URL.createObjectURL(f),img=document.createElement('img');img.src=u;img.onload=()=>URL.revokeObjectURL(u);photoPreview.appendChild(img)})}
 async function addActivity(){let date=actDate.value,title=actTitle.value.trim();if(!date||!title)return alert('Tarih ve faaliyet adı zorunlu.');let ids=[...document.querySelectorAll('#participants input:checked')].map(x=>x.value);let photos=[];for(const f of actPhotos.files){if(!f.type.startsWith('image/'))continue;photos.push({id:crypto.randomUUID(),name:f.name,type:f.type,blob:f});}let aid=crypto.randomUUID();for(const p of photos)await putFile({...p,kind:'photo',activityId:aid});state.activities.push({id:aid,date,title,desc:actDesc.value.trim(),participants:ids,photoIds:photos.map(x=>x.id)});actDate.value='';actTitle.value='';actDesc.value='';actPhotos.value='';photoPreview.innerHTML='';state.activities.sort((a,b)=>b.date.localeCompare(a.date));await saveState();alert('Faaliyet kaydedildi.')}
 async function removeActivity(id){if(!confirm('Faaliyet ve fotoğrafları silinsin mi?'))return;let all=await getAllFiles();for(const f of all.filter(x=>x.activityId===id))await delFile(f.id);state.activities=state.activities.filter(x=>x.id!==id);await saveState()}
 function fmtDate(s){if(!s)return '';let [y,m,d]=s.split('-');return `${d}.${m}.${y}`}
 function esc(s=''){return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
-function render(){sStudents.textContent=state.students.length;sActivities.textContent=state.activities.length;sPlans.textContent=state.workplans.length;homeInfo.innerHTML=`<b>Kulüp:</b> ${esc(state.club.name)||'—'}<br><b>Danışman:</b> ${esc(state.club.advisor)||'—'}<br><b>Okul:</b> ${esc(state.club.school)||'—'}<br><b>Okul Müdürü:</b> ${esc(state.club.principal)||'—'}<br><b>Eğitim-öğretim yılı:</b> ${esc(state.club.year)||'—'}`;studentTable.innerHTML=state.students.map((s,i)=>`<tr><td>${i+1}</td><td>${esc(s.name)}</td><td><button class="danger" onclick="removeStudent('${s.id}')">Sil</button></td></tr>`).join('')||'<tr><td colspan="3">Öğrenci yok.</td></tr>';workplanTable.innerHTML=state.workplans.map(x=>`<tr><td>${fmtDate(x.date)}</td><td>${esc(x.title)}</td><td>${esc(x.desc)}</td><td><button class="danger" onclick="removeWorkPlan('${x.id}')">Sil</button></td></tr>`).join('')||'<tr><td colspan="4">Plan yok.</td></tr>';renderParticipants();renderActivities();renderAnnual()}
+function render(){sStudents.textContent=state.students.length;sActivities.textContent=state.activities.length;sPlans.textContent=state.workplans.length;homeInfo.innerHTML=`<b>Kulüp:</b> ${esc(state.club.name)||'—'}<br><b>Danışman:</b> ${esc(state.club.advisor)||'—'}<br><b>Okul:</b> ${esc(state.club.school)||'—'}<br><b>Okul Müdürü:</b> ${esc(state.club.principal)||'—'}<br><b>Eğitim-öğretim yılı:</b> ${esc(state.club.year)||'—'}`;studentTable.innerHTML=state.students.map((s,i)=>`<tr><td>${i+1}</td><td>${esc(s.name)}</td><td><button class="danger" onclick="removeStudent('${s.id}')">Sil</button></td></tr>`).join('')||'<tr><td colspan="3">Öğrenci yok.</td></tr>';populateWorkOutcomeSelect();renderAnnualItems();workplanTable.innerHTML=state.workplans.map(x=>`<tr><td>${esc(x.week||'')}</td><td>${fmtDate(x.date)}</td><td>${esc(x.outcome||'')}</td><td>${esc(x.title)}</td><td>${esc(x.desc)}</td><td><div class="actions"><button class="light" onclick="editWorkPlan('${x.id}')">✏️ Düzenle</button><button class="danger" onclick="removeWorkPlan('${x.id}')">Sil</button></div></td></tr>`).join('')||'<tr><td colspan="6">Plan yok.</td></tr>';renderParticipants();renderActivities();renderAnnual()}
 async function renderAnnual(){let fs=(await getAllFiles()).filter(x=>x.kind==='annual');annualList.innerHTML=fs.map(x=>{let ext=x.name.includes('.')?x.name.split('.').pop().toUpperCase():'DOSYA';return `<div class="item"><b>📎 ${esc(x.name)}</b><span class="file-type">${ext}</span><div class="muted">${Math.max(1,Math.round(x.size/1024))} KB</div><div class="actions"><button class="light" onclick="viewFile('${x.id}')">👁️ Programda Görüntüle</button><button class="secondary" onclick="downloadFile('${x.id}')">⬇️ Aç / İndir</button><button class="danger" onclick="removeAnnual('${x.id}')">Sil</button></div></div>`}).join('')||'<div class="empty">Yıllık plan dosyası eklenmedi.</div>'}
 async function renderActivities(){let files=await getAllFiles();activityList.innerHTML=state.activities.map(a=>{let names=a.participants.map(id=>state.students.find(s=>s.id===id)?.name).filter(Boolean).join(', ')||'Belirtilmedi';let ps=files.filter(f=>a.photoIds.includes(f.id));let imgs=ps.map(f=>{let u=URL.createObjectURL(f.blob);return `<img class="activity-img" data-url="${u}" alt="${esc(f.name)}">`}).join('');return `<div class="item"><h3>${esc(a.title)}</h3><div><b>Tarih:</b> ${fmtDate(a.date)}</div><p>${esc(a.desc)}</p><div><b>Katılanlar:</b> ${esc(names)}</div><div class="photos">${imgs}</div><div class="actions no-print"><button class="danger" onclick="removeActivity('${a.id}')">🗑️ Sil</button></div></div>`}).join('')||'<div class="empty">Faaliyet yok.</div>';document.querySelectorAll('.activity-img').forEach(img=>img.onload=()=>{});}
 function reportTypeChanged(){let t=reportType.value;monthlyBox.style.display=t==='monthly'?'block':'none';termBox.style.display=t==='term'?'block':'none'}
