@@ -7,9 +7,6 @@
 <meta name="description" content="Kulüp dosyası, öğrenci, plan, çalışma ve rapor yönetimi">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icons/icon-192.png">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.8.0/mammoth.browser.min.js" onerror="window.mammoth=null"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" onerror="window.XLSX=null"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" onerror="window.pdfjsLib=null"></script>
 <title>Klüp Dosyası</title>
 <style>
 :root{--p:#155eef;--p2:#0b4acb;--bg:#f4f7fb;--card:#fff;--text:#172033;--muted:#667085;--danger:#d92d20;--ok:#039855}
@@ -172,10 +169,10 @@ async function load(){
 async function saveState(){await setMeta('state',state);render()}
 function show(id){document.querySelectorAll('section').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');if(id==='activities')renderParticipants()}
 function saveClub(){state.club={name:clubName.value.trim(),advisor:advisor.value.trim(),school:school.value.trim(),principal:principal.value.trim(),year:schoolYear.value.trim()};saveState();alert('Kulüp bilgileri kaydedildi.')}
-function addStudent(){let n=studentName.value.trim();if(!n)return alert('Öğrenci adı yazın.');state.students.push({id:crypto.randomUUID(),name:n});studentName.value='';saveState()}
-function addBulkStudents(){let a=bulkStudents.value.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);a.forEach(n=>state.students.push({id:crypto.randomUUID(),name:n}));bulkStudents.value='';saveState();alert(a.length+' öğrenci eklendi.')}
+function addStudent(){let n=studentName.value.trim();if(!n)return alert('Öğrenci adı yazın.');state.students.push({id:uid(),name:n});studentName.value='';saveState()}
+function addBulkStudents(){let a=bulkStudents.value.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);a.forEach(n=>state.students.push({id:uid(),name:n}));bulkStudents.value='';saveState();alert(a.length+' öğrenci eklendi.')}
 function removeStudent(id){if(confirm('Öğrenci silinsin mi?')){state.students=state.students.filter(x=>x.id!==id);state.activities.forEach(a=>a.participants=a.participants.filter(x=>x!==id));saveState()}}
-async function addAnnualFiles(){let fs=[...annualFiles.files];if(!fs.length)return alert('Dosya seçin.');for(const f of fs){await putFile({id:crypto.randomUUID(),kind:'annual',name:f.name,type:f.type,size:f.size,date:new Date().toISOString(),blob:f});if(/^(text\/|application\/json)/.test(f.type)||/\.(txt|csv|json)$/i.test(f.name)){try{let text=await f.text();annualPlanText.value=(annualPlanText.value+'\n'+text).trim();annualParseInfo.textContent=f.name+' dosyasının metni çalışma planı alanına aktarıldı.'}catch(e){}}}annualFiles.value='';renderAnnual()}
+async function addAnnualFiles(){let fs=[...annualFiles.files];if(!fs.length)return alert('Dosya seçin.');for(const f of fs){await putFile({id:uid(),kind:'annual',name:f.name,type:f.type,size:f.size,date:new Date().toISOString(),blob:f});if(/^(text\/|application\/json)/.test(f.type)||/\.(txt|csv|json)$/i.test(f.name)){try{let text=await f.text();annualPlanText.value=(annualPlanText.value+'\n'+text).trim();annualParseInfo.textContent=f.name+' dosyasının metni çalışma planı alanına aktarıldı.'}catch(e){}}}annualFiles.value='';renderAnnual()}
 async function removeAnnual(id){if(confirm('Dosya silinsin mi?')){await delFile(id);renderAnnual()}}
 async function viewFile(id){
   let all=await getAllFiles(),f=all.find(x=>x.id===id); if(!f)return;
@@ -273,13 +270,13 @@ function headerType(v){
 }
 function detectOutcome(text){let t=normalizeCell(text);return t.replace(/^\s*(kazanım|öğrenme çıktısı|hedef|amaç|faaliyet|etkinlik|açıklama)\s*[:：-]?\s*/i,'').trim()}
 function parseWeek(v){let t=normalizeCell(v);if(!t)return '';let m=t.match(/(\d{1,2})\s*\.?\s*hafta/i);if(m)return `${m[1]}. Hafta`;m=t.match(/hafta\s*[:\-]?\s*(\d{1,2})/i);if(m)return `${m[1]}. Hafta`;return t}
-function makeAnnualItem(o={}){return {id:o.id||crypto.randomUUID(),groupId:o.groupId||'',week:parseWeek(o.week||''),date:o.date||'',weekStart:o.weekStart||o.date||'',weekEnd:o.weekEnd||o.date||'',outcome:detectOutcome(o.outcome||''),activity:normalizeCell(o.activity||''),purpose:normalizeCell(o.purpose||''),desc:normalizeCell(o.desc||o.purpose||'')}}
+function makeAnnualItem(o={}){return {id:o.id||uid(),groupId:o.groupId||'',week:parseWeek(o.week||''),date:o.date||'',weekStart:o.weekStart||o.date||'',weekEnd:o.weekEnd||o.date||'',outcome:detectOutcome(o.outcome||''),activity:normalizeCell(o.activity||''),purpose:normalizeCell(o.purpose||''),desc:normalizeCell(o.desc||o.purpose||'')}}
 function groupAnnualItems(items){
   let groups=[],map=new Map(),lastWeek='';
   for(const raw of items){
     let x=makeAnnualItem(raw); if(x.week) lastWeek=x.week; else if(lastWeek)x.week=lastWeek;
     let key=x.week||'Hafta belirtilmemiş';
-    if(!map.has(key)){let g={id:crypto.randomUUID(),week:key,items:[]};map.set(key,g);groups.push(g)}
+    if(!map.has(key)){let g={id:uid(),week:key,items:[]};map.set(key,g);groups.push(g)}
     let g=map.get(key); x.groupId=g.id; g.items.push(x);
   }
   return groups;
@@ -360,7 +357,7 @@ function selectAnnualDateForWorkPlan(){
   document.getElementById('wpWeek').value=x.week||'';document.getElementById('wpDate').value=x.date||'';document.getElementById('wpOutcomeSelect').value=x.id;document.getElementById('wpTitle').value=x.activity||'';document.getElementById('wpDesc').value=x.purpose||x.desc||'';
   let existing=state.workplans.find(w=>w.outcomeId===x.id || (w.week===x.week&&w.date===x.date&&w.title===(x.activity||x.outcome)));
   if(existing){window.editingWorkPlanId=existing.id;annualParseInfo.textContent=`${x.week||'Seçilen hafta'} — ${x.date?fmtDate(x.date):'tarih'} çalışma planında zaten var; düzenleme moduna alındı.`;return;}
-  let plan={id:crypto.randomUUID(),week:x.week||'',date:x.date||'',title:x.activity||x.outcome||'Yeni faaliyet',desc:x.purpose||x.desc||'',outcomeId:x.id,outcome:x.outcome||'',annualItemId:x.id};
+  let plan={id:uid(),week:x.week||'',date:x.date||'',title:x.activity||x.outcome||'Yeni faaliyet',desc:x.purpose||x.desc||'',outcomeId:x.id,outcome:x.outcome||'',annualItemId:x.id};
   state.workplans.push(plan);state.workplans.sort((a,b)=>(a.date||'').localeCompare(b.date||''));saveState();
   window.editingWorkPlanId=plan.id;
   document.getElementById('wpWeek').value=plan.week;document.getElementById('wpDate').value=plan.date;document.getElementById('wpOutcomeSelect').value=plan.outcomeId;document.getElementById('wpTitle').value=plan.title;document.getElementById('wpDesc').value=plan.desc;
@@ -372,17 +369,17 @@ function planYears(){let m=String(state.club.year||'').match(/(20\d{2})\s*[-/]\s
 function monthNumberTR(name){let m=cleanHeader(name),map={ocak:1,subat:2,mart:3,nisan:4,mayis:5,haziran:6,temmuz:7,agustos:8,eylul:9,ekim:10,kasim:11,aralik:12};return map[m]||0}
 function parseDateFromText(line){let t=normalizeCell(line),years=planYears(),m=t.match(/\b(\d{1,2})[.\/-](\d{1,2})[.\/-](\d{4})\b/);if(m)return `${m[3]}-${String(m[2]).padStart(2,'0')}-${String(m[1]).padStart(2,'0')}`;m=t.match(/\b(\d{4})[.\/-](\d{1,2})[.\/-](\d{1,2})\b/);if(m)return `${m[1]}-${String(m[2]).padStart(2,'0')}-${String(m[3]).padStart(2,'0')}`;m=t.match(/\b(\d{1,2})\s*(?:[-–—]\s*\d{1,2})?\s*(ocak|şubat|subat|mart|nisan|mayıs|mayis|haziran|temmuz|ağustos|agustos|eylül|eylul|ekim|kasım|kasim|aralık|aralik)\b/i);if(m){let mo=monthNumberTR(m[2]),y=mo>=9?years[0]:years[1];return mo?`${y}-${String(mo).padStart(2,'0')}-${String(m[1]).padStart(2,'0')}`:''}m=t.match(/\b(\d{1,2})\s*[-–—]\s*(\d{1,2})\s*[\/-]\s*(\d{1,2})\b/);if(m){let mo=+m[3],y=mo>=9?years[0]:years[1];return `${y}-${String(mo).padStart(2,'0')}-${String(m[1]).padStart(2,'0')}`}m=t.match(/\b(\d{1,2})[.\/-](\d{1,2})\b/);if(m){let mo=+m[2],y=mo>=9?years[0]:years[1];return `${y}-${String(mo).padStart(2,'0')}-${String(m[1]).padStart(2,'0')}`}return ''}
 function extractDateRangeText(line){let m=normalizeCell(line).match(/\(?\s*(\d{1,2})\s*[-–—]\s*(\d{1,2})\s*(ocak|şubat|subat|mart|nisan|mayıs|mayis|haziran|temmuz|ağustos|agustos|eylül|eylul|ekim|kasım|kasim|aralık|aralik)\s*\)?/i);return m?`${m[1]}-${m[2]} ${m[3]}`:''}
-function makeAnnualItem(o={}){return {id:o.id||crypto.randomUUID(),groupId:o.groupId||'',week:parseWeek(o.week||''),date:o.date||'',weekStart:o.weekStart||o.date||'',weekEnd:o.weekEnd||o.date||'',outcome:detectOutcome(o.outcome||''),activity:normalizeCell(o.activity||''),purpose:normalizeCell(o.purpose||''),desc:normalizeCell(o.desc||o.purpose||'')}}
+function makeAnnualItem(o={}){return {id:o.id||uid(),groupId:o.groupId||'',week:parseWeek(o.week||''),date:o.date||'',weekStart:o.weekStart||o.date||'',weekEnd:o.weekEnd||o.date||'',outcome:detectOutcome(o.outcome||''),activity:normalizeCell(o.activity||''),purpose:normalizeCell(o.purpose||''),desc:normalizeCell(o.desc||o.purpose||'')}}
 function guessAnnualRow(cells,headers=null){let vals=cells.map(normalizeCell),item={week:'',date:'',outcome:'',activity:'',purpose:'',desc:''};if(headers){cells.forEach((v,i)=>{let type=headerType(headers[i]);if(type==='week')item.week=parseWeek(v);else if(type==='date')item.date=parseDateFromText(v)||v;else if(type==='outcome')item.outcome=v;else if(type==='activity')item.activity=v;else if(type==='purpose')item.purpose=v;})}if(!headers||!Object.values(item).some(Boolean)){for(const v of vals){if(!v)continue;let d=parseDateFromText(v);if(d&&!item.date)item.date=d;else if(!item.week&&/hafta/i.test(v))item.week=parseWeek(v)}let nonDate=vals.filter(v=>v&&!parseDateFromText(v)&&!/^(hafta|tarih|no|ay|tema|alt hedef|tema \/ alt hedef)$/i.test(v));if(!item.outcome&&nonDate.length)item.outcome=detectOutcome(nonDate.find(v=>/DÇT\.|KD\.|kazan|öğrenme|hedef/i.test(v))||nonDate[0]);if(!item.activity&&nonDate.length>1)item.activity=nonDate.find(v=>/faaliyet|etkinlik|yapılacak|çalışma/i.test(v))||nonDate[1]||'';if(!item.purpose&&nonDate.length>2)item.purpose=nonDate.find(v=>/amaç|açıklama/i.test(v))||nonDate[2]||'';if(!item.activity&&item.outcome&&nonDate.length>1)item.activity=nonDate.find(v=>v!==item.outcome)||''}item.desc=item.purpose;return(item.week||item.date||item.outcome||item.activity||item.purpose)?makeAnnualItem(item):null}
 function parseDelimitedAnnualText(text){let rows=[],lines=text.split(/\r?\n/).map(x=>x.trim()).filter(Boolean),headers=null,lastWeek='';if(lines.length){let first=lines[0].split(/\t|\||;|,(?=\s)/).map(normalizeCell);if(first.some(x=>/hafta|tarih|kazan|faaliyet|etkinlik|amaç|açıklama/i.test(x)))headers=first}for(let li=0;li<lines.length;li++){let line=lines[li];if(headers&&li===0)continue;let cells=line.split(/\t|\||;|,(?=\s)/).map(normalizeCell),row=guessAnnualRow(cells,headers);if(row){if(!row.week&&lastWeek)row.week=lastWeek;if(row.week)lastWeek=row.week;rows.push(row)}else{let date=parseDateFromText(line),title=line.replace(/\b\d{1,2}[.\/-]\d{1,2}[.\/-]\d{4}\b/,'').replace(/\b\d{4}[.\/-]\d{1,2}[.\/-]\d{1,2}\b/,'').replace(/^\s*[-–—:;|,]+\s*/,'').trim();if(title.length>=3)rows.push(makeAnnualItem({week:lastWeek,date,outcome:title}))}}return rows}
 async function extractDocxRows(file){if(!window.mammoth)return [];let html=(await mammoth.convertToHtml({arrayBuffer:await file.arrayBuffer()})).value,doc=new DOMParser().parseFromString(html,'text/html'),rows=[];doc.querySelectorAll('table').forEach(table=>{let trs=[...table.querySelectorAll('tr')];if(!trs.length)return;let first=[...trs[0].children].map(x=>normalizeCell(x.textContent)),hasHeaders=first.some(x=>/hafta|tarih|kazan|faaliyet|etkinlik|amaç|açıklama/i.test(x)),headers=hasHeaders?first:null;trs.slice(hasHeaders?1:0).forEach(tr=>{let cells=[...tr.children].map(x=>normalizeCell(x.textContent)),r=guessAnnualRow(cells,headers);if(r)rows.push(r)})});if(!rows.length){let raw=doc.body.textContent||'';rows=parseDelimitedAnnualText(raw)}return rows}
 async function extractPdfRows(file){if(!window.pdfjsLib)return [];let pdf=await pdfjsLib.getDocument({data:await file.arrayBuffer()}).promise,full=[];for(let p=1;p<=pdf.numPages;p++){let page=await pdf.getPage(p),tc=await page.getTextContent();full.push(tc.items.map(i=>normalizeCell(i.str)).filter(Boolean).join('\n'))}let lines=full.join('\n').split(/\n+/).map(normalizeCell).filter(Boolean),rows=[],current=null;const isWeekLine=x=>/^\d{1,2}\.\s*Hafta\b/i.test(x);for(const line of lines){if(isWeekLine(line)){if(current)rows.push(makeAnnualItem(current));let range=extractDateRangeText(line),date=parseDateFromText(range||line);current={week:parseWeek(line),date:date||'',weekStart:date||'',weekEnd:'',outcome:'',activity:'',purpose:'',desc:''};continue}if(!current)continue;if(!current.outcome&&/^(DÇT\.\d+|KD\.\d+)/i.test(line)){current.outcome=line;continue}if(!current.purpose&&line.length>25&&!/^(DÇT\.|KD\.|Sosyal Etkinlik|Belirli Gün|Ay$|Hafta$)/i.test(line)){current.purpose=line;continue}if(current.purpose&&!current.activity&&!/^(15 Temmuz|İlköğretim|Atatürk|Dünya)/i.test(line)){current.activity=line;continue}if(current.activity&&!/^(15 Temmuz|İlköğretim|Atatürk|Dünya)/i.test(line))current.activity+=' '+line}if(current)rows.push(makeAnnualItem(current));return rows.filter(x=>x.week||x.date||x.outcome||x.activity||x.purpose)}
 async function extractRowsFromStoredAnnualFiles(){let all=await getAllFiles(),files=all.filter(x=>x.kind==='annual'&&!x.embeddedPlan),rows=[];for(const f of files){let n=f.name.toLowerCase();try{if(n.endsWith('.docx'))rows.push(...await extractDocxRows(f.blob));else if(n.endsWith('.pdf'))rows.push(...await extractPdfRows(f.blob));else if(n.endsWith('.xlsx')||n.endsWith('.xls')){if(!window.XLSX)continue;let wb=XLSX.read(await f.blob.arrayBuffer(),{type:'array'});for(const sn of wb.SheetNames){let aoa=XLSX.utils.sheet_to_json(wb.Sheets[sn],{header:1,defval:''}),headerRow=-1,headers=null;for(let i=0;i<Math.min(aoa.length,15);i++){let h=aoa[i].map(normalizeCell);if(h.some(x=>/hafta|tarih|kazan|faaliyet|etkinlik|amaç|açıklama|alt hedef/i.test(x))){headerRow=i;headers=h;break}}for(let i=headerRow>=0?headerRow+1:0;i<aoa.length;i++){let r=guessAnnualRow(aoa[i],headers);if(r)rows.push(r)}}}else if(/\.(txt|csv|json)$/i.test(n))rows.push(...parseDelimitedAnnualText(await f.blob.text()))}catch(e){console.error('Yıllık plan çıkarma:',f.name,e)}}return rows}
 async function extractAnnualPlanItems(){let rows=[],text=document.getElementById('annualPlanText').value.trim();rows.push(...await extractRowsFromStoredAnnualFiles());if(text)rows.push(...parseDelimitedAnnualText(text));let seen=new Set(),merged=[...state.annualItems,...rows];state.annualItems=merged.filter(r=>{let k=[r.week,r.date,r.outcome,r.activity,r.purpose].join('|').toLocaleLowerCase('tr-TR');if(seen.has(k))return false;seen.add(k);return true});renderAnnualItems();saveState();annualParseInfo.textContent=`${rows.length} yeni satır bulundu. Hafta, tarih, kazanım, faaliyet/etkinlik ve amaç alanları ayrı ayrı düzenlenebilir.`;if(!rows.length)alert('Yıllık plan dosyasından ayrıştırılabilir satır bulunamadı. Word/Excel için sütun başlıklarını Hafta, Tarih, Kazanım, Faaliyet/Etkinlik ve Amaç olarak kullanın. PDF için plan metninin tablo düzeni okunabilir olmalıdır.')}
-function createWorkPlanFromAnnualText(){let rows=state.annualItems.length?state.annualItems:parseDelimitedAnnualText(document.getElementById('annualPlanText').value);if(!rows.length)return alert('Önce yıllık plandan kazanım ve faaliyetleri çıkarın.');let added=0;for(const r of rows){let exists=state.workplans.some(w=>w.annualItemId===r.id||(w.week===r.week&&w.date===r.date&&String(w.title).toLocaleLowerCase('tr-TR')===String(r.activity||r.outcome).toLocaleLowerCase('tr-TR')));if(!exists){state.workplans.push({id:crypto.randomUUID(),week:r.week,date:r.date,title:r.activity||r.outcome||'Yeni faaliyet',desc:r.purpose||r.desc||'',outcomeId:r.id||null,outcome:r.outcome||'',annualItemId:r.id||null});added++}}state.workplans.sort((a,b)=>(a.date||'').localeCompare(b.date||''));saveState();annualParseInfo.textContent=`${added} çalışma planı maddesi eklendi.`}
+function createWorkPlanFromAnnualText(){let rows=state.annualItems.length?state.annualItems:parseDelimitedAnnualText(document.getElementById('annualPlanText').value);if(!rows.length)return alert('Önce yıllık plandan kazanım ve faaliyetleri çıkarın.');let added=0;for(const r of rows){let exists=state.workplans.some(w=>w.annualItemId===r.id||(w.week===r.week&&w.date===r.date&&String(w.title).toLocaleLowerCase('tr-TR')===String(r.activity||r.outcome).toLocaleLowerCase('tr-TR')));if(!exists){state.workplans.push({id:uid(),week:r.week,date:r.date,title:r.activity||r.outcome||'Yeni faaliyet',desc:r.purpose||r.desc||'',outcomeId:r.id||null,outcome:r.outcome||'',annualItemId:r.id||null});added++}}state.workplans.sort((a,b)=>(a.date||'').localeCompare(b.date||''));saveState();annualParseInfo.textContent=`${added} çalışma planı maddesi eklendi.`}
 function clearAnnualPlanText(){document.getElementById('annualPlanText').value='';annualParseInfo.textContent=''}
 
-function addWorkPlan(){let date=wpDate.value,title=wpTitle.value.trim();if(!title)return alert('Faaliyet adı zorunlu.');let outcomeId=wpOutcomeSelect.value||null,outcome=state.annualItems.find(x=>x.id===outcomeId);state.workplans.push({id:crypto.randomUUID(),week:wpWeek.value.trim(),date:date||outcome?.date||'',title,desc:wpDesc.value.trim(),outcomeId,outcome:outcome?.outcome||'',annualItemId:outcome?.id||null});clearWorkPlanForm();saveState()}
+function addWorkPlan(){let date=wpDate.value,title=wpTitle.value.trim();if(!title)return alert('Faaliyet adı zorunlu.');let outcomeId=wpOutcomeSelect.value||null,outcome=state.annualItems.find(x=>x.id===outcomeId);state.workplans.push({id:uid(),week:wpWeek.value.trim(),date:date||outcome?.date||'',title,desc:wpDesc.value.trim(),outcomeId,outcome:outcome?.outcome||'',annualItemId:outcome?.id||null});clearWorkPlanForm();saveState()}
 function editWorkPlan(id){let x=state.workplans.find(a=>a.id===id);if(!x)return;wpWeek.value=x.week||'';wpDate.value=x.date||'';wpOutcomeSelect.value=x.outcomeId||'';wpTitle.value=x.title||'';wpDesc.value=x.desc||'';window.editingWorkPlanId=id;show('workplan');document.querySelector('#workplan .card')?.scrollIntoView({behavior:'smooth'})}
 function updateOrAddWorkPlan(){
   if(window.editingWorkPlanId){
@@ -420,7 +417,7 @@ function workPlanActivityInfo(id){
   return {count:list.length,done};
 }
 function previewPhotos(files){photoPreview.innerHTML='';[...files].forEach(f=>{let u=URL.createObjectURL(f),img=document.createElement('img');img.src=u;img.onload=()=>URL.revokeObjectURL(u);photoPreview.appendChild(img)})}
-async function addActivity(){let date=actDate.value,title=actTitle.value.trim();if(!date||!title)return alert('Tarih ve faaliyet adı zorunlu.');let ids=[...document.querySelectorAll('#participants input:checked')].map(x=>x.value);let photos=[];for(const f of actPhotos.files){if(!f.type.startsWith('image/'))continue;photos.push({id:crypto.randomUUID(),name:f.name,type:f.type,blob:f});}let aid=crypto.randomUUID();for(const p of photos)await putFile({...p,kind:'photo',activityId:aid});state.activities.push({id:aid,date,title,desc:actDesc.value.trim(),participants:ids,photoIds:photos.map(x=>x.id)});actDate.value='';actTitle.value='';actDesc.value='';actPhotos.value='';photoPreview.innerHTML='';state.activities.sort((a,b)=>b.date.localeCompare(a.date));await saveState();alert('Faaliyet kaydedildi.')}
+async function addActivity(){let date=actDate.value,title=actTitle.value.trim();if(!date||!title)return alert('Tarih ve faaliyet adı zorunlu.');let ids=[...document.querySelectorAll('#participants input:checked')].map(x=>x.value);let photos=[];for(const f of actPhotos.files){if(!f.type.startsWith('image/'))continue;photos.push({id:uid(),name:f.name,type:f.type,blob:f});}let aid=uid();for(const p of photos)await putFile({...p,kind:'photo',activityId:aid});state.activities.push({id:aid,date,title,desc:actDesc.value.trim(),participants:ids,photoIds:photos.map(x=>x.id)});actDate.value='';actTitle.value='';actDesc.value='';actPhotos.value='';photoPreview.innerHTML='';state.activities.sort((a,b)=>b.date.localeCompare(a.date));await saveState();alert('Faaliyet kaydedildi.')}
 async function removeActivity(id){if(!confirm('Faaliyet ve fotoğrafları silinsin mi?'))return;let all=await getAllFiles();for(const f of all.filter(x=>x.activityId===id))await delFile(f.id);state.activities=state.activities.filter(x=>x.id!==id);await saveState()}
 function fmtDate(s){if(!s)return '';let [y,m,d]=s.split('-');return `${d}.${m}.${y}`}
 function esc(s=''){return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
@@ -482,13 +479,13 @@ const EMBEDDED_AFET_PLAN=[
 async function ensureEmbeddedAnnualPlan(){
  if(state.annualItems.length)return;
  state.club.school=state.club.school||'KAPAKLI ANADOLU LİSESİ MÜDÜRLÜĞÜ';state.club.year=state.club.year||'2026-2027';state.club.advisor=state.club.advisor||'Mustafa Cebeci';
- state.annualItems=EMBEDDED_AFET_PLAN.map(r=>makeAnnualItem({id:crypto.randomUUID(),groupId:'',week:r[0],date:r[1],weekStart:r[1],weekEnd:r[2],outcome:r[3],purpose:r[4],activity:r[5],desc:r[4]}));
- const all=await getAllFiles(); if(!all.some(x=>x.kind==='annual'&&x.embeddedPlan)){await putFile({id:crypto.randomUUID(),kind:'annual',embeddedPlan:true,name:'Afet Farkındalığı Kulübü - 2026-2027 Yıllık Çalışma Planı (Gömülü PDF).pdf',type:'application/pdf',size:104222,date:new Date().toISOString(),blob:dataURLToBlob(EMBEDDED_AFET_PLAN_PDF)})}
+ state.annualItems=EMBEDDED_AFET_PLAN.map(r=>makeAnnualItem({id:uid(),groupId:'',week:r[0],date:r[1],weekStart:r[1],weekEnd:r[2],outcome:r[3],purpose:r[4],activity:r[5],desc:r[4]}));
+ const all=await getAllFiles(); if(!all.some(x=>x.kind==='annual'&&x.embeddedPlan)){await putFile({id:uid(),kind:'annual',embeddedPlan:true,name:'Afet Farkındalığı Kulübü - 2026-2027 Yıllık Çalışma Planı (Gömülü PDF).pdf',type:'application/pdf',size:104222,date:new Date().toISOString(),blob:dataURLToBlob(EMBEDDED_AFET_PLAN_PDF)})}
  saveState();
 }
 function dayOptions(start,end){let out=[];let d=new Date(start+'T00:00:00');let e=new Date(end+'T00:00:00');while(d<=e){let y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,'0'),dd=String(d.getDate()).padStart(2,'0');out.push(`${y}-${m}-${dd}`);d.setDate(d.getDate()+1)}return out}
-function addStudentGroup(){let name=document.getElementById('groupName').value.trim();if(!name)return alert('Grup adı yazın.');state.studentGroups.push({id:crypto.randomUUID(),name,studentIds:[]});document.getElementById('groupName').value='';saveState()}
-function autoCreateGroups(){let n=parseInt(document.getElementById('autoGroupCount').value,10);if(!n||n<1)return alert('Grup sayısını girin.');state.studentGroups=[];for(let i=0;i<n;i++)state.studentGroups.push({id:crypto.randomUUID(),name:`Grup ${i+1}`,studentIds:[]});state.students.forEach((s,i)=>state.studentGroups[i%state.studentGroups.length].studentIds.push(s.id));saveState()}
+function addStudentGroup(){let name=document.getElementById('groupName').value.trim();if(!name)return alert('Grup adı yazın.');state.studentGroups.push({id:uid(),name,studentIds:[]});document.getElementById('groupName').value='';saveState()}
+function autoCreateGroups(){let n=parseInt(document.getElementById('autoGroupCount').value,10);if(!n||n<1)return alert('Grup sayısını girin.');state.studentGroups=[];for(let i=0;i<n;i++)state.studentGroups.push({id:uid(),name:`Grup ${i+1}`,studentIds:[]});state.students.forEach((s,i)=>state.studentGroups[i%state.studentGroups.length].studentIds.push(s.id));saveState()}
 function saveGroup(id){let g=state.studentGroups.find(x=>x.id===id);if(!g)return;g.name=document.getElementById('gn_'+id).value.trim()||g.name;g.studentIds=[...document.querySelectorAll('.gm_'+id+':checked')].map(x=>x.value);saveState()}
 function deleteGroup(id){state.studentGroups=state.studentGroups.filter(x=>x.id!==id);saveState()}
 function renderStudentGroups(){let box=document.getElementById('studentGroups');if(!box)return;if(!state.studentGroups.length){box.innerHTML='<div class="empty">Henüz grup oluşturulmadı.</div>';return}box.innerHTML=state.studentGroups.map(g=>`<div class="group-card"><div class="row"><div><label>Grup adı</label><input id="gn_${g.id}" value="${esc(g.name)}"></div><div><label>Öğrenciler</label><div class="group-students">${state.students.map(s=>`<label class="chip"><input class="gm_${g.id}" type="checkbox" value="${s.id}" ${g.studentIds.includes(s.id)?'checked':''}> ${esc(s.name)}</label>`).join('')}</div></div></div><div class="actions"><button class="success" onclick="saveGroup('${g.id}')">💾 Grubu Kaydet</button><button class="danger" onclick="deleteGroup('${g.id}')">Sil</button></div></div>`).join('')}
@@ -497,7 +494,7 @@ function closeActivityModal(){document.getElementById('activityModal').style.dis
 function populateModalSelectors(){let w=document.getElementById('modalWorkSelect'),g=document.getElementById('modalGroupSelect');w.innerHTML='<option value="">— Çalışma planından seç —</option>'+state.workplans.map(x=>`<option value="${x.id}">${esc((x.week||'')+' — '+(x.title||'Faaliyet'))}</option>`).join('');g.innerHTML='<option value="">— Grup seç —</option>'+state.studentGroups.map(x=>`<option value="${x.id}">${esc(x.name)} (${x.studentIds.length} öğrenci)</option>`).join('');}
 function modalWorkChanged(){let x=state.workplans.find(a=>a.id===document.getElementById('modalWorkSelect').value);if(!x)return;document.getElementById('modalActDate').value=x.date||'';document.getElementById('modalActWeek').value=x.week||'';document.getElementById('modalActTitle').value=x.title||'';document.getElementById('modalActDesc').value=x.desc||''}
 function modalGroupChanged(){let g=state.studentGroups.find(x=>x.id===document.getElementById('modalGroupSelect').value);let box=document.getElementById('modalParticipants');if(!g){box.innerHTML='';return}box.innerHTML=state.students.map(s=>`<label class="chip"><input class="mp" type="checkbox" value="${s.id}" ${g.studentIds.includes(s.id)?'checked':''}> ${esc(s.name)}</label>`).join('')}
-async function saveActivityFromModal(){let date=document.getElementById('modalActDate').value,title=document.getElementById('modalActTitle').value.trim();if(!date||!title)return alert('Tarih ve faaliyet adı zorunlu.');let groupId=document.getElementById('modalGroupSelect').value,ids=[...document.querySelectorAll('#modalParticipants .mp:checked')].map(x=>x.value);if(groupId&&!ids.length){let g=state.studentGroups.find(x=>x.id===groupId);ids=g?.studentIds||[]}let photos=[];for(const f of document.getElementById('modalActPhotos').files){if(f.type.startsWith('image/'))photos.push({id:crypto.randomUUID(),name:f.name,type:f.type,size:f.size,blob:f})}let editing=window.editingActivityId;let aid=editing||crypto.randomUUID();for(const p of photos)await putFile({...p,kind:'photo',activityId:aid});let workplanId=document.getElementById('modalWorkSelect').value||null;let wp=state.workplans.find(x=>x.id===workplanId);let payload={date,title,desc:document.getElementById('modalActDesc').value.trim(),participants:ids,photoIds:photos.map(x=>x.id),groupId,workplanId,week:document.getElementById('modalActWeek').value||wp?.week||'',completed:document.getElementById('modalCompleted').checked,source:'workplan'};if(editing){let old=state.activities.find(a=>a.id===editing);if(old){Object.assign(old,payload);if(photos.length)old.photoIds=[...(old.photoIds||[]),...payload.photoIds]}}else state.activities.push({id:aid,...payload});window.editingActivityId=null;await saveState();closeActivityModal();alert(editing?'Faaliyet güncellendi.':'Gerçekleşen faaliyet raporlama için kaydedildi.')}
+async function saveActivityFromModal(){let date=document.getElementById('modalActDate').value,title=document.getElementById('modalActTitle').value.trim();if(!date||!title)return alert('Tarih ve faaliyet adı zorunlu.');let groupId=document.getElementById('modalGroupSelect').value,ids=[...document.querySelectorAll('#modalParticipants .mp:checked')].map(x=>x.value);if(groupId&&!ids.length){let g=state.studentGroups.find(x=>x.id===groupId);ids=g?.studentIds||[]}let photos=[];for(const f of document.getElementById('modalActPhotos').files){if(f.type.startsWith('image/'))photos.push({id:uid(),name:f.name,type:f.type,size:f.size,blob:f})}let editing=window.editingActivityId;let aid=editing||uid();for(const p of photos)await putFile({...p,kind:'photo',activityId:aid});let workplanId=document.getElementById('modalWorkSelect').value||null;let wp=state.workplans.find(x=>x.id===workplanId);let payload={date,title,desc:document.getElementById('modalActDesc').value.trim(),participants:ids,photoIds:photos.map(x=>x.id),groupId,workplanId,week:document.getElementById('modalActWeek').value||wp?.week||'',completed:document.getElementById('modalCompleted').checked,source:'workplan'};if(editing){let old=state.activities.find(a=>a.id===editing);if(old){Object.assign(old,payload);if(photos.length)old.photoIds=[...(old.photoIds||[]),...payload.photoIds]}}else state.activities.push({id:aid,...payload});window.editingActivityId=null;await saveState();closeActivityModal();alert(editing?'Faaliyet güncellendi.':'Gerçekleşen faaliyet raporlama için kaydedildi.')}
 function editActivity(id){let a=state.activities.find(x=>x.id===id);if(!a)return;window.editingActivityId=id;openActivityModal();document.getElementById('modalActDate').value=a.date||'';document.getElementById('modalActTitle').value=a.title||'';document.getElementById('modalActDesc').value=a.desc||'';document.getElementById('modalActWeek').value=a.week||'';document.getElementById('modalCompleted').checked=a.completed!==false;document.getElementById('modalWorkSelect').value=a.workplanId||'';document.getElementById('modalGroupSelect').value=a.groupId||'';modalGroupChanged()}
 
 function printReport(){if(!document.getElementById('reportOutput').innerHTML.trim())return alert('Önce raporu önizleyin.');window.print()}
@@ -509,6 +506,157 @@ const _oldAddBulkStudents=addBulkStudents;addBulkStudents=function(){_oldAddBulk
 const _oldRemoveStudent=removeStudent;removeStudent=function(id){_oldRemoveStudent(id);setTimeout(renderStudentGroups,0)};
 function makeReportFilter(){let t=document.getElementById('reportType').value,arr=state.activities.filter(a=>a.completed!==false),title='Yıl Sonu Kulüp Faaliyet Raporu';if(t==='monthly'){let m=document.getElementById('reportMonth').value;if(!m)return null;arr=arr.filter(a=>a.date.startsWith(m));title=`${m.slice(0,4)} / ${m.slice(5)} Aylık Kulüp Faaliyet Raporu`}else if(t==='term'){let d=document.getElementById('reportTerm').value;arr=arr.filter(a=>{let m=+a.date.slice(5,7);return d==='1'?m>=9||m<=1:m>=2&&m<=6});title=d==='1'?'1. Dönem Kulüp Faaliyet Raporu':'2. Dönem Kulüp Faaliyet Raporu'}else{let y=state.club.year.match(/20\d{2}/)?.[0];if(y)arr=arr.filter(a=>a.date.startsWith(y)||a.date.startsWith(String(+y+1)))}return {arr,title}}
 makeReport=async function(){let q=makeReportFilter();if(!q)return alert('Rapor dönemi seçin.');let files=await getAllFiles();let {arr,title}=q;let html=`<div class="report-page"><h1 style="text-align:center">${esc(state.club.school||'')}</h1><h2 style="text-align:center">${esc(state.club.name||'KULÜP')}</h2><h2 style="text-align:center">${title}</h2><div class="report-meta"><div><b>Danışman:</b> ${esc(state.club.advisor)}</div><div><b>Okul Müdürü:</b> ${esc(state.club.principal)}</div><div><b>Eğitim-öğretim yılı:</b> ${esc(state.club.year)}</div><div><b>Öğrenci sayısı:</b> ${state.students.length}</div></div><hr>`;if(!arr.length)html+='<p>Bu rapor döneminde gerçekleşmiş faaliyet bulunmamaktadır.</p>';for(let i=0;i<arr.length;i++){let a=arr[i],names=a.participants.map(id=>state.students.find(s=>s.id===id)?.name).filter(Boolean).join(', ')||'Belirtilmedi',g=state.studentGroups.find(x=>x.id===a.groupId);html+=`<article class="report-activity"><h3>${i+1}. ${esc(a.title)}</h3><p><b>Tarih:</b> ${fmtDate(a.date)} &nbsp; <b>Hafta:</b> ${esc(a.week||state.workplans.find(w=>w.id===a.workplanId)?.week||'')}</p><p><b>Grup:</b> ${esc(g?.name||'')}</p><p>${esc(a.desc||'')}</p><p><b>Katılan öğrenciler:</b> ${esc(names)}</p>`;for(const f of files.filter(f=>a.photoIds?.includes(f.id))){html+=`<img class="report-photo" src="${URL.createObjectURL(f.blob)}">`}html+='</article>'}html+=`<table style="margin-top:40px;width:100%;text-align:center"><tr><td style="height:90px"><b>Danışman Öğretmen</b><br>${esc(state.club.advisor||'')}</td><td><b>Okul Müdürü</b><br>${esc(state.club.principal||'')}</td></tr></table></div>`;document.getElementById('reportOutput').innerHTML=html}
+
+
+/* APK / Android WebView OFFLINE uyumluluk katmanı.
+   Harici CDN kütüphanelerine bağımlı olmadan DOCX/XLSX/PDF metinlerini okuyabilmek için
+   küçük yerel ayrıştırıcılar kullanılır. Böylece PWA Builder ile oluşturulan APK internetsiz
+   durumda da yıllık plan çıkarma işini sürdürebilir. */
+function uid(){
+  try{if(window.crypto&&typeof crypto.randomUUID==='function')return crypto.randomUUID();}catch(e){}
+  return 'id-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,10);
+}
+async function unzipEntries(blobOrBuffer){
+  const buf=blobOrBuffer instanceof ArrayBuffer?blobOrBuffer:await blobOrBuffer.arrayBuffer();
+  const dv=new DataView(buf),u8=new Uint8Array(buf),sig=0x06054b50;
+  let eocd=-1;
+  for(let i=u8.length-22;i>=Math.max(0,u8.length-22-65535);i--){if(dv.getUint32(i,true)===sig){eocd=i;break;}}
+  if(eocd<0)throw new Error('ZIP son kaydı bulunamadı');
+  const count=dv.getUint16(eocd+10,true),cdOffset=dv.getUint32(eocd+16,true);
+  const out=new Map();let p=cdOffset;
+  for(let n=0;n<count && p+46<=u8.length;n++){
+    if(dv.getUint32(p,true)!==0x02014b50)break;
+    const flags=dv.getUint16(p+8,true),method=dv.getUint16(p+10,true),csize=dv.getUint32(p+20,true),usize=dv.getUint32(p+24,true);
+    const nl=dv.getUint16(p+28,true),xl=dv.getUint16(p+30,true),cl=dv.getUint16(p+32,true),lo=dv.getUint32(p+42,true);
+    const nameBytes=u8.slice(p+46,p+46+nl),name=new TextDecoder((flags&0x800)?'utf-8':'utf-8').decode(nameBytes);
+    const lnl=dv.getUint16(lo+26,true),lxl=dv.getUint16(lo+28,true),start=lo+30+lnl+lxl;
+    const raw=u8.slice(start,start+csize);
+    let data;
+    if(method===0)data=raw;
+    else if(method===8){
+      if(typeof DecompressionStream==='undefined')throw new Error('Bu Android WebView ZIP açmayı desteklemiyor');
+      let ds;
+      try{ds=new DecompressionStream('deflate-raw')}catch(e){ds=new DecompressionStream('deflate')}
+      const stream=new Blob([raw]).stream().pipeThrough(ds);data=new Uint8Array(await new Response(stream).arrayBuffer());
+    }else throw new Error('Desteklenmeyen ZIP sıkıştırması: '+method);
+    out.set(name,data);
+    p+=46+nl+xl+cl;
+  }
+  return out;
+}
+function bytesText(bytes){return new TextDecoder('utf-8',{fatal:false}).decode(bytes)}
+function xmlText(xml){return xml.replace(/<[^>]+>/g,' ').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&#39;/g,"'").replace(/&quot;/g,'"').replace(/\s+/g,' ').trim()}
+async function nativeDocxRows(file){
+  const z=await unzipEntries(file),doc=bytesText(z.get('word/document.xml')||new Uint8Array());
+  if(!doc)return [];
+  const x=new DOMParser().parseFromString(doc,'application/xml'),rows=[];
+  for(const table of [...x.getElementsByTagNameNS('*','tbl')]){
+    const matrix=[];
+    for(const tr of [...table.getElementsByTagNameNS('*','tr')]){
+      const cells=[...tr.getElementsByTagNameNS('*','tc')].map(tc=>[...tc.getElementsByTagNameNS('*','t')].map(t=>t.textContent).join(' ')).map(normalizeCell);
+      if(cells.length)matrix.push(cells);
+    }
+    if(!matrix.length)continue;
+    let hi=-1,headers=null;
+    for(let i=0;i<Math.min(5,matrix.length);i++){
+      const h=matrix[i].map(cleanHeader);
+      if(h.some(v=>/hafta|tarih|kazan|faaliyet|etkinlik|amac|aciklama|alt hedef/.test(v))){hi=i;headers=matrix[i];break}
+    }
+    for(let i=hi>=0?hi+1:0;i<matrix.length;i++){const r=guessAnnualRow(matrix[i],headers);if(r)rows.push(r)}
+  }
+  if(rows.length)return rows;
+  const raw=[...x.getElementsByTagNameNS('*','t')].map(t=>t.textContent).join('\n');
+  return parseDelimitedAnnualText(raw);
+}
+function xlsxColIndex(ref){let m=String(ref).match(/[A-Z]+/i);if(!m)return 0;let n=0;for(const c of m[0].toUpperCase())n=n*26+c.charCodeAt(0)-64;return n-1}
+async function nativeXlsxRows(file){
+  const z=await unzipEntries(file),shared=[];
+  const ss=z.get('xl/sharedStrings.xml');
+  if(ss){const x=new DOMParser().parseFromString(bytesText(ss),'application/xml');for(const si of [...x.getElementsByTagNameNS('*','si')])shared.push([...si.getElementsByTagNameNS('*','t')].map(t=>t.textContent).join(''))}
+  const rows=[];
+  for(const [name,data] of z){
+    if(!/^xl\/worksheets\/sheet\d+\.xml$/i.test(name))continue;
+    const x=new DOMParser().parseFromString(bytesText(data),'application/xml'),matrix=[];
+    for(const row of [...x.getElementsByTagNameNS('*','row')]){
+      const cells=[];
+      for(const c of [...row.getElementsByTagNameNS('*','c')]){
+        const idx=xlsxColIndex(c.getAttribute('r')||'A1');while(cells.length<idx)cells.push('');
+        let v=c.getElementsByTagNameNS('*','v')[0]?.textContent||'';
+        if(c.getAttribute('t')==='s')v=shared[Number(v)]||'';
+        else if(c.getAttribute('t')==='inlineStr')v=[...c.getElementsByTagNameNS('*','t')].map(t=>t.textContent).join('');
+        cells[idx]=normalizeCell(v);
+      }
+      if(cells.length)matrix.push(cells);
+    }
+    let hi=-1,headers=null;
+    for(let i=0;i<Math.min(10,matrix.length);i++){
+      const h=matrix[i].map(cleanHeader);
+      if(h.some(v=>/hafta|tarih|kazan|faaliyet|etkinlik|amac|aciklama|alt hedef/.test(v))){hi=i;headers=matrix[i];break}
+    }
+    for(let i=hi>=0?hi+1:0;i<matrix.length;i++){const r=guessAnnualRow(matrix[i],headers);if(r)rows.push(r)}
+  }
+  return rows;
+}
+async function inflatePdfStream(raw){
+  if(typeof DecompressionStream==='undefined')return null;
+  try{let ds;try{ds=new DecompressionStream('deflate')}catch(e){ds=new DecompressionStream('deflate-raw')}return new Uint8Array(await new Response(new Blob([raw]).stream().pipeThrough(ds)).arrayBuffer())}catch(e){return null}
+}
+function pdfLiteralToText(s){
+  return s.replace(/\\([\\()])/g,'$1').replace(/\\n/g,'\n').replace(/\\r/g,'\r').replace(/\\t/g,'\t').replace(/\\([0-7]{1,3})/g,(_,o)=>String.fromCharCode(parseInt(o,8)));
+}
+function pdfHexToText(s){let h=s.replace(/[^0-9a-f]/gi,'');if(h.length%2)h+='0';let b=new Uint8Array(h.length/2);for(let i=0;i<b.length;i++)b[i]=parseInt(h.slice(i*2,i*2+2),16);return new TextDecoder('utf-8',{fatal:false}).decode(b)}
+function extractPdfTextOperators(txt){
+  let out=[];
+  const tj=/\((?:\\.|[^\\)])*\)\s*Tj/g;let m;
+  while((m=tj.exec(txt))){const q=m[0].match(/^\((.*)\)\s*Tj$/s);if(q)out.push(pdfLiteralToText(q[1]))}
+  const th=/\[(.*?)\]\s*TJ/gs;while((m=th.exec(txt))){let a=m[1],parts=[],r=/\((?:\\.|[^\\)])*\)|<[^>]*>/g,q;while((q=r.exec(a)))parts.push(q[0][0]==='<'?pdfHexToText(q[0]):pdfLiteralToText(q[0].slice(1,-1)));out.push(parts.join(''))}
+  if(!out.length){const h=/<([0-9A-Fa-f\s]+)>\s*Tj/g;while((m=h.exec(txt)))out.push(pdfHexToText(m[1]))}
+  return out.join('\n');
+}
+async function nativePdfText(file){
+  const b=new Uint8Array(await file.arrayBuffer()),all=[];let pos=0;
+  while((pos=b.indexOf(0x73,pos))>=0){if(bytesText(b.slice(Math.max(0,pos-20),pos+10)).includes('stream')){const end=bytesText(b).indexOf('endstream',pos);if(end>pos){const rawStart=pos+(b[pos+6]===13?8:7);const raw=b.slice(rawStart,end);const head=bytesText(b.slice(Math.max(0,pos-400),pos));let data=raw;if(/\/FlateDecode/.test(head)){const inf=await inflatePdfStream(raw);if(inf)data=inf}let t=bytesText(data);if(/Tj|TJ/.test(t)){const x=extractPdfTextOperators(t);if(x)all.push(x)}pos=end+9;continue}}pos++}
+  return all.join('\n').replace(/\n{3,}/g,'\n\n').trim();
+}
+async function nativePdfRows(file){
+  const text=await nativePdfText(file);return parseDelimitedAnnualText(text);
+}
+
+/* Harici kütüphaneler yoksa da çalışan sürümler */
+extractDocxRows=async function(file){try{return await nativeDocxRows(file)}catch(e){console.error(e);return []}};
+extractPdfRows=async function(file){try{return await nativePdfRows(file)}catch(e){console.error(e);return []}};
+extractRowsFromStoredAnnualFiles=async function(){
+  const all=await getAllFiles(),files=all.filter(x=>x.kind==='annual'&&!x.embeddedPlan),rows=[];
+  for(const f of files){try{const n=f.name.toLowerCase();if(n.endsWith('.docx'))rows.push(...await nativeDocxRows(f.blob));else if(n.endsWith('.xlsx'))rows.push(...await nativeXlsxRows(f.blob));else if(n.endsWith('.pdf'))rows.push(...await nativePdfRows(f.blob));else if(/\.(txt|csv|json)$/i.test(n))rows.push(...parseDelimitedAnnualText(await f.blob.text()))}catch(e){console.error('APK plan extraction',f.name,e)}}
+  return rows;
+};
+extractAnnualPlanItems=async function(){
+  let rows=await extractRowsFromStoredAnnualFiles();
+  const text=document.getElementById('annualPlanText').value.trim();if(text)rows.push(...parseDelimitedAnnualText(text));
+  const input=document.getElementById('annualFiles');
+  for(const f of [...(input?.files||[])]){try{const n=f.name.toLowerCase();if(n.endsWith('.docx'))rows.push(...await nativeDocxRows(f));else if(n.endsWith('.xlsx'))rows.push(...await nativeXlsxRows(f));else if(n.endsWith('.pdf'))rows.push(...await nativePdfRows(f));else if(/\.(txt|csv|json)$/i.test(n))rows.push(...parseDelimitedAnnualText(await f.text()))}catch(e){console.error(e)}}
+  const seen=new Set();state.annualItems=[...state.annualItems,...rows].filter(r=>{const k=[r.week,r.date,r.outcome,r.activity,r.purpose].join('|').toLocaleLowerCase('tr-TR');if(seen.has(k))return false;seen.add(k);return true});
+  renderAnnualItems();await setMeta('state',state);annualParseInfo.textContent=`${rows.length} yeni kayıt bulundu. Hafta, tarih, kazanım, faaliyet/etkinlik ve amaç alanları ayrı ayrı düzenlenebilir.`;
+  if(!rows.length)alert('Dosyadan ayrıştırılabilir kayıt bulunamadı. PDF/Word/Excel dosyanızdaki tablo başlıklarının Hafta, Tarih, Kazanım, Faaliyet/Etkinlik ve Amaç şeklinde olması önerilir.');
+};
+
+/* PDF önizlemesi: PDF.js yoksa Android WebView'da siyah ekran yerine metin göster */
+const _originalViewFile=viewFile;
+viewFile=async function(id){
+  const all=await getAllFiles(),f=all.find(x=>x.id===id);if(!f)return;
+  const name=f.name.toLowerCase(),type=(f.type||'').toLowerCase();
+  if(type==='application/pdf'||name.endsWith('.pdf')){
+    const box=document.getElementById('fileViewer'),title=document.getElementById('viewerTitle'),content=document.getElementById('viewerContent');
+    title.textContent='📂 '+f.name;box.style.display='block';box.scrollIntoView({behavior:'smooth',block:'start'});
+    content.innerHTML='<div class="file-preview"><div class="notice">PDF, Android uyumlu yerel okuyucu ile hazırlanıyor...</div></div>';
+    try{const text=await nativePdfText(f.blob);content.innerHTML=`<div class="file-preview"><div class="pdf-toolbar actions no-print"><button class="light" onclick="openNativeFile('${f.id}')">📱 Cihazda Aç</button><button class="secondary" onclick="downloadFile('${f.id}')">⬇️ PDFyi İndir</button></div><pre style="white-space:pre-wrap;line-height:1.6;background:#fff;padding:14px;max-height:70vh;overflow:auto">${esc(text||'PDF metni okunamadı. Cihazdaki PDF okuyucu ile açabilirsiniz.')}</pre></div>`}catch(e){content.innerHTML='<div class="notice">PDF önizlemesi hazırlanamadı.<div class="actions"><button class="secondary" onclick="openNativeFile(\''+f.id+'\')">📱 Cihazda Aç</button><button class="secondary" onclick="downloadFile(\''+f.id+'\')">⬇️ İndir</button></div></div>'}
+    return;
+  }
+  if(name.endsWith('.docx')){try{const rows=await nativeDocxRows(f.blob);contentFromText(id,rows.length?rows.map(r=>[r.week,r.date,r.outcome,r.activity,r.purpose].join(' | ')).join('\n'):'Word metni okunamadı.')}catch(e){contentFromText(id,'Word dosyası okunamadı.')}}
+  else if(name.endsWith('.xlsx')){try{const rows=await nativeXlsxRows(f.blob);contentFromText(id,rows.length?rows.map(r=>[r.week,r.date,r.outcome,r.activity,r.purpose].join(' | ')).join('\n'):'Excel verisi okunamadı.')}catch(e){contentFromText(id,'Excel dosyası okunamadı.')}}
+  else return _originalViewFile(id);
+};
+function contentFromText(id,text){const box=document.getElementById('fileViewer'),title=document.getElementById('viewerTitle'),content=document.getElementById('viewerContent');getAllFiles().then(all=>{const f=all.find(x=>x.id===id);title.textContent='📂 '+(f?.name||'Dosya');box.style.display='block';content.innerHTML='<div class="file-preview"><pre>'+esc(text)+'</pre></div>'})}
 
 if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 load();
