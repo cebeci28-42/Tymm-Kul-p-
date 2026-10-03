@@ -1,5 +1,5 @@
 const CACHE='klup-dosyasi-v5';
-const APP=['./','./index.html','./manifest.json','./icons/icon-192.png','./icons/icon-512.png'];
+const APP=['./','./index.html','./manifest.json','./icon192.png','./icon512.png'];
 const LIBS=[
  'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js',
  'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js',
