@@ -15,8 +15,8 @@ const APP_SHELL = [
   './icons/icon-72.png',
   './icons/icon-96.png',
   './icons/icon-144.png',
-  './icons/icon-192.png',
-  './icons/icon-512.png'
+  './icon192.png',
+  './icon512.png'
 ];
 
 // CDN kütüphaneleri (offline çalışma için önbelleğe alınır)
