@@ -3,8 +3,8 @@ const APP_SHELL=[
   './',
   './index.html',
   './manifest.json',
-  './icons/icon-192.png',
-  './icons/icon-512.png'
+  './icon192.png',
+  './icon512.png'
 ];
 const CDN_LIBS=[
   'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js',
