@@ -1,6 +1,6 @@
-const CACHE_VERSION='v9';
+const CACHE_VERSION='v10';
 const CACHE_NAME=`klup-dosyasi-${CACHE_VERSION}`;
-const APP_SHELL=['./','./index.html','./manifest.json','./icons/icon-48.png','./icons/icon-72.png','./icons/icon-96.png','./icons/icon-144.png','./icon192.png','./icon512.png'];
+const APP_SHELL=['./','./index.html','./manifest.json','./icons/icon-48.png','./icons/icon-72.png','./icons/icon-96.png','./icon144.png','./icon192.png','./icon512.png'];
 const CDN_LIBS=['https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js','https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js','https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.8.0/mammoth.browser.min.js','https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js'];
 
 self.addEventListener('install',e=>{e.waitUntil((async()=>{const cache=await caches.open(CACHE_NAME);for(const url of APP_SHELL){try{await cache.add(url)}catch(err){}}

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#155eef">
+<meta name="theme-color" content="#4f46e5">
 <meta name="description" content="Kulüp dosyası, öğrenci, plan, çalışma ve rapor yönetimi">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icons/icon-192.png">
@@ -13,64 +13,424 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.8.0/mammoth.browser.min.js" onerror="window.mammoth=null"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" onerror="window.XLSX=null"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" onerror="window.pdfjsLib=null"></script>
-<title>Klüp Dosyası</title>
+<title>Klüp Dosyası · Yönetim Paneli</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--p:#155eef;--p2:#0b4acb;--bg:#f4f7fb;--card:#fff;--text:#172033;--muted:#667085;--danger:#d92d20;--ok:#039855}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
-header{background:linear-gradient(135deg,#155eef,#0b4acb);color:#fff;padding:20px 16px;position:sticky;top:0;z-index:10;box-shadow:0 2px 10px #0002}
-header h1{margin:0;font-size:24px}header small{opacity:.9}
-main{max-width:1400px;margin:auto;padding:14px}
-nav{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-bottom:14px}
-button,.button{border:0;border-radius:9px;padding:11px 14px;font-weight:700;cursor:pointer;font-size:14px;background:var(--p);color:#fff}
-button.secondary{background:#667085}button.success{background:var(--ok)}button.danger{background:var(--danger)}button.light{background:#e8eefc;color:#1749a6}
-section{display:none}.active{display:block}.card{background:var(--card);border-radius:14px;padding:18px;margin-bottom:14px;box-shadow:0 2px 10px #10182812}
-h2{margin:0 0 14px;font-size:20px;color:#123f9c}h3{margin:8px 0}
-label{display:block;font-weight:700;margin:10px 0 5px}input,textarea,select{width:100%;padding:11px;border:1px solid #d0d5dd;border-radius:9px;font:inherit;background:#fff}
-textarea{min-height:100px;resize:vertical}.row{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.stat{background:#eef4ff;border-radius:12px;padding:15px;text-align:center}.stat b{display:block;font-size:28px;color:var(--p)}
-table{width:100%;border-collapse:collapse}th,td{padding:9px;border-bottom:1px solid #eaecf0;text-align:left;vertical-align:top}th{background:#f8fafc}
-.table-wrap{overflow:auto}.item{border:1px solid #e4e7ec;border-radius:10px;padding:12px;margin:9px 0}.file-preview{margin-top:12px;border:1px solid #d0d5dd;border-radius:10px;background:#f8fafc;padding:10px}.pdf-page{background:#fff;margin:0 auto 18px;padding:8px;border:1px solid #d0d5dd;border-radius:8px;box-shadow:0 2px 8px #0001}.pdf-page-no{text-align:center;font-size:12px;color:#667085;margin-bottom:7px}.file-preview img{max-width:none;max-height:none;width:auto;height:auto;display:block;margin:auto;border-radius:8px}.image-preview{overflow:auto;background:#fff;text-align:center}.image-preview img{display:block;margin:auto}.pdf-page canvas{display:block;margin:auto;background:#fff;max-width:none}.pdf-scroll{overflow:auto;width:100%}.file-preview iframe{width:100%;height:70vh;min-height:480px;border:0;border-radius:8px;background:#fff}.pdf-viewer{background:#eef2f6}.pdf-viewer canvas{background:#fff;max-width:100%}.file-preview pre{white-space:pre-wrap;word-break:break-word;max-height:500px;overflow:auto;background:#fff;padding:12px;border-radius:8px}.file-preview table{background:#fff}.file-preview .office-html{background:#fff;padding:15px;max-height:600px;overflow:auto}.file-type{display:inline-block;padding:3px 7px;border-radius:20px;background:#eef4ff;color:#1749a6;font-size:12px;margin-left:5px}.muted{color:var(--muted);font-size:13px}.card details{border:1px solid #e4e7ec;border-radius:10px;padding:12px;background:#fff;margin-bottom:8px}.card summary{cursor:pointer;color:#123f9c;font-size:16px;font-weight:700;padding:4px 0}.card details[open] summary{margin-bottom:10px;border-bottom:1px solid #eaecf0;padding-bottom:8px}
-.photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-top:10px}.photos .photo-wrap{position:relative}.photos img{width:100%;height:130px;object-fit:cover;border-radius:8px}.photos .photo-del{position:absolute;top:4px;right:4px;background:rgba(217,45,32,.9);color:#fff;border:0;border-radius:50%;width:28px;height:28px;padding:0;font-size:14px;cursor:pointer}
-.badges label{display:inline-flex;align-items:center;gap:5px;background:#eef4ff;color:#1749a6;padding:6px 9px;border-radius:20px;margin:3px}.badges input{width:auto}
-.notice{padding:10px;border-radius:9px;background:#fffaeb;color:#7a5b00;margin:8px 0}.empty{color:var(--muted);padding:12px 0}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9999;padding:20px;overflow:auto}.modal-box{max-width:900px;margin:20px auto;background:#fff;border-radius:18px;padding:20px;box-shadow:0 20px 60px rgba(0,0,0,.25)}.group-card{border:1px solid #d9e2ef;border-radius:14px;padding:14px;margin:10px 0;background:#f8fbff}.group-students{display:flex;flex-wrap:wrap;gap:8px}.chip{padding:6px 10px;border-radius:999px;background:#e9eef8}
-.participant-tools{background:#f8fafc;border:1px solid #e4e7ec;border-radius:10px;padding:10px;margin-bottom:8px}
-.participant-tools .actions{margin-top:6px}
-.participant-tools .actions button{padding:7px 10px;font-size:13px}
-#modalParticipants{max-height:280px;overflow-y:auto;background:#fff;border:1px solid #e4e7ec;border-radius:10px;padding:10px}
-#modalParticipants .chip{user-select:none}
-#modalParticipants .chip.hidden{display:none}
-#modalParticipantCount{font-weight:700;color:#123f9c}
-.drop-zone{border:2px dashed #b5c5e0;border-radius:14px;padding:30px 20px;text-align:center;background:#f8fbff;transition:.2s;cursor:pointer;position:relative}
-.drop-zone.drag-over{background:#e8eefc;border-color:#155eef;transform:scale(1.01)}
-.drop-zone .drop-icon{font-size:44px;margin-bottom:8px;line-height:1}
-.drop-zone .drop-text{font-size:15px;line-height:1.6}
-.upload-status{margin-top:12px}
-.upload-status .file-row{padding:8px 10px;margin:6px 0;border-radius:8px;background:#f8fafc;border-left:4px solid #155eef;font-size:14px}
-.upload-status .file-row.ok{border-left-color:#039855;background:#f0fdf4}
-.upload-status .file-row.warn{border-left-color:#d92d20;background:#fef3f2}
-.upload-status .file-row.info{border-left-color:#667085;background:#f8fafc}
-.upload-summary{margin-top:12px;padding:12px;border-radius:10px;background:#e8eefc;font-weight:700;color:#123f9c}
-.select-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 12px;background:#f1f5fd;border-radius:10px;margin-bottom:10px;font-size:13px;font-weight:700;color:#1749a6}
-.select-bar label{display:inline-flex;align-items:center;gap:6px;font-weight:700;margin:0;cursor:pointer}
-.select-bar input[type=checkbox]{width:auto}
-.select-bar .count{margin-left:auto;background:#155eef;color:#fff;padding:3px 10px;border-radius:999px;font-weight:700;font-size:12px}
-.select-bar button{padding:6px 10px;font-size:12px}
-.inline-edit{width:100%;padding:6px 8px;border:1px solid #d0d5dd;border-radius:7px;font:inherit;font-size:13px}
-.row-check{width:auto !important;transform:scale(1.2);margin:0}
-.help-step{background:#f8fbff;border-left:4px solid #155eef;padding:10px 12px;border-radius:8px;margin:8px 0}
-.help-step b{color:#123f9c}
-.help-code{background:#f8fafc;padding:10px;border-radius:8px;font-size:12px;line-height:1.7;overflow-x:auto;border:1px solid #e4e7ec}
-.help-flow{background:linear-gradient(90deg,#eef4ff,#f1f5fd);padding:14px;border-radius:10px;text-align:center;font-weight:700;color:#123f9c;font-size:14px;line-height:1.8;margin:10px 0}
-.excel-hint{background:#f0fdf4;border-left:4px solid #039855;padding:12px;border-radius:8px;margin:10px 0;font-size:13px;color:#065f46}
-.excel-hint table{margin-top:8px;font-size:12px}
-.excel-hint th{background:#dcfce7;padding:6px}
+/* ============ DESIGN TOKENS ============ */
+:root{
+  --brand-50:#eef2ff;--brand-100:#e0e7ff;--brand-200:#c7d2fe;--brand-300:#a5b4fc;
+  --brand-400:#818cf8;--brand-500:#6366f1;--brand-600:#4f46e5;--brand-700:#4338ca;--brand-800:#3730a3;
+  --accent-400:#c084fc;--accent-500:#a855f7;--accent-600:#9333ea;
+  --ok-50:#ecfdf5;--ok-100:#d1fae5;--ok-500:#10b981;--ok-600:#059669;--ok-700:#047857;
+  --warn-50:#fffbeb;--warn-100:#fef3c7;--warn-500:#f59e0b;--warn-700:#b45309;
+  --danger-50:#fef2f2;--danger-100:#fee2e2;--danger-500:#ef4444;--danger-600:#dc2626;--danger-700:#b91c1c;
+  --gray-50:#f8fafc;--gray-100:#f1f5f9;--gray-200:#e2e8f0;--gray-300:#cbd5e1;--gray-400:#94a3b8;
+  --gray-500:#64748b;--gray-600:#475569;--gray-700:#334155;--gray-800:#1e293b;--gray-900:#0f172a;
+  --bg:#f5f7fb;
+  --card:#ffffff;
+  --text:#0f172a;
+  --muted:#64748b;
+  --border:#e5e9f0;
+  --shadow-sm:0 1px 2px rgba(15,23,42,.04);
+  --shadow:0 1px 3px rgba(15,23,42,.06),0 4px 12px rgba(15,23,42,.04);
+  --shadow-md:0 4px 12px rgba(15,23,42,.08),0 12px 32px rgba(15,23,42,.06);
+  --shadow-lg:0 12px 32px rgba(15,23,42,.12),0 24px 60px rgba(15,23,42,.08);
+  --shadow-brand:0 8px 24px rgba(99,102,241,.25);
+  --radius-sm:8px;--radius:12px;--radius-md:16px;--radius-lg:20px;--radius-xl:28px;
+  --grad-brand:linear-gradient(135deg,#6366f1 0%,#4f46e5 50%,#7c3aed 100%);
+  --grad-success:linear-gradient(135deg,#10b981 0%,#059669 100%);
+  --grad-danger:linear-gradient(135deg,#ef4444 0%,#dc2626 100%);
+  --grad-warm:linear-gradient(135deg,#f59e0b 0%,#d97706 100%);
+  --grad-hero:linear-gradient(135deg,#4f46e5 0%,#7c3aed 50%,#a855f7 100%);
+}
 
-/* ============================================
-   RESMÎ RAPOR STİLLERİ
-   ============================================ */
-#reportOutput{background:#e8ecf2;padding:20px}
-.report-page{background:#fff;max-width:900px;margin:auto;padding:50px 60px;font-family:'Times New Roman',Times,Georgia,serif;color:#000;font-size:14px;line-height:1.55;box-shadow:0 4px 20px rgba(0,0,0,.15)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+  font-feature-settings:'cv02','cv03','cv04','cv11';
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  line-height:1.5;
+}
+h1,h2,h3,h4{font-family:'Plus Jakarta Sans','Inter',system-ui,sans-serif;letter-spacing:-0.02em}
+
+/* ============ HEADER ============ */
+header{
+  background:var(--grad-hero);color:#fff;padding:22px 16px 26px;
+  position:sticky;top:0;z-index:20;
+  box-shadow:0 4px 24px rgba(79,70,229,.28);
+  overflow:hidden;
+}
+header::before{
+  content:'';position:absolute;top:-50%;right:-10%;width:340px;height:340px;
+  background:radial-gradient(circle,rgba(255,255,255,.15) 0%,transparent 70%);
+  border-radius:50%;pointer-events:none;
+}
+header::after{
+  content:'';position:absolute;bottom:-60%;left:-5%;width:220px;height:220px;
+  background:radial-gradient(circle,rgba(255,255,255,.1) 0%,transparent 70%);
+  border-radius:50%;pointer-events:none;
+}
+header h1{margin:0;font-size:26px;font-weight:800;letter-spacing:-0.03em;display:flex;align-items:center;gap:10px;position:relative;z-index:1}
+header h1 span.emoji{font-size:28px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.15))}
+header small{opacity:.9;font-size:13px;font-weight:500;letter-spacing:.01em;display:block;margin-top:4px;position:relative;z-index:1}
+main{max-width:1400px;margin:auto;padding:16px}
+
+/* ============ NAVIGATION ============ */
+nav{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+  gap:8px;margin-bottom:16px;
+  background:rgba(255,255,255,.7);backdrop-filter:blur(20px);
+  padding:8px;border-radius:var(--radius-lg);
+  box-shadow:var(--shadow);border:1px solid var(--border);
+}
+nav button{
+  background:transparent;color:var(--gray-700);
+  border:0;border-radius:var(--radius);
+  padding:11px 12px;font-weight:600;font-size:13.5px;cursor:pointer;
+  transition:all .2s cubic-bezier(.4,0,.2,1);
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  font-family:inherit;position:relative;overflow:hidden;
+}
+nav button:hover{background:var(--brand-50);color:var(--brand-700);transform:translateY(-1px)}
+nav button:active{transform:translateY(0)}
+
+/* ============ CARDS ============ */
+section{display:none;animation:fadeIn .35s ease}
+section.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+.card{
+  background:var(--card);border-radius:var(--radius-md);
+  padding:22px;margin-bottom:16px;
+  box-shadow:var(--shadow);border:1px solid var(--border);
+  transition:box-shadow .3s ease,transform .3s ease;
+}
+.card:hover{box-shadow:var(--shadow-md)}
+h2{margin:0 0 16px;font-size:19px;font-weight:700;color:var(--gray-900);display:flex;align-items:center;gap:8px;letter-spacing:-0.02em}
+h3{margin:10px 0;font-size:16px;font-weight:700;color:var(--gray-800)}
+
+/* ============ BUTTONS ============ */
+button,.button{
+  border:0;border-radius:var(--radius);padding:11px 16px;
+  font-weight:600;cursor:pointer;font-size:14px;
+  background:var(--grad-brand);color:#fff;
+  transition:all .2s cubic-bezier(.4,0,.2,1);
+  font-family:inherit;letter-spacing:.01em;
+  box-shadow:0 2px 6px rgba(99,102,241,.25);
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  position:relative;overflow:hidden;
+}
+button:hover,.button:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(99,102,241,.35)}
+button:active,.button:active{transform:translateY(0);box-shadow:0 2px 4px rgba(99,102,241,.25)}
+button:disabled{opacity:.5;cursor:not-allowed;transform:none!important}
+button.secondary,.button.secondary{background:linear-gradient(135deg,#64748b,#475569);box-shadow:0 2px 6px rgba(71,85,105,.25)}
+button.secondary:hover{box-shadow:0 6px 16px rgba(71,85,105,.35)}
+button.success,.button.success{background:var(--grad-success);box-shadow:0 2px 6px rgba(16,185,129,.25)}
+button.success:hover{box-shadow:0 6px 16px rgba(16,185,129,.35)}
+button.danger,.button.danger{background:var(--grad-danger);box-shadow:0 2px 6px rgba(239,68,68,.25)}
+button.danger:hover{box-shadow:0 6px 16px rgba(239,68,68,.35)}
+button.light,.button.light{background:var(--brand-50);color:var(--brand-700);box-shadow:0 1px 3px rgba(99,102,241,.1)}
+button.light:hover{background:var(--brand-100);box-shadow:0 4px 12px rgba(99,102,241,.2)}
+
+/* ============ FORMS ============ */
+label{display:block;font-weight:600;margin:14px 0 6px;font-size:13.5px;color:var(--gray-700);letter-spacing:.01em}
+input,textarea,select{
+  width:100%;padding:12px 14px;border:1.5px solid var(--border);
+  border-radius:var(--radius);font:inherit;font-size:14px;
+  background:#fff;color:var(--text);
+  transition:all .2s ease;font-family:inherit;
+}
+input:hover,textarea:hover,select:hover{border-color:var(--brand-300)}
+input:focus,textarea:focus,select:focus{
+  outline:none;border-color:var(--brand-500);
+  box-shadow:0 0 0 4px rgba(99,102,241,.12);
+}
+input::placeholder,textarea::placeholder{color:var(--gray-400)}
+textarea{min-height:100px;resize:vertical;line-height:1.55}
+select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8L2 4h8z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px}
+
+.row{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+
+/* ============ STATS ============ */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.stat{
+  background:linear-gradient(135deg,#fff 0%,#f8fafc 100%);
+  border-radius:var(--radius-md);padding:22px 18px;text-align:center;
+  border:1px solid var(--border);position:relative;overflow:hidden;
+  transition:all .3s ease;
+}
+.stat::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:var(--grad-brand);border-radius:4px 4px 0 0;
+}
+.stat:nth-child(1)::before{background:linear-gradient(90deg,#6366f1,#8b5cf6)}
+.stat:nth-child(2)::before{background:linear-gradient(90deg,#10b981,#059669)}
+.stat:nth-child(3)::before{background:linear-gradient(90deg,#f59e0b,#d97706)}
+.stat:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.stat b{
+  display:block;font-size:32px;font-weight:800;
+  background:var(--grad-brand);-webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;margin-bottom:4px;
+  font-family:'Plus Jakarta Sans',sans-serif;letter-spacing:-0.03em;
+}
+.stat:nth-child(1) b{background:linear-gradient(135deg,#6366f1,#8b5cf6);-webkit-background-clip:text;background-clip:text}
+.stat:nth-child(2) b{background:linear-gradient(135deg,#10b981,#059669);-webkit-background-clip:text;background-clip:text}
+.stat:nth-child(3) b{background:linear-gradient(135deg,#f59e0b,#d97706);-webkit-background-clip:text;background-clip:text}
+.stat{font-size:13px;font-weight:600;color:var(--gray-600);letter-spacing:.02em;text-transform:uppercase}
+
+/* ============ TABLES ============ */
+table{width:100%;border-collapse:collapse}
+th,td{padding:12px 10px;border-bottom:1px solid var(--border);text-align:left;vertical-align:top;font-size:13.5px}
+th{
+  background:linear-gradient(180deg,#f8fafc 0%,#f1f5f9 100%);
+  font-weight:700;color:var(--gray-700);font-size:12px;
+  text-transform:uppercase;letter-spacing:.05em;
+  border-bottom:2px solid var(--border);position:sticky;top:0;
+}
+tbody tr{transition:background .15s ease}
+tbody tr:hover{background:var(--brand-50)}
+.table-wrap{overflow:auto;border-radius:var(--radius);border:1px solid var(--border);background:#fff}
+
+/* ============ ITEMS ============ */
+.item{
+  border:1px solid var(--border);border-radius:var(--radius);
+  padding:16px;margin:10px 0;background:#fff;
+  transition:all .2s ease;
+}
+.item:hover{border-color:var(--brand-200);box-shadow:var(--shadow-sm)}
+
+/* ============ FILE PREVIEW ============ */
+.file-preview{margin-top:14px;border:1px solid var(--border);border-radius:var(--radius);background:var(--gray-50);padding:14px}
+.pdf-page{background:#fff;margin:0 auto 18px;padding:10px;border:1px solid var(--border);border-radius:10px;box-shadow:var(--shadow-sm)}
+.pdf-page-no{text-align:center;font-size:12px;color:var(--gray-500);margin-bottom:8px;font-weight:600}
+.file-preview img{max-width:none;max-height:none;width:auto;height:auto;display:block;margin:auto;border-radius:8px}
+.image-preview{overflow:auto;background:#fff;text-align:center;border-radius:10px}
+.image-preview img{display:block;margin:auto}
+.pdf-page canvas{display:block;margin:auto;background:#fff;max-width:none}
+.pdf-scroll{overflow:auto;width:100%}
+.file-preview iframe{width:100%;height:70vh;min-height:480px;border:0;border-radius:8px;background:#fff}
+.pdf-viewer{background:#eef2f6}
+.pdf-viewer canvas{background:#fff;max-width:100%}
+.file-preview pre{white-space:pre-wrap;word-break:break-word;max-height:500px;overflow:auto;background:#fff;padding:14px;border-radius:8px;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:12.5px;line-height:1.6}
+.file-preview table{background:#fff}
+.file-preview .office-html{background:#fff;padding:16px;max-height:600px;overflow:auto;border-radius:8px}
+.file-type{
+  display:inline-flex;align-items:center;padding:4px 10px;border-radius:999px;
+  background:var(--brand-50);color:var(--brand-700);
+  font-size:11px;font-weight:700;margin-left:8px;letter-spacing:.03em;text-transform:uppercase;
+}
+.muted{color:var(--muted);font-size:13px}
+
+/* ============ DETAILS/SUMMARY ============ */
+details{
+  border:1px solid var(--border);border-radius:var(--radius);
+  background:#fff;margin-bottom:10px;overflow:hidden;
+  transition:all .2s ease;
+}
+details[open]{box-shadow:var(--shadow-sm);border-color:var(--brand-200)}
+summary{
+  cursor:pointer;color:var(--gray-800);font-size:15px;font-weight:700;
+  padding:14px 16px;list-style:none;
+  display:flex;align-items:center;gap:10px;
+  transition:all .2s ease;
+  user-select:none;
+}
+summary::-webkit-details-marker{display:none}
+summary::before{
+  content:'▸';font-size:14px;color:var(--brand-500);
+  transition:transform .25s cubic-bezier(.4,0,.2,1);
+  display:inline-block;font-weight:700;
+}
+details[open] summary::before{transform:rotate(90deg)}
+summary:hover{background:var(--brand-50);color:var(--brand-700)}
+details > *:not(summary){padding:0 16px 16px}
+
+/* ============ PHOTOS ============ */
+.photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-top:12px}
+.photos .photo-wrap{position:relative;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm)}
+.photos img{width:100%;height:140px;object-fit:cover;display:block;transition:transform .35s ease}
+.photos .photo-wrap:hover img{transform:scale(1.06)}
+.photos .photo-del{
+  position:absolute;top:8px;right:8px;
+  background:rgba(239,68,68,.95);color:#fff;border:0;
+  border-radius:50%;width:30px;height:30px;padding:0;
+  font-size:14px;cursor:pointer;
+  box-shadow:0 2px 8px rgba(0,0,0,.25);
+  display:flex;align-items:center;justify-content:center;
+  transition:all .2s ease;font-weight:700;
+}
+.photos .photo-del:hover{background:#dc2626;transform:scale(1.1)}
+
+/* ============ BADGES ============ */
+.badges label{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--brand-50);color:var(--brand-700);
+  padding:7px 12px;border-radius:999px;margin:4px;
+  font-size:13px;font-weight:600;cursor:pointer;
+  border:1px solid transparent;transition:all .2s ease;
+}
+.badges label:hover{background:var(--brand-100);border-color:var(--brand-200)}
+.badges label:has(input:checked){background:var(--brand-500);color:#fff;box-shadow:0 2px 8px rgba(99,102,241,.3)}
+.badges input{width:auto;accent-color:#fff;margin:0}
+
+/* ============ NOTICES ============ */
+.notice{
+  padding:12px 16px;border-radius:var(--radius);
+  background:var(--warn-50);color:var(--warn-700);
+  margin:10px 0;font-size:13.5px;line-height:1.55;
+  border-left:4px solid var(--warn-500);
+}
+.notice b{color:var(--warn-700)}
+.empty{color:var(--muted);padding:24px 12px;text-align:center;font-size:14px;font-style:italic}
+
+/* ============ MODAL ============ */
+.modal{
+  position:fixed;inset:0;background:rgba(15,23,42,.6);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  z-index:9999;padding:20px;overflow:auto;
+  animation:modalFade .25s ease;
+}
+@keyframes modalFade{from{opacity:0}to{opacity:1}}
+.modal-box{
+  max-width:900px;margin:20px auto;background:#fff;
+  border-radius:var(--radius-lg);padding:26px;
+  box-shadow:0 24px 80px rgba(15,23,42,.35);
+  animation:modalSlide .35s cubic-bezier(.4,0,.2,1);
+  border:1px solid rgba(255,255,255,.5);
+}
+@keyframes modalSlide{from{opacity:0;transform:translateY(24px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+
+/* ============ GROUP CARDS ============ */
+.group-card{
+  border:1px solid var(--border);border-radius:var(--radius-md);
+  padding:18px;margin:12px 0;
+  background:linear-gradient(135deg,#fff 0%,#fafbfc 100%);
+  transition:all .25s ease;
+}
+.group-card:hover{border-color:var(--brand-200);box-shadow:var(--shadow-sm)}
+.group-students{display:flex;flex-wrap:wrap;gap:8px}
+.chip{
+  padding:6px 12px;border-radius:999px;background:var(--gray-100);
+  font-size:12.5px;font-weight:600;color:var(--gray-700);
+  display:inline-flex;align-items:center;gap:6px;
+}
+
+/* ============ SELECT BAR ============ */
+.select-bar{
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  padding:12px 16px;
+  background:linear-gradient(135deg,var(--brand-50) 0%,#f5f3ff 100%);
+  border-radius:var(--radius);margin-bottom:14px;
+  font-size:13px;font-weight:700;color:var(--brand-700);
+  border:1px solid var(--brand-100);
+}
+.select-bar label{display:inline-flex;align-items:center;gap:8px;font-weight:600;margin:0;cursor:pointer;font-size:13.5px}
+.select-bar input[type=checkbox]{width:auto;transform:scale(1.15);accent-color:var(--brand-600);margin:0}
+.select-bar .count{
+  margin-left:auto;background:var(--grad-brand);color:#fff;
+  padding:5px 14px;border-radius:999px;font-weight:700;font-size:12px;
+  box-shadow:0 2px 6px rgba(99,102,241,.25);
+  letter-spacing:.02em;
+}
+.select-bar button{padding:7px 12px;font-size:12.5px}
+
+/* ============ INLINE EDIT ============ */
+.inline-edit{
+  width:100%;padding:7px 10px;border:1.5px solid var(--border);
+  border-radius:8px;font:inherit;font-size:13px;
+  transition:all .15s ease;background:#fff;
+}
+.inline-edit:hover{border-color:var(--brand-300)}
+.inline-edit:focus{outline:none;border-color:var(--brand-500);box-shadow:0 0 0 3px rgba(99,102,241,.12)}
+.row-check{width:auto !important;transform:scale(1.25);margin:0;accent-color:var(--brand-600);cursor:pointer}
+
+/* ============ DROP ZONE ============ */
+.drop-zone{
+  border:2.5px dashed var(--brand-300);border-radius:var(--radius-lg);
+  padding:34px 20px;text-align:center;
+  background:linear-gradient(135deg,#fff 0%,var(--brand-50) 100%);
+  transition:all .3s cubic-bezier(.4,0,.2,1);cursor:pointer;
+  position:relative;overflow:hidden;
+}
+.drop-zone::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 0%,rgba(99,102,241,.08) 0%,transparent 60%);
+  pointer-events:none;
+}
+.drop-zone.drag-over{
+  background:var(--brand-100);border-color:var(--brand-500);
+  transform:scale(1.02);
+  box-shadow:0 8px 32px rgba(99,102,241,.25);
+}
+.drop-zone .drop-icon{font-size:52px;margin-bottom:12px;line-height:1;filter:drop-shadow(0 4px 12px rgba(99,102,241,.2))}
+.drop-zone .drop-text{font-size:15px;line-height:1.7;font-weight:500;color:var(--gray-700)}
+
+/* ============ UPLOAD STATUS ============ */
+.upload-status{margin-top:14px}
+.upload-status .file-row{
+  padding:12px 14px;margin:8px 0;border-radius:var(--radius);
+  background:var(--gray-50);border-left:4px solid var(--brand-500);
+  font-size:13.5px;line-height:1.55;
+  transition:all .2s ease;
+}
+.upload-status .file-row.ok{border-left-color:var(--ok-500);background:var(--ok-50)}
+.upload-status .file-row.warn{border-left-color:var(--danger-500);background:var(--danger-50)}
+.upload-status .file-row.info{border-left-color:var(--gray-400);background:var(--gray-50)}
+.upload-summary{
+  margin-top:14px;padding:16px;border-radius:var(--radius);
+  background:linear-gradient(135deg,var(--brand-50),var(--brand-100));
+  font-weight:700;color:var(--brand-700);
+  border:1px solid var(--brand-200);
+  box-shadow:0 2px 8px rgba(99,102,241,.1);
+}
+
+/* ============ HELP SECTIONS ============ */
+.help-step{
+  background:linear-gradient(135deg,#fff,var(--brand-50));
+  border-left:4px solid var(--brand-500);
+  padding:14px 16px;border-radius:var(--radius);margin:10px 0;
+  box-shadow:0 1px 3px rgba(99,102,241,.08);
+  transition:all .2s ease;
+}
+.help-step:hover{transform:translateX(4px);box-shadow:0 4px 12px rgba(99,102,241,.15)}
+.help-step b{color:var(--brand-700);font-weight:700}
+.help-code{
+  background:var(--gray-900);color:#e2e8f0;
+  padding:14px;border-radius:var(--radius);
+  font-size:12.5px;line-height:1.75;overflow-x:auto;
+  font-family:ui-monospace,'SF Mono',Menlo,monospace;
+  box-shadow:inset 0 1px 3px rgba(0,0,0,.3);
+}
+.help-flow{
+  background:linear-gradient(135deg,var(--brand-500),var(--accent-500));
+  padding:18px;border-radius:var(--radius-md);
+  text-align:center;font-weight:700;color:#fff;
+  font-size:14.5px;line-height:1.9;margin:14px 0;
+  box-shadow:var(--shadow-brand);letter-spacing:.01em;
+}
+.excel-hint{
+  background:linear-gradient(135deg,var(--ok-50),#f0fdf4);
+  border-left:4px solid var(--ok-500);
+  padding:16px;border-radius:var(--radius);
+  margin:12px 0;font-size:13px;color:var(--ok-700);
+}
+.excel-hint table{margin-top:10px;font-size:12.5px;border-radius:8px;overflow:hidden;border:1px solid var(--ok-100)}
+.excel-hint th{background:var(--ok-100);padding:8px 10px;color:var(--ok-700);text-transform:none;letter-spacing:0}
+.excel-hint td{padding:8px 10px}
+.excel-hint code{background:rgba(4,120,87,.1);color:var(--ok-700);padding:2px 6px;border-radius:5px;font-family:ui-monospace,monospace;font-size:12px;font-weight:600}
+
+/* ============ RESMÎ RAPOR ============ */
+#reportOutput{background:#e8ecf2;padding:24px;border-radius:var(--radius-md);min-height:200px}
+.report-page{
+  background:#fff;max-width:900px;margin:auto;padding:50px 60px;
+  font-family:'Times New Roman',Times,Georgia,serif;color:#000;font-size:14px;line-height:1.55;
+  box-shadow:0 8px 40px rgba(15,23,42,.15);border-radius:4px;
+}
 .report-tc{text-align:center;font-weight:bold;font-size:13px;letter-spacing:.5px}
 .report-school{text-align:center;font-weight:bold;font-size:16px;margin-top:2px;text-transform:uppercase}
 .report-club{text-align:center;font-weight:bold;font-size:15px;margin-top:2px;text-transform:uppercase}
@@ -83,7 +443,7 @@ table{width:100%;border-collapse:collapse}th,td{padding:9px;border-bottom:1px so
 .report-section-title{font-size:14px;font-weight:bold;margin:22px 0 10px;text-transform:uppercase;letter-spacing:.3px;border-bottom:1.5px solid #000;padding-bottom:4px}
 .report-summary-table{width:100%;border-collapse:collapse;margin-bottom:20px;font-size:12.5px}
 .report-summary-table th,.report-summary-table td{border:1px solid #000;padding:6px 8px;text-align:left;vertical-align:top}
-.report-summary-table th{background:#eaeaea;font-weight:bold;text-align:center}
+.report-summary-table th{background:#eaeaea;font-weight:bold;text-align:center;text-transform:none;letter-spacing:0;font-size:12px}
 .report-summary-table td.num{text-align:center;width:40px}
 .report-activity-detail{border:1px solid #000;padding:12px 14px;margin-bottom:14px;page-break-inside:avoid}
 .report-activity-detail h4{margin:0 0 8px;font-size:13.5px;font-weight:bold;text-transform:uppercase;letter-spacing:.3px}
@@ -92,7 +452,7 @@ table{width:100%;border-collapse:collapse}th,td{padding:9px;border-bottom:1px so
 .report-activity-detail table td:first-child{width:32%;font-weight:bold}
 .report-activity-detail table tr:last-child td{border-bottom:0}
 .report-photos-wrap{margin-top:10px;text-align:center}
-.report-photo{max-width:260px;max-height:200px;object-fit:cover;margin:5px;border:1px solid #333}
+.report-photo{max-width:260px;max-height:200px;object-fit:cover;margin:5px;border:1px solid #333;border-radius:3px}
 .report-eval-text{text-align:justify;font-size:13px;margin:8px 0 16px;text-indent:24px}
 .report-signature{margin-top:50px;page-break-inside:avoid}
 .report-signature table{width:100%;border-collapse:collapse}
@@ -103,58 +463,74 @@ table{width:100%;border-collapse:collapse}th,td{padding:9px;border-bottom:1px so
 .report-signature .sig-role{font-style:italic;font-size:12px;margin-top:2px}
 .report-footer-note{text-align:center;font-size:11px;margin-top:40px;font-style:italic;color:#333}
 
+/* ============ RESPONSIVE ============ */
 @media(max-width:650px){
   .row,.stats{grid-template-columns:1fr}
-  .card{padding:14px}
+  .card{padding:16px}
   nav{grid-template-columns:repeat(2,1fr)}
-  table{font-size:13px}
-  main{padding:10px}
+  table{font-size:12.5px}
+  th,td{padding:9px 8px}
+  main{padding:12px}
+  header h1{font-size:20px}
+  header h1 span.emoji{font-size:22px}
   .report-page{padding:24px 18px}
   .report-school{font-size:14px}
   .report-club{font-size:13px}
   .report-title{font-size:13px}
   .report-title2{font-size:14px}
+  .modal-box{padding:20px;border-radius:var(--radius-md)}
 }
 @media(orientation:landscape) and (max-height:600px){
-  header{padding:12px 16px}
+  header{padding:12px 16px 14px}
   header h1{font-size:18px}
   header small{font-size:12px}
   main{max-width:100%;padding:10px}
-  nav{grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:6px;margin-bottom:8px}
+  nav{grid-template-columns:repeat(auto-fit,minmax(105px,1fr));gap:6px;margin-bottom:10px;padding:6px}
   nav button{padding:8px 10px;font-size:12px}
-  .card{padding:14px;margin-bottom:10px;border-radius:10px}
-  .card h2{font-size:16px;margin-bottom:10px}
+  .card{padding:14px;margin-bottom:12px;border-radius:var(--radius)}
+  .card h2{font-size:16px;margin-bottom:12px}
   .stats{grid-template-columns:repeat(3,1fr)}
-  .stat{padding:10px}.stat b{font-size:22px}
+  .stat{padding:14px 10px}.stat b{font-size:24px}
   .row{grid-template-columns:repeat(2,1fr);gap:10px}
-  .photos{grid-template-columns:repeat(auto-fill,minmax(100px,1fr))}
-  .photos img{height:100px}
+  .photos{grid-template-columns:repeat(auto-fill,minmax(110px,1fr))}
+  .photos img{height:110px}
   textarea{min-height:70px}
-  .modal-box{max-width:1200px;margin:10px auto;padding:16px}
-  .help-flow{padding:10px;font-size:13px}
-  .help-step{padding:8px 10px;margin:6px 0;font-size:13px}
-  .table-wrap table{font-size:12px}
-  th,td{padding:6px 8px}
+  .modal-box{max-width:1200px;margin:10px auto;padding:18px}
+  .help-flow{padding:12px;font-size:13px}
+  .help-step{padding:10px 12px;margin:8px 0;font-size:13px}
+  .table-wrap table{font-size:12.5px}
+  th,td{padding:8px 8px}
 }
-@media(orientation:landscape) and (min-width:900px){main{max-width:1500px}nav{grid-template-columns:repeat(8,1fr)}}
-
+@media(orientation:landscape) and (min-width:900px){
+  main{max-width:1500px}
+  nav{grid-template-columns:repeat(8,1fr)}
+}
 @media print{
   header,nav,.no-print{display:none!important}
   body{background:#fff}
   main{padding:0;max-width:none}
-  .card{box-shadow:none;padding:0}
+  .card{box-shadow:none;padding:0;border:0;margin:0}
   #reportSection{display:block!important}
-  #reportOutput{padding:0;background:#fff}
-  .report-page{box-shadow:none;padding:0;max-width:none;font-size:12pt}
+  #reportOutput{padding:0;background:#fff;border-radius:0}
+  .report-page{box-shadow:none;padding:0;max-width:none;font-size:12pt;border-radius:0}
   .report-photo{max-width:220px;max-height:170px}
   .modal{display:none!important}
   .report-activity-detail{page-break-inside:avoid}
   @page{margin:1.5cm}
 }
+
+/* ============ SCROLLBAR ============ */
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:var(--gray-100);border-radius:10px}
+::-webkit-scrollbar-thumb{background:var(--gray-300);border-radius:10px;border:2px solid var(--gray-100)}
+::-webkit-scrollbar-thumb:hover{background:var(--gray-400)}
 </style>
 </head>
 <body>
-<header><h1>📚 Klüp Dosyası</h1><small>Öğrenci • Plan • Faaliyet • Fotoğraf • Rapor</small></header>
+<header>
+  <h1><span class="emoji">📚</span> Klüp Dosyası</h1>
+  <small>Öğrenci • Plan • Faaliyet • Fotoğraf • Rapor</small>
+</header>
 <main>
 <nav class="no-print">
 <button onclick="show('home')">🏠 Ana Sayfa</button>
@@ -242,8 +618,8 @@ table{width:100%;border-collapse:collapse}th,td{padding:9px;border-bottom:1px so
 </section>
 
 <section id="workplan">
-<div class="card" style="border:2px solid #039855;background:#f0fdf4">
-<h2 style="color:#065f46">📊 Excel'den Çalışma Planı Yükle</h2>
+<div class="card" style="border:2px solid var(--ok-500);background:linear-gradient(135deg,#fff,var(--ok-50))">
+<h2 style="color:var(--ok-700)">📊 Excel'den Çalışma Planı Yükle</h2>
 <p>Excel dosyanızdaki <b>Hafta / Tarih / Kazanım / Faaliyet</b> sütunları otomatik algılanır. Tarih alanında <b>"Aralık"</b> gibi bir ay adı varsa o ayın bir günü otomatik atanır. <b>Her satır hem çalışma planına hem de faaliyete</b> eklenir.</p>
 <div class="excel-hint">
 <b>✅ Beklenen Excel Sütunları:</b>
@@ -256,7 +632,7 @@ table{width:100%;border-collapse:collapse}th,td{padding:9px;border-bottom:1px so
 </table>
 <p style="margin:8px 0 0;font-size:12px"><b>Tarih formatları:</b> <code>15.09.2026</code> · <code>2026-09-15</code> · <code>15/09/2026</code> · <code>Aralık</code> · <code>Aralık 2026</code> · <code>12/2026</code></p>
 </div>
-<div id="wpExcelDropZone" class="drop-zone" style="border-color:#039855;background:#f0fdf4">
+<div id="wpExcelDropZone" class="drop-zone" style="border-color:var(--ok-500);background:linear-gradient(135deg,#fff,var(--ok-50))">
   <div class="drop-icon">📊</div>
   <div class="drop-text"><b>Excel dosyasını buraya bırakın</b><br>veya<br>
     <label class="button success" style="display:inline-block">📎 Excel Seç<input id="wpExcelFile" type="file" hidden accept=".xlsx,.xls,.csv" onchange="handleWorkPlanExcelUpload(this.files)"></label>
@@ -483,7 +859,6 @@ async function load(){
   document.getElementById('school').value=state.club.school;
   document.getElementById('principal').value=state.club.principal||'';
   document.getElementById('schoolYear').value=state.club.year;
-  // Rapor tarihini bugüne ayarla
   let rd=document.getElementById('reportDate');
   if(rd&&!rd.value)rd.value=new Date().toISOString().slice(0,10);
   render();
@@ -491,7 +866,6 @@ async function load(){
 async function saveState(){await setMeta('state',state);render()}
 function show(id){document.querySelectorAll('section').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');if(id==='activities')renderParticipants()}
 
-/* ---------- SIRALAMA + TARİH ---------- */
 function weekNumber(x){let m=String(x.week||'').match(/\d+/);return m?parseInt(m[0],10):9999}
 function sortByDateThenWeek(items){return [...items].sort((a,b)=>{let da=a.date||'',db=b.date||'';if(da&&db){let c=da.localeCompare(db);if(c!==0)return c;return weekNumber(a)-weekNumber(b)}if(da&&!db)return -1;if(!da&&db)return 1;return weekNumber(a)-weekNumber(b)})}
 function getYearForMonth(month){
@@ -525,17 +899,14 @@ function parseTurkishDate(text){
   return '';
 }
 
-/* ---------- SEÇİM ---------- */
 const selection={students:new Set(),files:new Set(),workplans:new Set(),activities:new Set()};
 function updateCount(key){
   const map={students:'studentsSelCount',files:'filesSelCount',workplans:'wpSelCount',activities:'actSelCount'};
   const el=document.getElementById(map[key]);if(el)el.textContent=`${selection[key].size} seçili`;
 }
 
-/* ---------- KULÜP ---------- */
 function saveClub(){state.club={name:document.getElementById('clubName').value.trim(),advisor:document.getElementById('advisor').value.trim(),school:document.getElementById('school').value.trim(),principal:document.getElementById('principal').value.trim(),year:document.getElementById('schoolYear').value.trim()};saveState();alert('Kulüp bilgileri kaydedildi.')}
 
-/* ---------- ÖĞRENCİLER ---------- */
 function addStudent(){let n=document.getElementById('studentName').value.trim();if(!n)return alert('Öğrenci adı yazın.');state.students.push({id:crypto.randomUUID(),name:n});document.getElementById('studentName').value='';saveState()}
 function addBulkStudents(){let a=document.getElementById('bulkStudents').value.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);a.forEach(n=>state.students.push({id:crypto.randomUUID(),name:n}));document.getElementById('bulkStudents').value='';saveState();alert(a.length+' öğrenci eklendi.')}
 function removeStudent(id){if(confirm('Öğrenci silinsin mi?')){state.students=state.students.filter(x=>x.id!==id);state.studentGroups.forEach(g=>g.studentIds=g.studentIds.filter(x=>x!==id));state.activities.forEach(a=>a.participants=(a.participants||[]).filter(x=>x!==id));selection.students.delete(id);saveState()}}
@@ -555,7 +926,6 @@ async function importStudentsFromFile(){
   }catch(e){alert('Hata: '+e.message)}
 }
 
-/* ---------- GRUPLAR ---------- */
 function addStudentGroup(){let name=document.getElementById('groupName').value.trim();if(!name)return alert('Grup adı yazın.');state.studentGroups.push({id:crypto.randomUUID(),name,studentIds:[]});document.getElementById('groupName').value='';saveState()}
 function autoCreateGroups(){let n=parseInt(document.getElementById('autoGroupCount').value,10);if(!n||n<1)return alert('Grup sayısı girin.');state.studentGroups=[];for(let i=0;i<n;i++)state.studentGroups.push({id:crypto.randomUUID(),name:`Grup ${i+1}`,studentIds:[]});state.students.forEach((s,i)=>state.studentGroups[i%state.studentGroups.length].studentIds.push(s.id));saveState()}
 function saveGroup(id){let g=state.studentGroups.find(x=>x.id===id);if(!g)return;g.name=document.getElementById('gn_'+id).value.trim()||g.name;g.studentIds=[...document.querySelectorAll('.gm_'+id+':checked')].map(x=>x.value);saveState()}
@@ -567,7 +937,6 @@ function renderStudentGroups(){
   box.innerHTML=state.studentGroups.map(g=>`<div class="group-card"><div class="row"><div><label><input type="checkbox" class="group-cb" value="${g.id}"> Grup adı</label><input id="gn_${g.id}" value="${esc(g.name)}"></div><div><label>Öğrenciler</label><div class="group-students">${state.students.map(s=>`<label class="chip"><input class="gm_${g.id}" type="checkbox" value="${s.id}" ${g.studentIds.includes(s.id)?'checked':''}> ${esc(s.name)}</label>`).join('')}</div></div></div><div class="actions"><button class="success" onclick="saveGroup('${g.id}')">💾 Kaydet</button><button class="danger" onclick="deleteGroup('${g.id}')">Sil</button></div></div>`).join('');
 }
 
-/* ---------- YILLIK PLAN ARŞİVİ ---------- */
 function detectFileType(file){
   const name=(file.name||'').toLowerCase();const type=(file.type||'').toLowerCase();
   if(type.startsWith('image/')||/\.(png|jpe?g|gif|webp|bmp|svg)$/.test(name))return 'image';
@@ -609,7 +978,7 @@ async function renderAnnual(){
   document.getElementById('annualList').innerHTML=fs.map(x=>{
     let ext=x.name.includes('.')?x.name.split('.').pop().toUpperCase():'DOSYA';
     let checked=selection.files.has(x.id)?'checked':'';
-    return `<div class="item"><label style="display:flex;align-items:center;gap:10px"><input type="checkbox" class="file-cb" value="${x.id}" ${checked} onchange="toggleSelectFile('${x.id}',this.checked)"><b>📎 ${esc(x.name)}</b><span class="file-type">${ext}</span></label><div class="muted" style="margin-left:30px">${Math.max(1,Math.round(x.size/1024))} KB</div><div class="actions" style="margin-left:30px"><button class="light" onclick="viewFile('${x.id}')">👁️ Görüntüle</button><button class="secondary" onclick="downloadFile('${x.id}')">⬇️ İndir</button><button class="danger" onclick="removeAnnual('${x.id}')">Sil</button></div></div>`
+    return `<div class="item"><label style="display:flex;align-items:center;gap:10px"><input type="checkbox" class="file-cb row-check" value="${x.id}" ${checked} onchange="toggleSelectFile('${x.id}',this.checked)"><b>📎 ${esc(x.name)}</b><span class="file-type">${ext}</span></label><div class="muted" style="margin-left:30px">${Math.max(1,Math.round(x.size/1024))} KB</div><div class="actions" style="margin-left:30px"><button class="light" onclick="viewFile('${x.id}')">👁️ Görüntüle</button><button class="secondary" onclick="downloadFile('${x.id}')">⬇️ İndir</button><button class="danger" onclick="removeAnnual('${x.id}')">Sil</button></div></div>`
   }).join('')||'<div class="empty">Dosya yok.</div>';
 }
 
@@ -638,7 +1007,6 @@ async function viewFile(id){
 function closeFileViewer(){document.getElementById('fileViewer').style.display='none';document.getElementById('viewerContent').innerHTML=''}
 async function downloadFile(id){let all=await getAllFiles(),x=all.find(a=>a.id===id);if(!x)return;let u=URL.createObjectURL(x.blob),a=document.createElement('a');a.href=u;a.download=x.name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)}
 
-/* ---------- PARSE HELPERS ---------- */
 function normalizeCell(v){return String(v??'').replace(/\s+/g,' ').trim()}
 function cleanHeader(v){return normalizeCell(v).toLocaleLowerCase('tr-TR').replace(/[ıİ]/g,'i').replace(/[ğĞ]/g,'g').replace(/[üÜ]/g,'u').replace(/[şŞ]/g,'s').replace(/[öÖ]/g,'o').replace(/[çÇ]/g,'c')}
 function headerType(v){
@@ -652,7 +1020,6 @@ function headerType(v){
 function detectOutcome(text){return normalizeCell(text).replace(/^\s*(kazanım|öğrenme çıktısı|hedef|amaç|faaliyet|etkinlik|açıklama)\s*[:：-]?\s*/i,'').trim()}
 function parseWeek(v){let t=normalizeCell(v);if(!t)return '';let m=t.match(/(\d{1,2})\s*\.?\s*hafta/i);if(m)return `${m[1]}. Hafta`;m=t.match(/hafta\s*[:\-]?\s*(\d{1,2})/i);if(m)return `${m[1]}. Hafta`;return t}
 
-/* ---------- EXCEL'DEN ÇALIŞMA PLANI YÜKLEME ---------- */
 async function handleWorkPlanExcelUpload(files){
   if(!files||!files.length)return;
   let f=files[0];
@@ -759,7 +1126,6 @@ async function handleWorkPlanExcelUpload(files){
   }
 }
 
-/* ---------- ÇALIŞMA PLANI ---------- */
 function clearWorkPlanForm(){['wpWeek','wpDate','wpOutcome','wpTitle','wpDesc'].forEach(id=>{let el=document.getElementById(id);if(el)el.value=''});window.editingWorkPlanId=null}
 function addWorkPlanManual(){
   let title=document.getElementById('wpTitle').value.trim();if(!title)return alert('Faaliyet adı zorunlu.');
@@ -824,7 +1190,6 @@ function openActivityFromWorkPlan(id){
 }
 function workPlanActivityInfo(id){let list=state.activities.filter(a=>a.workplanId===id);let done=list.filter(a=>a.completed!==false).length;return {count:list.length,done}}
 
-/* ---------- FAALİYETLER ---------- */
 function renderParticipants(){let box=document.getElementById('participants');if(!box)return;box.innerHTML=state.students.map(s=>`<label class="chip"><input class="ap" type="checkbox" value="${s.id}"> ${esc(s.name)}</label>`).join('')||'<span class="muted">Öğrenci yok.</span>'}
 function openActivityModal(){
   window.editingActivityId=null;document.getElementById('activityModal').style.display='block';populateModalSelectors();
@@ -911,7 +1276,6 @@ async function autoCreateActivitiesFromPendingWorkplans(){
   alert(`${created} faaliyet oluşturuldu.`);
 }
 
-/* ---------- RENDER ---------- */
 function fmtDate(s){if(!s)return '';let [y,m,d]=s.split('-');return `${d}.${m}.${y}`}
 function fmtDateLong(s){if(!s)return '';let [y,m,d]=s.split('-');let mi=parseInt(m,10)-1;return `${parseInt(d,10)} ${TR_MONTHS[mi]} ${y}`}
 function esc(s=''){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
@@ -959,23 +1323,21 @@ async function renderActivities(){
     let g=state.studentGroups.find(x=>x.id===a.groupId);
     let ps=files.filter(f=>(a.photoIds||[]).includes(f.id));
     let imgs=ps.map(f=>`<div class="photo-wrap"><img src="${URL.createObjectURL(f.blob)}" alt="${esc(f.name)}"><button class="photo-del" onclick="removeActivityPhoto('${a.id}','${f.id}')">✕</button></div>`).join('');
-    let statusHtml=a.completed===false?'<span style="color:#d92d20">⚠️ Rapor dışı</span>':a.completed===true?'✅ Gerçekleşti':'⚠️ Düzenleyin';
+    let statusHtml=a.completed===false?'<span style="color:var(--danger-600);font-weight:700">⚠️ Rapor dışı</span>':a.completed===true?'<span style="color:var(--ok-600);font-weight:700">✅ Gerçekleşti</span>':'<span style="color:var(--warn-700);font-weight:700">⚠️ Düzenleyin</span>';
     let checked=selection.activities.has(a.id)?'checked':'';
     return `<div class="item">
-      <label style="display:flex;align-items:center;gap:8px"><input type="checkbox" class="act-cb row-check" value="${a.id}" ${checked} onchange="toggleSelectActivity('${a.id}',this.checked)"> <b>${esc(a.title)}</b></label>
-      <div style="margin-left:30px"><b>Tarih:</b> ${fmtDate(a.date)} ${a.week?`<b>Hafta:</b> ${esc(a.week)}`:''}</div>
-      <p style="margin-left:30px">${esc(a.desc||'')}</p>
-      <div style="margin-left:30px"><b>Grup:</b> ${esc(g?.name||'')} · <b>Katılanlar:</b> ${esc(names)}</div>
-      <div class="muted" style="margin-left:30px"><b>Durum:</b> ${statusHtml}</div>
-      <div class="photos" style="margin-left:30px">${imgs}</div>
-      <div class="actions no-print" style="margin-left:30px"><button class="light" onclick="editActivity('${a.id}')">✏️ Düzenle</button><button class="danger" onclick="removeActivity('${a.id}')">🗑️ Sil</button></div>
+      <label style="display:flex;align-items:center;gap:10px;font-size:15px"><input type="checkbox" class="act-cb row-check" value="${a.id}" ${checked} onchange="toggleSelectActivity('${a.id}',this.checked)"> <b style="font-family:'Plus Jakarta Sans',sans-serif">${esc(a.title)}</b></label>
+      <div style="margin-left:34px;margin-top:8px"><b>Tarih:</b> ${fmtDate(a.date)} ${a.week?`· <b>Hafta:</b> ${esc(a.week)}`:''}</div>
+      <p style="margin-left:34px;margin-top:6px;color:var(--gray-600)">${esc(a.desc||'')}</p>
+      <div style="margin-left:34px"><b>Grup:</b> ${esc(g?.name||'—')} · <b>Katılanlar:</b> ${esc(names)}</div>
+      <div class="muted" style="margin-left:34px;margin-top:4px"><b>Durum:</b> ${statusHtml}</div>
+      <div class="photos" style="margin-left:34px">${imgs}</div>
+      <div class="actions no-print" style="margin-left:34px"><button class="light" onclick="editActivity('${a.id}')">✏️ Düzenle</button><button class="danger" onclick="removeActivity('${a.id}')">🗑️ Sil</button></div>
     </div>`;
   }).join('')||'<div class="empty">Faaliyet yok.</div>';
 }
 
-/* ============================================================
-   RESMÎ RAPOR OLUŞTURMA
-   ============================================================ */
+/* ---------- RESMÎ RAPOR ---------- */
 function reportTypeChanged(){
   let t=document.getElementById('reportType').value;
   document.getElementById('monthlyBox').style.display=t==='monthly'?'block':'none';
@@ -1009,7 +1371,6 @@ async function makeReport(){
   let files=await getAllFiles();
   let {arr,raporAdi,t}=q;
 
-  // Rapor künyesi
   let raporTarihi=document.getElementById('reportDate').value||new Date().toISOString().slice(0,10);
   let raporNo=(document.getElementById('reportNo').value||'').trim();
   let egitimYili=state.club.year||'—';
@@ -1018,18 +1379,12 @@ async function makeReport(){
   let danisman=state.club.advisor||'—';
   let mudur=state.club.principal||'—';
 
-  // Toplam katılımcı sayısı (farklı öğrenciler)
   let tumKatilimcilar=new Set();
   for(const a of arr){for(const p of (a.participants||[]))tumKatilimcilar.add(p)}
   let toplamKatilimci=tumKatilimcilar.size;
-
-  // Faaliyetlerden bazı özet değerler
   let faaliyetSayisi=arr.length;
 
-  // HTML oluştur
   let html='';
-
-  // ---- BÖLÜM 1: BAŞLIK ----
   html+=`<div class="report-tc">T.C.</div>`;
   html+=`<div class="report-school">${esc(okulAdi)} MÜDÜRLÜĞÜ</div>`;
   if(kulupAdi)html+=`<div class="report-club">${esc(kulupAdi)}</div>`;
@@ -1037,7 +1392,6 @@ async function makeReport(){
   html+=`<div class="report-title">${esc(egitimYili)} EĞİTİM VE ÖĞRETİM YILI</div>`;
   html+=`<div class="report-title2">${esc(raporAdi)}</div>`;
 
-  // ---- BÖLÜM 2: KÜNYE TABLOSU ----
   html+=`<table class="report-info-table">
     <tr><td>Rapor Tarihi</td><td>${esc(fmtDateLong(raporTarihi))}</td></tr>
     ${raporNo?`<tr><td>Rapor Sayısı</td><td>${esc(raporNo)}</td></tr>`:''}
@@ -1050,40 +1404,20 @@ async function makeReport(){
     <tr><td>Faaliyetlere Katılan Öğrenci Sayısı</td><td>${toplamKatilimci} öğrenci</td></tr>
   </table>`;
 
-  // ---- BÖLÜM I: FAALİYET ÖZETİ ----
   html+=`<h3 class="report-section-title">I. GERÇEKLEŞTİRİLEN FAALİYETLERİN ÖZETİ</h3>`;
   if(!faaliyetSayisi){
     html+=`<p style="text-align:justify;font-size:13px">Bu rapor döneminde kayıtlara geçmiş herhangi bir faaliyet bulunmamaktadır.</p>`;
   } else {
-    html+=`<table class="report-summary-table">
-      <thead>
-        <tr>
-          <th>Sıra</th>
-          <th>Tarih</th>
-          <th>Hafta</th>
-          <th>Faaliyetin Adı</th>
-          <th>Kazanım / Amaç</th>
-          <th>Katılımcı Sayısı</th>
-        </tr>
-      </thead>
-      <tbody>`;
+    html+=`<table class="report-summary-table"><thead><tr><th>Sıra</th><th>Tarih</th><th>Hafta</th><th>Faaliyetin Adı</th><th>Kazanım / Amaç</th><th>Katılımcı Sayısı</th></tr></thead><tbody>`;
     for(let i=0;i<arr.length;i++){
       let a=arr[i];
       let katSayi=(a.participants||[]).length;
       let hafta=a.week||(state.workplans.find(w=>w.id===a.workplanId)?.week)||'—';
-      html+=`<tr>
-        <td class="num">${i+1}</td>
-        <td>${esc(fmtDate(a.date))}</td>
-        <td>${esc(hafta)}</td>
-        <td>${esc(a.title||'—')}</td>
-        <td>${esc((a.desc||'').substring(0,160))}${(a.desc||'').length>160?'…':''}</td>
-        <td class="num">${katSayi}</td>
-      </tr>`;
+      html+=`<tr><td class="num">${i+1}</td><td>${esc(fmtDate(a.date))}</td><td>${esc(hafta)}</td><td>${esc(a.title||'—')}</td><td>${esc((a.desc||'').substring(0,160))}${(a.desc||'').length>160?'…':''}</td><td class="num">${katSayi}</td></tr>`;
     }
     html+=`</tbody></table>`;
   }
 
-  // ---- BÖLÜM II: FAALİYET DETAYLARI ----
   html+=`<h3 class="report-section-title">II. FAALİYETLERİN AYRINTILI AÇIKLAMASI</h3>`;
   if(!faaliyetSayisi){
     html+=`<p style="text-align:justify;font-size:13px">Ayrıntılı olarak açıklanacak faaliyet bulunmamaktadır.</p>`;
@@ -1104,7 +1438,6 @@ async function makeReport(){
           <tr><td>Katılımcı Öğrenci Sayısı</td><td>${katilimcilar.length} öğrenci</td></tr>
           <tr><td>Katılımcı Öğrenciler</td><td>${esc(katilimMetni)}</td></tr>
         </table>`;
-      // Fotoğraflar
       let ps=files.filter(f=>(a.photoIds||[]).includes(f.id));
       if(ps.length){
         html+=`<div class="report-photos-wrap"><div style="font-weight:bold;font-size:12px;text-align:left;margin-bottom:4px">Faaliyet Fotoğrafları:</div>`;
@@ -1115,11 +1448,9 @@ async function makeReport(){
     }
   }
 
-  // ---- BÖLÜM III: DEĞERLENDİRME VE SONUÇ ----
   html+=`<h3 class="report-section-title">III. DEĞERLENDİRME VE SONUÇ</h3>`;
   let evalText=(document.getElementById('reportEval').value||'').trim();
   if(!evalText){
-    // Standart resmî değerlendirme paragrafı
     let donemIfade='';
     if(t==='monthly')donemIfade='bu ay içerisinde';
     else if(t==='term')donemIfade='bu dönem içerisinde';
@@ -1129,13 +1460,11 @@ async function makeReport(){
       `Kulüp çalışmaları; okul yönetiminin bilgisi ve desteği, kulüp danışman öğretmeninin rehberliği ve öğrencilerin etkin katılımı ile planlanan takvime uygun olarak yürütülmüştür. Faaliyetlerin gerçekleştirilmesinde emeği geçen başta danışman öğretmen ve kulüp öğrencileri olmak üzere tüm katkı sağlayanlara teşekkür edilir.\n\n` +
       `İş bu rapor, ilgili mevzuat ve okul yönetiminin talimatları doğrultusunda hazırlanarak arz ve takdim olunur.`;
   }
-  // Paragrafları ayrı ayrı yazdır
   let evalParagraphs=evalText.split(/\n\s*\n/).filter(Boolean);
   for(const p of evalParagraphs){
     html+=`<p class="report-eval-text">${esc(p.trim()).replace(/\n/g,'<br>')}</p>`;
   }
 
-  // ---- İMZA BLOĞU ----
   html+=`<div class="report-signature">
     <table>
       <tr>
@@ -1161,7 +1490,6 @@ async function makeReport(){
   document.getElementById('reportOutput').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-/* ---------- BACKUP & WIPE ---------- */
 async function exportBackup(){let files=await getAllFiles();let encoded=[];for(const f of files){encoded.push({id:f.id,kind:f.kind,name:f.name,type:f.type,size:f.size,date:f.date,activityId:f.activityId||null,data:await blobToDataURL(f.blob)})}let out={version:9,state,files:encoded,created:new Date().toISOString()};let blob=new Blob([JSON.stringify(out)],{type:'application/json'}),u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download='klup-dosyasi-yedek.json';a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)}
 function blobToDataURL(blob){return new Promise((res,rej)=>{let r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(blob)})}
 function dataURLToBlob(data){let [head,b64]=data.split(',');let mime=(head.match(/:(.*?);/)||[])[1]||'application/octet-stream';let bin=atob(b64),arr=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)arr[i]=bin.charCodeAt(i);return new Blob([arr],{type:mime})}
@@ -1176,7 +1504,6 @@ async function wipeAllData(){
   render();alert('Tüm veriler silindi.');
 }
 
-/* ---------- DROP ZONES ---------- */
 function setupDropZone(){
   let dz=document.getElementById('annualDropZone');
   if(dz){
@@ -1192,7 +1519,6 @@ function setupDropZone(){
   }
 }
 
-/* ---------- INIT ---------- */
 if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 window.addEventListener('DOMContentLoaded',setupDropZone);
 load();
