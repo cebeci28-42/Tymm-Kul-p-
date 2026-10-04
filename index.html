@@ -29,8 +29,8 @@ label{display:block;font-weight:700;margin:10px 0 5px}input,textarea,select{widt
 textarea{min-height:100px;resize:vertical}.row{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.stat{background:#eef4ff;border-radius:12px;padding:15px;text-align:center}.stat b{display:block;font-size:28px;color:var(--p)}
 table{width:100%;border-collapse:collapse}th,td{padding:9px;border-bottom:1px solid #eaecf0;text-align:left;vertical-align:top}th{background:#f8fafc}
-.table-wrap{overflow:auto}.item{border:1px solid #e4e7ec;border-radius:10px;padding:12px;margin:9px 0}.file-preview{margin-top:12px;border:1px solid #d0d5dd;border-radius:10px;background:#f8fafc;padding:10px}.pdf-page{background:#fff;margin:0 auto 18px;padding:8px;border:1px solid #d0d5dd;border-radius:8px;box-shadow:0 2px 8px #0001}.pdf-page-no{text-align:center;font-size:12px;color:#667085;margin-bottom:7px}.file-preview img{max-width:none;max-height:none;width:auto;height:auto;display:block;margin:auto;border-radius:8px}.image-preview{overflow:auto;background:#fff;text-align:center}.image-preview img{display:block;margin:auto}.image-controls{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;margin-bottom:10px}.image-controls button{min-width:90px}.pdf-toolbar{position:sticky;top:0;z-index:2;background:#eef2f6;padding:8px;border-bottom:1px solid #d0d5dd;margin-bottom:10px}.pdf-page canvas{display:block;margin:auto;background:#fff;max-width:none}.pdf-scroll{overflow:auto;width:100%}.file-preview iframe{width:100%;height:70vh;min-height:480px;border:0;border-radius:8px;background:#fff}.pdf-viewer{background:#eef2f6}.pdf-viewer canvas{background:#fff;max-width:100%}.file-preview pre{white-space:pre-wrap;word-break:break-word;max-height:500px;overflow:auto;background:#fff;padding:12px;border-radius:8px}.file-preview table{background:#fff}.file-preview .office-html{background:#fff;padding:15px;max-height:600px;overflow:auto}.file-type{display:inline-block;padding:3px 7px;border-radius:20px;background:#eef4ff;color:#1749a6;font-size:12px;margin-left:5px}.muted{color:var(--muted);font-size:13px}.card details{border:1px solid #e4e7ec;border-radius:10px;padding:12px;background:#fff}.card summary{cursor:pointer;color:#123f9c;font-size:16px}.card details p,.card details ul{line-height:1.65}.card details li{margin:5px 0}
-.photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-top:10px}.photos img{width:100%;height:130px;object-fit:cover;border-radius:8px}
+.table-wrap{overflow:auto}.item{border:1px solid #e4e7ec;border-radius:10px;padding:12px;margin:9px 0}.file-preview{margin-top:12px;border:1px solid #d0d5dd;border-radius:10px;background:#f8fafc;padding:10px}.pdf-page{background:#fff;margin:0 auto 18px;padding:8px;border:1px solid #d0d5dd;border-radius:8px;box-shadow:0 2px 8px #0001}.pdf-page-no{text-align:center;font-size:12px;color:#667085;margin-bottom:7px}.file-preview img{max-width:none;max-height:none;width:auto;height:auto;display:block;margin:auto;border-radius:8px}.image-preview{overflow:auto;background:#fff;text-align:center}.image-preview img{display:block;margin:auto}.image-controls{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;margin-bottom:10px}.image-controls button{min-width:90px}.pdf-toolbar{position:sticky;top:0;z-index:2;background:#eef2f6;padding:8px;border-bottom:1px solid #d0d5dd;margin-bottom:10px}.pdf-page canvas{display:block;margin:auto;background:#fff;max-width:none}.pdf-scroll{overflow:auto;width:100%}.file-preview iframe{width:100%;height:70vh;min-height:480px;border:0;border-radius:8px;background:#fff}.pdf-viewer{background:#eef2f6}.pdf-viewer canvas{background:#fff;max-width:100%}.file-preview pre{white-space:pre-wrap;word-break:break-word;max-height:500px;overflow:auto;background:#fff;padding:12px;border-radius:8px}.file-preview table{background:#fff}.file-preview .office-html{background:#fff;padding:15px;max-height:600px;overflow:auto}.file-type{display:inline-block;padding:3px 7px;border-radius:20px;background:#eef4ff;color:#1749a6;font-size:12px;margin-left:5px}.muted{color:var(--muted);font-size:13px}.card details{border:1px solid #e4e7ec;border-radius:10px;padding:12px;background:#fff;margin-bottom:8px}.card summary{cursor:pointer;color:#123f9c;font-size:16px;font-weight:700;padding:4px 0}.card details[open] summary{margin-bottom:10px;border-bottom:1px solid #eaecf0;padding-bottom:8px}
+.photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-top:10px}.photos .photo-wrap{position:relative}.photos img{width:100%;height:130px;object-fit:cover;border-radius:8px}.photos .photo-del{position:absolute;top:4px;right:4px;background:rgba(217,45,32,.9);color:#fff;border:0;border-radius:50%;width:28px;height:28px;padding:0;font-size:14px;cursor:pointer}
 .preview{display:flex;gap:10px;flex-wrap:wrap}.preview img{width:100px;height:80px;object-fit:cover;border-radius:7px}
 .badges label{display:inline-flex;align-items:center;gap:5px;background:#eef4ff;color:#1749a6;padding:6px 9px;border-radius:20px;margin:3px}.badges input{width:auto}
 .notice{padding:10px;border-radius:9px;background:#fffaeb;color:#7a5b00;margin:8px 0}.empty{color:var(--muted);padding:12px 0}
@@ -45,19 +45,28 @@ table{width:100%;border-collapse:collapse}th,td{padding:9px;border-bottom:1px so
 #modalParticipants .chip{user-select:none}
 #modalParticipants .chip.hidden{display:none}
 #modalParticipantCount{font-weight:700;color:#123f9c}
-/* Akıllı dosya yükleme alanı */
 .drop-zone{border:2px dashed #b5c5e0;border-radius:14px;padding:30px 20px;text-align:center;background:#f8fbff;transition:.2s;cursor:pointer;position:relative}
 .drop-zone.drag-over{background:#e8eefc;border-color:#155eef;transform:scale(1.01)}
 .drop-zone .drop-icon{font-size:44px;margin-bottom:8px;line-height:1}
 .drop-zone .drop-text{font-size:15px;line-height:1.6}
-.drop-zone .button{padding:9px 14px;font-size:14px;margin:0}
 .upload-status{margin-top:12px}
 .upload-status .file-row{padding:8px 10px;margin:6px 0;border-radius:8px;background:#f8fafc;border-left:4px solid #155eef;font-size:14px}
 .upload-status .file-row.ok{border-left-color:#039855;background:#f0fdf4}
 .upload-status .file-row.warn{border-left-color:#d92d20;background:#fef3f2}
 .upload-status .file-row.info{border-left-color:#667085;background:#f8fafc}
-.upload-status .file-row b{color:#123f9c}
 .upload-summary{margin-top:12px;padding:12px;border-radius:10px;background:#e8eefc;font-weight:700;color:#123f9c}
+.select-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 12px;background:#f1f5fd;border-radius:10px;margin-bottom:10px;font-size:13px;font-weight:700;color:#1749a6}
+.select-bar label{display:inline-flex;align-items:center;gap:6px;font-weight:700;margin:0;cursor:pointer}
+.select-bar input[type=checkbox]{width:auto}
+.select-bar .count{margin-left:auto;background:#155eef;color:#fff;padding:3px 10px;border-radius:999px;font-weight:700;font-size:12px}
+.select-bar button{padding:6px 10px;font-size:12px}
+.inline-edit{width:100%;padding:6px 8px;border:1px solid #d0d5dd;border-radius:7px;font:inherit;font-size:13px}
+.row-check{width:auto !important;transform:scale(1.2);margin:0}
+.help-step{background:#f8fbff;border-left:4px solid #155eef;padding:10px 12px;border-radius:8px;margin:8px 0}
+.help-step b{color:#123f9c}
+.help-code{background:#f8fafc;padding:10px;border-radius:8px;font-size:12px;line-height:1.7;overflow-x:auto;border:1px solid #e4e7ec}
+.help-flow{background:linear-gradient(90deg,#eef4ff,#f1f5fd);padding:14px;border-radius:10px;text-align:center;font-weight:700;color:#123f9c;font-size:14px;line-height:1.8;margin:10px 0}
+.help-icon{display:inline-block;width:26px;text-align:center}
 </style>
 </head>
 <body>
@@ -81,8 +90,10 @@ table{width:100%;border-collapse:collapse}th,td{padding:9px;border-bottom:1px so
 <div class="stat"><b id="sPlans">0</b>Plan / Dosya</div>
 </div></div>
 <div class="card"><h2>Bilgiler</h2><div id="homeInfo" class="empty">Henüz bilgi girilmedi.</div></div>
-<div class="card no-print"><h2>💾 Veri Yedekleme</h2><p class="muted">Tüm verilerinizi ve eklediğiniz dosyaları tek bir yedek dosyasına aktarabilir, sonra başka cihazda geri yükleyebilirsiniz.</p>
+<div class="card no-print"><h2>💾 Veri Yedekleme</h2><p class="muted">Tüm verilerinizi ve eklediğiniz dosyaları tek bir yedek dosyasına aktarabilirsiniz.</p>
 <div class="actions"><button onclick="exportBackup()">⬇️ Yedek Al</button><label class="button secondary" style="display:inline-block">⬆️ Yedek Yükle<input id="backupInput" type="file" accept=".json" hidden onchange="importBackup(this.files[0])"></label></div></div>
+<div class="card no-print"><h2>🗑️ Tüm Verileri Sil</h2><p class="muted">Tüm öğrencileri, planları, faaliyetleri ve dosyaları siler. Geri alınamaz.</p>
+<div class="actions"><button class="danger" onclick="wipeAllData()">⚠️ Her Şeyi Sil</button></div></div>
 </section>
 
 <section id="club">
@@ -105,111 +116,529 @@ table{width:100%;border-collapse:collapse}th,td{padding:9px;border-bottom:1px so
 <input id="studentsImportCol" type="text" placeholder="Örn: A veya Ad Soyad">
 <div class="actions"><button class="light" onclick="importStudentsFromFile()">📥 Öğrenci Yükle</button></div>
 </div>
-<div class="card"><h2>Öğrenci Listesi</h2><div class="table-wrap"><table><thead><tr><th>No</th><th>Ad Soyad</th><th></th></tr></thead><tbody id="studentTable"></tbody></table></div></div>
-<div class="card"><h2>👥 Öğrenci Grupları</h2><p class="muted">Öğrenci sayısına göre grup oluşturun. Faaliyet modalında grup seçtiğinizde o grubun öğrencileri otomatik katılımcı olarak gelir.</p><div class="row"><div><label>Grup adı</label><input id="groupName" placeholder="Örn. Grup 1"></div><div><label>Grup sayısı (otomatik)</label><input id="autoGroupCount" type="number" min="1" placeholder="Örn. 4"></div></div><div class="actions"><button class="success" onclick="addStudentGroup()">➕ Grup Oluştur</button><button class="light" onclick="autoCreateGroups()">⚙️ Öğrenci sayısına göre gruplandır</button></div><div id="studentGroups"></div></div>
+
+<div class="card"><h2>Öğrenci Listesi</h2>
+<div class="select-bar">
+  <label><input type="checkbox" id="studentsSelectAll" onchange="toggleSelectAllStudents(this.checked)"> Tümünü Seç</label>
+  <span class="count" id="studentsSelCount">0 seçili</span>
+  <button class="danger" onclick="bulkDeleteStudents()">🗑️ Seçilenleri Sil</button>
+  <button class="light" onclick="inlineSaveAllStudents()">💾 Düzenlemeleri Kaydet</button>
+</div>
+<div class="table-wrap"><table><thead><tr><th style="width:36px"></th><th>No</th><th>Ad Soyad</th><th style="width:140px"></th></tr></thead><tbody id="studentTable"></tbody></table></div></div>
+
+<div class="card"><h2>👥 Öğrenci Grupları</h2>
+<div class="row"><div><label>Grup adı</label><input id="groupName" placeholder="Örn. Grup 1"></div><div><label>Grup sayısı (otomatik)</label><input id="autoGroupCount" type="number" min="1" placeholder="Örn. 4"></div></div>
+<div class="actions"><button class="success" onclick="addStudentGroup()">➕ Grup Oluştur</button><button class="light" onclick="autoCreateGroups()">⚙️ Otomatik Grupla</button><button class="danger" onclick="bulkDeleteGroups()">🗑️ Seçili Grupları Sil</button></div>
+<div id="studentGroups"></div></div>
 </section>
 
 <section id="annual">
 <div class="card"><h2>📥 Akıllı Dosya Yükleme</h2>
-<p class="muted">PDF, Word (DOCX), Excel (XLSX/XLS), CSV, TXT, JSON veya görsel yükleyin. Program <b>dosya türünü otomatik algılar</b>; metin içeren dosyalardan yıllık plan verilerini (hafta, tarih, kazanım, faaliyet, amaç) otomatik çıkarır.</p>
+<p class="muted">PDF, Word, Excel, CSV, TXT, JSON veya görsel yükleyin. Program <b>dosya türünü otomatik algılar</b> ve verileri çıkarır.</p>
 <div id="annualDropZone" class="drop-zone">
   <div class="drop-icon">📂</div>
-  <div class="drop-text">
-    <b>Dosyayı buraya bırakın</b><br>veya<br>
+  <div class="drop-text"><b>Dosyayı buraya bırakın</b><br>veya<br>
     <label class="button" style="display:inline-block">📎 Dosya Seç<input id="annualSmartFile" type="file" hidden multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.csv,.txt,.json,image/*" onchange="handleAnnualSmartUpload(this.files)"></label>
   </div>
-  <div class="muted" style="margin-top:10px">Desteklenen: PDF · DOCX · XLSX · XLS · CSV · TXT · JSON · PNG · JPG · WEBP</div>
+  <div class="muted" style="margin-top:10px">PDF · DOCX · XLSX · XLS · CSV · TXT · JSON · PNG · JPG · WEBP</div>
 </div>
-<label style="margin-top:14px"><input id="annualAutoWorkPlan" type="checkbox" checked> Ayrıştırılan kayıtları <b>çalışma planına da otomatik ekle</b></label>
+<label style="margin-top:14px"><input id="annualAutoWorkPlan" type="checkbox" checked> Çalışma planına da otomatik ekle</label>
 <div id="annualUploadStatus" class="upload-status"></div>
 </div>
 
 <div class="card"><h2>🧾 Metinden Yıllık Plan Çıkar</h2>
-<p class="muted">Excel/Word dosyanızdan kopyaladığınız metni buraya yapıştırabilirsiniz. Hafta, tarih, kazanım, faaliyet ve amaç alanları ayrıştırılır.</p>
-<div class="notice"><b>Önerilen sütunlar:</b> Hafta | Tarih | Kazanım / Öğrenme Çıktısı | Faaliyet / Etkinlik | Amaç / Açıklama</div>
-<textarea id="annualPlanText" rows="8" placeholder="1. Hafta | 15.09.2026 | Kulüp çalışmalarının amacını açıklar | Kulüp tanıtımı ve görev dağılımı | Öğrencilerin kulübü tanıması&#10;2. Hafta | 22.09.2026 | Çevre bilincini geliştirir | Okul çevresi temizliği | Farkındalık oluşturmak"></textarea>
-<div class="actions"><button class="success" onclick="extractAnnualPlanItems()">🔎 Metinden Çıkar</button><button class="light" onclick="createWorkPlanFromAnnualText()">📝 Sadece Çalışma Planına Ekle</button><button class="light" onclick="clearAnnualPlanText()">Temizle</button></div>
+<div class="notice"><b>Önerilen sütunlar:</b> Hafta | Tarih | Kazanım | Faaliyet | Amaç</div>
+<textarea id="annualPlanText" rows="6" placeholder="1. Hafta | 15.09.2026 | Kulüp amacını açıklar | Tanıtım | Öğrencilerin kulübü tanıması"></textarea>
+<div class="actions"><button class="success" onclick="extractAnnualPlanItems()">🔎 Metinden Çıkar</button><button class="light" onclick="createWorkPlanFromAnnualText()">📝 Çalışma Planına Ekle</button><button class="light" onclick="clearAnnualPlanText()">Temizle</button></div>
 <div id="annualParseInfo" class="muted"></div>
 <div id="annualItemsEditor"></div></div>
 
-<div class="card"><h2>🗂️ Haftalara Göre Yıllık Plan</h2><p class="muted">Aynı haftaya ait kayıtlar tek bir grup altında toplanır.</p><div id="annualWeekGroups"></div></div>
+<div class="card"><h2>🗂️ Yıllık Plan Kayıtları</h2>
+<div class="select-bar">
+  <label><input type="checkbox" id="annualSelectAll" onchange="toggleSelectAllAnnual(this.checked)"> Tümünü Seç</label>
+  <span class="count" id="annualSelCount">0 seçili</span>
+  <button class="danger" onclick="bulkDeleteAnnual()">🗑️ Seçilenleri Sil</button>
+  <button class="light" onclick="inlineSaveAllAnnual()">💾 Düzenlemeleri Kaydet</button>
+  <button class="light" onclick="bulkAddAnnualToWorkPlan()">➡️ Seçilenleri Çalışma Planına Aktar</button>
+</div>
+<div id="annualWeekGroups"></div>
+<div id="annualFlatList"></div>
+</div>
 
-<div class="card"><h2>Eklenen Yıllık Plan Dosyaları</h2><div id="annualList"></div></div>
+<div class="card"><h2>📁 Yüklenen Dosyalar</h2>
+<div class="select-bar">
+  <label><input type="checkbox" id="filesSelectAll" onchange="toggleSelectAllFiles(this.checked)"> Tümünü Seç</label>
+  <span class="count" id="filesSelCount">0 seçili</span>
+  <button class="danger" onclick="bulkDeleteFiles()">🗑️ Seçilenleri Sil</button>
+  <button class="light" onclick="bulkDownloadFiles()">⬇️ Seçilenleri İndir</button>
+</div>
+<div id="annualList"></div></div>
 
-<div id="fileViewer" class="card" style="display:none"><div class="actions no-print"><button class="secondary" onclick="closeFileViewer()">✕ Görüntüleyiciyi Kapat</button></div><h2 id="viewerTitle">Dosya Görüntüleme</h2><div id="viewerContent"></div></div>
+<div id="fileViewer" class="card" style="display:none"><div class="actions no-print"><button class="secondary" onclick="closeFileViewer()">✕ Kapat</button></div><h2 id="viewerTitle">Dosya Görüntüleme</h2><div id="viewerContent"></div></div>
 </section>
 
 <section id="workplan">
 <div class="card"><h2>📝 Çalışma Planı</h2>
-<div class="notice"><b>Yıllık plandan seçim:</b> Önce haftayı, sonra tarihi seçin. Seçilen kayıt çalışma planına otomatik doldurulur.</div>
-<div class="row"><div><label>Yıllık plandan hafta seç</label><select id="wpWeekSelect" onchange="selectAnnualWeekForWorkPlan()"><option value="">— Hafta seç —</option></select></div><div><label>Seçilen haftadan tarih seç</label><select id="wpDateSelect" onchange="selectAnnualDateForWorkPlan()"><option value="">— Önce hafta seçin —</option></select></div></div>
-<div class="row"><div><label>Hafta</label><input id="wpWeek" placeholder="Örn. 1. Hafta"></div><div><label>Tarih</label><input id="wpDate" type="date"></div></div>
-<div class="row"><div><label>Kazanım</label><select id="wpOutcomeSelect" onchange="selectWorkOutcome()"><option value="">— Kazanımdan seç —</option></select></div><div><label>Faaliyet adı / etkinlik</label><input id="wpTitle" placeholder="Faaliyet adı"></div></div>
+<div class="notice"><b>Yıllık plandan seçim:</b> Önce haftayı, sonra tarihi seçin.</div>
+<div class="row"><div><label>Yıllık plandan hafta</label><select id="wpWeekSelect" onchange="selectAnnualWeekForWorkPlan()"><option value="">— Hafta seç —</option></select></div><div><label>Haftadan tarih</label><select id="wpDateSelect" onchange="selectAnnualDateForWorkPlan()"><option value="">— Önce hafta seçin —</option></select></div></div>
+<div class="row"><div><label>Hafta</label><input id="wpWeek" placeholder="1. Hafta"></div><div><label>Tarih</label><input id="wpDate" type="date"></div></div>
+<div class="row"><div><label>Kazanım</label><select id="wpOutcomeSelect" onchange="selectWorkOutcome()"><option value="">— Seç —</option></select></div><div><label>Faaliyet adı</label><input id="wpTitle"></div></div>
 <label>Faaliyet açıklaması / Amaç</label><textarea id="wpDesc"></textarea>
-<div class="actions"><button onclick="updateOrAddWorkPlan()">➕ Plana Ekle / Güncelle</button><button class="light" onclick="clearWorkPlanForm()">Temizle</button></div></div>
-<div class="card"><h2>Plan</h2><div class="table-wrap"><table><thead><tr><th>Hafta</th><th>Tarih</th><th>Kazanım</th><th>Faaliyet / Etkinlik</th><th>Açıklama / Amaç</th><th></th></tr></thead><tbody id="workplanTable"></tbody></table></div></div>
+<div class="actions"><button onclick="updateOrAddWorkPlan()">➕ Ekle / Güncelle</button><button class="light" onclick="clearWorkPlanForm()">Temizle</button></div></div>
+
+<div class="card"><h2>Plan</h2>
+<div class="select-bar">
+  <label><input type="checkbox" id="wpSelectAll" onchange="toggleSelectAllWorkPlans(this.checked)"> Tümünü Seç</label>
+  <span class="count" id="wpSelCount">0 seçili</span>
+  <button class="danger" onclick="bulkDeleteWorkPlans()">🗑️ Seçilenleri Sil</button>
+  <button class="light" onclick="bulkAddActivitiesFromSelectedWP()">⚡ Seçilenlerden Faaliyet Oluştur</button>
+</div>
+<div class="table-wrap"><table><thead><tr><th style="width:36px"></th><th>Hafta</th><th>Tarih</th><th>Kazanım</th><th>Faaliyet</th><th>Açıklama</th><th style="width:220px"></th></tr></thead><tbody id="workplanTable"></tbody></table></div></div>
 </section>
 
 <section id="activities">
-<div class="card no-print"><h2>⚡ Toplu Faaliyet Oluştur</h2>
-<p class="muted">Çalışma planındaki tüm maddelerden tek tuşla faaliyet üretir. Oluşturulanlar "Raporlara dahil değil" olarak işaretlenir.</p>
+<div class="card no-print"><h2>⚡ Toplu Faaliyet</h2>
 <div class="actions">
-  <button class="success" onclick="autoCreateActivitiesFromWorkplans()">⚡ Tüm Çalışma Planından Faaliyet Oluştur</button>
-  <button class="light" onclick="autoCreateActivitiesFromPendingWorkplans()">➕ Sadece Faaliyeti Olmayanları Oluştur</button>
+  <button class="success" onclick="autoCreateActivitiesFromWorkplans()">⚡ Tüm Çalışma Planından Oluştur</button>
+  <button class="light" onclick="autoCreateActivitiesFromPendingWorkplans()">➕ Sadece Olmayanları Oluştur</button>
 </div>
 <div id="autoActivityInfo" class="muted"></div>
 </div>
 
-<div class="card"><h2>📸 Yapılan Çalışma</h2>
-<div class="actions"><button class="success" onclick="openActivityModal()">📋 Faaliyet Modalını Aç</button></div>
+<div class="card"><h2>📸 Faaliyet Ekle</h2>
+<div class="actions"><button class="success" onclick="openActivityModal()">📋 Yeni Faaliyet</button></div>
 <div id="activityModal" class="modal" style="display:none"><div class="modal-box">
-<div class="actions" style="justify-content:space-between"><h2 style="margin:0">📋 Faaliyet Oluştur / Düzenle</h2><button class="danger" onclick="closeActivityModal()">✕</button></div>
-<div class="row"><div><label>Çalışma planından faaliyet</label><select id="modalWorkSelect" onchange="modalWorkChanged()"><option value="">— Seç —</option></select></div><div><label>Öğrenci grubu</label><select id="modalGroupSelect" onchange="modalGroupChanged()"><option value="">— Grup seç —</option></select></div></div>
-<div class="row"><div><label>Gerçekleşme tarihi</label><input id="modalActDate" type="date"></div><div><label>Hafta</label><input id="modalActWeek" readonly></div></div>
-<label>Faaliyet / Etkinlik</label><input id="modalActTitle">
-<label>Açıklama / Amaç</label><textarea id="modalActDesc"></textarea>
+<div class="actions" style="justify-content:space-between"><h2 style="margin:0">📋 Faaliyet</h2><button class="danger" onclick="closeActivityModal()">✕</button></div>
+<div class="row"><div><label>Çalışma planından</label><select id="modalWorkSelect" onchange="modalWorkChanged()"><option value="">— Seç —</option></select></div><div><label>Öğrenci grubu</label><select id="modalGroupSelect" onchange="modalGroupChanged()"><option value="">— Grup seç —</option></select></div></div>
+<div class="row"><div><label>Tarih</label><input id="modalActDate" type="date"></div><div><label>Hafta</label><input id="modalActWeek" readonly></div></div>
+<label>Faaliyet adı</label><input id="modalActTitle">
+<label>Açıklama</label><textarea id="modalActDesc"></textarea>
 <label>Katılımcılar</label>
 <div class="participant-tools">
-  <input id="modalParticipantSearch" type="text" placeholder="🔍 Öğrenci ara..." oninput="filterModalParticipants()" style="margin-bottom:6px">
-  <div class="actions" style="margin-top:0">
+  <input id="modalParticipantSearch" type="text" placeholder="🔍 Öğrenci ara..." oninput="filterModalParticipants()">
+  <div class="actions" style="margin-top:6px">
     <button class="light" type="button" onclick="selectAllModalParticipants(true)">✅ Tümünü Seç</button>
-    <button class="light" type="button" onclick="selectAllModalParticipants(false)">✖️ Tümünü Temizle</button>
-    <button class="light" type="button" onclick="selectGroupStudentsOnly()">👥 Sadece Grubu Seç</button>
-    <button class="light" type="button" onclick="selectAllStudentsExcludingGroup()">🌐 Grup Dışını Seç</button>
+    <button class="light" type="button" onclick="selectAllModalParticipants(false)">✖️ Temizle</button>
+    <button class="light" type="button" onclick="selectGroupStudentsOnly()">👥 Grup</button>
+    <button class="light" type="button" onclick="selectAllStudentsExcludingGroup()">🌐 Grup Dışı</button>
   </div>
 </div>
 <div id="modalParticipants" class="badges"></div>
 <div id="modalParticipantCount" class="muted" style="margin-top:6px"></div>
-<label><input id="modalCompleted" type="checkbox" checked> Faaliyet gerçekleşti ve raporlara dahil edilsin</label>
+<label><input id="modalCompleted" type="checkbox" checked> Raporlara dahil edilsin</label>
 <label>Fotoğraflar</label><input id="modalActPhotos" type="file" accept="image/*" multiple>
-<div class="actions"><button class="success" onclick="saveActivityFromModal()">💾 Faaliyeti Kaydet</button><button class="light" onclick="closeActivityModal()">Vazgeç</button></div>
+<div id="modalExistingPhotos" class="photos"></div>
+<div class="actions"><button class="success" onclick="saveActivityFromModal()">💾 Kaydet</button><button class="light" onclick="closeActivityModal()">Vazgeç</button></div>
 </div></div>
 </div>
-<div class="card"><h2>Kayıtlı Faaliyetler</h2><div id="activityList"></div></div>
+
+<div class="card"><h2>Kayıtlı Faaliyetler</h2>
+<div class="select-bar">
+  <label><input type="checkbox" id="actSelectAll" onchange="toggleSelectAllActivities(this.checked)"> Tümünü Seç</label>
+  <span class="count" id="actSelCount">0 seçili</span>
+  <button class="danger" onclick="bulkDeleteActivities()">🗑️ Seçilenleri Sil</button>
+  <button class="light" onclick="bulkToggleCompleted(true)">✅ Raporlara Dahil Et</button>
+  <button class="light" onclick="bulkToggleCompleted(false)">⛔ Raporlardan Çıkar</button>
+</div>
+<div id="activityList"></div></div>
 </section>
 
 <section id="reports">
 <div class="card no-print"><h2>📊 Rapor Oluştur</h2>
 <label>Rapor türü</label><select id="reportType" onchange="reportTypeChanged()"><option value="monthly">Aylık</option><option value="term">Dönemlik</option><option value="yearly">Yıl Sonu</option></select>
 <div id="monthlyBox"><label>Ay</label><input id="reportMonth" type="month"></div>
-<div id="termBox" style="display:none"><label>Dönem</label><select id="reportTerm"><option value="1">1. Dönem (Eylül-Ocak)</option><option value="2">2. Dönem (Şubat-Haziran)</option></select></div>
+<div id="termBox" style="display:none"><label>Dönem</label><select id="reportTerm"><option value="1">1. Dönem</option><option value="2">2. Dönem</option></select></div>
 <div class="actions"><button onclick="makeReport()">👁️ Önizle</button><button class="success" onclick="printReport()">🖨️ Yazdır / PDF</button></div></div>
 <div id="reportSection"><div id="reportOutput"></div></div>
 </section>
 
 <section id="help">
-<div class="card"><h2>❓ Kullanım Rehberi</h2><p>Programı ilk kez kullananlar için adım adım kılavuz.</p><div class="notice"><b>Önerilen sıra:</b> 1. Kulüp Bilgileri → 2. Öğrenciler → 3. Yıllık Plan (dosya yükle) → 4. Çalışma Planı (otomatik oluşur) → 5. Faaliyetler → 6. Raporlar</div></div>
-<div class="card"><details open><summary><b>📥 Akıllı Dosya Yükleme</b></summary><p><b>Yıllık Plan</b> sekmesinde PDF, Word, Excel, CSV, TXT, JSON veya görsel yükleyin. Program dosya türünü <b>otomatik algılar</b>. Metin içeren dosyalardan hafta, tarih, kazanım, faaliyet ve amaç bilgileri çıkarılır. <b>"Çalışma planına da ekle"</b> kutusu işaretliyse aynı veriler doğrudan çalışma planına da yazılır.</p></details></div>
-<div class="card"><details><summary><b>📊 Excel Başlık Önerileri</b></summary><p>Excel sütun başlıklarınız <b>Hafta, Tarih, Kazanım, Faaliyet, Amaç</b> gibi isimler içeriyorsa otomatik algılanır. Farklı isimler de tolere edilir: <i>hafta no, öğrenme çıktısı, hedef, etkinlik, açıklama, neden</i>.</p></details></div>
-<div class="card"><details><summary><b>📄 PDF'den Veri</b></summary><p>PDF'de metin katmanı varsa veriler çıkarılır. <b>Taranmış PDF</b> (görüntü) desteklenmez.</p></details></div>
-<div class="card"><details><summary><b>📸 Faaliyetler</b></summary><p><b>⚡ Toplu Faaliyet Oluştur</b> ile tüm çalışma planından tek tuşla faaliyet üretin. Katılımcı ekranında arama, tümünü seç, grup seç, grup dışı seç seçenekleri var.</p></details></div>
-<div class="card"><details><summary><b>💾 Yedekleme</b></summary><p>Ana Sayfa'dan <b>Yedek Al</b> ile JSON indirin; başka cihazda <b>Yedek Yükle</b> ile geri getirin.</p></details></div>
+<div class="card"><h2>❓ Klüp Dosyası — Detaylı Kullanım Rehberi</h2>
+<p>Bu rehber, programı ilk kez kullananlar için <b>sıfırdan ileri seviyeye</b> tüm işlemleri adım adım anlatır. Başlıklara tıklayarak bölümleri açıp kapatabilirsiniz.</p>
+<div class="notice"><b>🚀 Hızlı Başlangıç (5 dakikada hazır):</b><br>
+1️⃣ Kulüp bilgilerini gir → 2️⃣ Öğrencileri ekle → 3️⃣ Yıllık plan dosyanı yükle → 4️⃣ Çalışma planına maddeleri aktar → 5️⃣ Faaliyetleri oluştur → 6️⃣ Rapor al.</div>
+</div>
+
+<div class="card"><details open><summary>🗺️ 1. Programın Genel Yapısı ve Akış Şeması</summary>
+<p>Program <b>6 ana bölümden</b> oluşur ve şu sırayla çalışır:</p>
+<div class="help-flow">
+📅 YILLIK PLAN → 📝 ÇALIŞMA PLANI → 📸 FAALİYETLER → 📊 RAPORLAR
+</div>
+<p><b>Mantık:</b></p>
+<ol style="line-height:1.9">
+<li>Yıllık planını (PDF/Excel/Word) yüklersin.</li>
+<li>Program verileri otomatik olarak çıkarır (hafta, tarih, kazanım, faaliyet, amaç).</li>
+<li>Bu verileri çalışma planına aktarırsın.</li>
+<li>Her maddeyi bir faaliyet olarak işaretlersin (katılımcılar + fotoğraf ekleyerek).</li>
+<li>Faaliyetlerden otomatik rapor oluşturursun.</li>
+</ol>
+<div class="notice"><b>⚠️ Önemli:</b> Bölümler birbirine bağlıdır. Yıllık plan olmadan çalışma planı, çalışma planı olmadan faaliyet, faaliyet olmadan da rapor oluşturamazsın.</div>
+</details></div>
+
+<div class="card"><details><summary>🏫 2. Kulüp Bilgileri Nasıl Girilir?</summary>
+<p><b>Nerede:</b> 🏫 Kulüp sekmesi.</p>
+<div class="help-step"><b>Adım 1:</b> <b>Kulüp adı</b> alanına kulübün resmî adını tam yaz. Örn: <i>Çevre Koruma ve Afet Farkındalığı Kulübü</i></div>
+<div class="help-step"><b>Adım 2:</b> <b>Danışman öğretmen</b> alanına ad-soyad yaz. Bu bilgi raporların imza kısmına otomatik yazılır.</div>
+<div class="help-step"><b>Adım 3:</b> <b>Okul adı</b> — Rapor başlığında görünecek.</div>
+<div class="help-step"><b>Adım 4:</b> <b>Okul müdürü</b> — Rapor imza kısmına yazılır.</div>
+<div class="help-step"><b>Adım 5:</b> <b>Eğitim-öğretim yılı</b> — Örn: 2026-2027. Yıl sonu raporunu filtrelemek için kullanılır.</div>
+<div class="help-step"><b>Adım 6:</b> <b>💾 Kaydet</b> butonuna bas.</div>
+<div class="notice">Bu bilgiler <b>her rapora otomatik</b> yazılır. Bir kez girmen yeterlidir.</div>
+</details></div>
+
+<div class="card"><details><summary>👨‍🎓 3. Öğrenci Ekleme (3 Farklı Yol)</summary>
+
+<h3>3.1 Tek Öğrenci Ekleme</h3>
+<div class="help-step"><b>1.</b> <b>Öğrenciler</b> sekmesine git.</div>
+<div class="help-step"><b>2.</b> "Tek öğrenci" alanına ad-soyad yaz.</div>
+<div class="help-step"><b>3.</b> <b>➕ Ekle</b> butonuna bas.</div>
+
+<h3>3.2 Toplu Öğrenci Ekleme (En Hızlı)</h3>
+<div class="help-step"><b>1.</b> "Toplu öğrenci" alanına <b>her satıra bir isim</b> yaz:</div>
+<pre class="help-code">Ahmet Yılmaz
+Ayşe Demir
+Mehmet Kaya
+Fatma Öztürk</pre>
+<div class="help-step"><b>2.</b> <b>👥 Toplu Ekle</b> butonuna bas. Tümü listeye eklenir.</div>
+
+<h3>3.3 Excel/CSV'den İçe Aktarma</h3>
+<div class="help-step"><b>1.</b> "📥 Excel/CSV'den içe aktar" alanından dosya seç.</div>
+<div class="help-step"><b>2.</b> <b>Sütun</b> alanına hangi sütundan okunacağını yaz:
+<ul>
+<li><code>A</code> → A sütunu</li>
+<li><code>B</code> → B sütunu</li>
+<li><code>Ad Soyad</code> → başlık adı "Ad Soyad" olan sütun</li>
+<li>Boş bırakılırsa → ilk sütunu okur</li>
+</ul>
+</div>
+<div class="help-step"><b>3.</b> <b>📥 Öğrenci Yükle</b> butonuna bas.</div>
+
+<h3>3.4 Öğrenci Listesini Yönetme</h3>
+<table style="font-size:13px">
+<tr><th>İşlem</th><th>Nasıl Yapılır</th></tr>
+<tr><td>Tek öğrenci sil</td><td>Satırdaki <b>Sil</b> butonu</td></tr>
+<tr><td>Çoklu sil</td><td>Sol kutucukları işaretle → <b>🗑️ Seçilenleri Sil</b></td></tr>
+<tr><td>Tümünü seç</td><td>Üstteki <b>Tümünü Seç</b> kutusu</td></tr>
+<tr><td>İsim düzeltme</td><td>Hücreye tıkla, yaz → <b>💾 Düzenlemeleri Kaydet</b></td></tr>
+</table>
+<div class="notice"><b>💡 İpucu:</b> Öğrenci silindiğinde tüm gruplardan ve faaliyet katılımcılarından da otomatik çıkarılır.</div>
+</details></div>
+
+<div class="card"><details><summary>👥 4. Öğrenci Grupları Oluşturma</summary>
+<p>Gruplar, faaliyetlerde <b>aynı öğrencileri tek tıkla seçmek</b> için kullanılır. Örn: "Grup 1, Grup 2, Grup 3..."</p>
+
+<h3>4.1 Manuel Grup Oluşturma</h3>
+<div class="help-step"><b>1.</b> "Grup adı" alanına isim yaz: <i>Grup 1</i></div>
+<div class="help-step"><b>2.</b> <b>➕ Grup Oluştur</b> butonuna bas.</div>
+<div class="help-step"><b>3.</b> Kart açılır → öğrencileri işaretle → <b>💾 Kaydet</b>.</div>
+
+<h3>4.2 Otomatik Gruplandırma</h3>
+<div class="help-step"><b>1.</b> "Grup sayısı" alanına sayı yaz (örn: 4).</div>
+<div class="help-step"><b>2.</b> <b>⚙️ Otomatik Grupla</b> bas.</div>
+<div class="help-step"><b>3.</b> Öğrenciler sırayla Grup 1, 2, 3, 4'e dağıtılır.</div>
+
+<h3>4.3 Grup Silme</h3>
+<ul>
+<li><b>Tek grup:</b> Karttaki <b>Sil</b> butonu</li>
+<li><b>Çoklu:</b> Grup kartı başlığındaki kutucuğu işaretle → <b>🗑️ Seçili Grupları Sil</b></li>
+</ul>
+</details></div>
+
+<div class="card"><details><summary>📅 5. Yıllık Plan Yükleme ve Veri Çıkarma</summary>
+
+<h3>5.1 Akıllı Dosya Yükleme (Otomatik Tür Algılama)</h3>
+<p><b>Desteklenen dosyalar:</b> PDF, DOCX, XLSX, XLS, CSV, TXT, JSON, PNG, JPG, WEBP.</p>
+<div class="help-step"><b>1.</b> <b>📅 Yıllık Plan</b> sekmesine git.</div>
+<div class="help-step"><b>2.</b> Dosyayı <b>sürükle-bırak</b> yap <b>veya</b> <b>📎 Dosya Seç</b> butonuna bas.</div>
+<div class="help-step"><b>3.</b> Program dosya türünü <b>otomatik algılar</b> ve veri çıkarmaya başlar.</div>
+<div class="help-step"><b>4.</b> Sonuç: her dosya için bir satır → kaç kayıt bulundu, kaç çalışma planına eklendi.</div>
+<div class="notice"><b>💡 İpucu:</b> "Çalışma planına da otomatik ekle" kutusu işaretliyse yıllık plandan çıkan veriler <b>hem yıllık plana hem çalışma planına</b> aynı anda yazılır.</div>
+
+<h3>5.2 Başlık Algılama Tablosu (Excel/Word)</h3>
+<p>Program aşağıdaki başlıkları <b>otomatik tanır</b>. Sütun başlıkların bunlara yakınsa sorun yaşamazsın:</p>
+<table style="font-size:13px">
+<tr><th>Alan</th><th>Kabul Edilen Başlıklar</th></tr>
+<tr><td>Hafta</td><td>Hafta, Hafta No, Week</td></tr>
+<tr><td>Tarih</td><td>Tarih, Date</td></tr>
+<tr><td>Kazanım</td><td>Kazanım, Öğrenme Çıktısı, Hedef</td></tr>
+<tr><td>Faaliyet</td><td>Faaliyet, Etkinlik, Yapılacak, Çalışma</td></tr>
+<tr><td>Amaç</td><td>Amaç, Açıklama, Neden, Hedef</td></tr>
+</table>
+
+<h3>5.3 Metinden Yıllık Plan Çıkarma</h3>
+<p>Dosya yüklemek istemiyorsan, metni kopyala-yapıştır:</p>
+<pre class="help-code">1. Hafta | 15.09.2026 | Kulüp amacını açıklar | Tanıtım ve görev dağılımı | Öğrencilerin kulübü tanıması
+2. Hafta | 22.09.2026 | Çevre bilincini geliştirir | Okul çevresi temizliği | Farkındalık oluşturmak</pre>
+<p>Ayırıcı olarak <code>|</code>, <code>;</code>, <code>Tab</code> veya <code>,</code> kullanabilirsin.</p>
+
+<h3>5.4 Yıllık Plan Kayıtlarını Düzenleme</h3>
+<ul>
+<li>Her kayıt bir <b>hafta grubu</b> altında açılır.</li>
+<li>Hafta, Tarih, Kazanım, Faaliyet, Amaç, Açıklama alanlarını <b>doğrudan hücrede</b> düzenleyebilirsin.</li>
+<li><b>💾 Kaydet</b> ile o kaydı kaydet.</li>
+<li><b>➡️ Çalışma Planına Aktar</b> ile o kaydı tek tıkla çalışma planına gönder.</li>
+<li><b>🗑️ Sil</b> ile kaydı sil.</li>
+</ul>
+
+<h3>5.5 Toplu İşlemler (Üst Araç Çubuğu)</h3>
+<ul>
+<li><b>Tümünü Seç:</b> Tüm kayıtları seç</li>
+<li><b>🗑️ Seçilenleri Sil:</b> Seçili kayıtları toplu sil</li>
+<li><b>💾 Düzenlemeleri Kaydet:</b> Tüm düzenlemeleri tek seferde kaydet</li>
+<li><b>➡️ Seçilenleri Çalışma Planına Aktar:</b> Toplu aktarım</li>
+</ul>
+</details></div>
+
+<div class="card"><details><summary>📝 6. Çalışma Planı Oluşturma</summary>
+<p>Çalışma planı, yıllık plandan seçtiğin maddeleri <b>haftalık iş planına</b> dönüştürür.</p>
+
+<h3>6.1 Yıllık Plandan Otomatik Aktarma</h3>
+<div class="help-step"><b>1.</b> Yıllık Plan sekmesinde "➡️ Çalışma Planına Aktar" butonuna bas.</div>
+<div class="help-step"><b>2.</b> Program otomatik olarak hafta, tarih, kazanım, faaliyet ve amacı doldurur.</div>
+<div class="help-step"><b>3.</b> Bilgileri istersen düzenle → <b>➕ Ekle / Güncelle</b>.</div>
+
+<h3>6.2 Manuel Çalışma Planı Ekleme</h3>
+<div class="help-step"><b>1.</b> <b>Yıllık plandan hafta</b> dropdown'undan hafta seç.</div>
+<div class="help-step"><b>2.</b> <b>Haftadan tarih</b> dropdown'undan tarih seç → alanlar otomatik dolar.</div>
+<div class="help-step"><b>3.</b> Bilgileri kontrol et → <b>➕ Ekle / Güncelle</b>.</div>
+
+<h3>6.3 Çalışma Planı Tablosu</h3>
+<ul>
+<li>Her satırda <b>seçim kutusu</b> var.</li>
+<li><b>Faaliyet</b> ve <b>Açıklama</b> alanlarını satır içinde düzenleyebilirsin.</li>
+<li><b>📋 Faaliyet</b> butonu → faaliyet modalını açar, önceden doldurur.</li>
+<li><b>✏️ Düzenle</b> → form alanlarına yükler.</li>
+<li><b>Sil</b> → o maddeyi siler.</li>
+<li><b>Sağ tarafta</b> o maddeye bağlı faaliyet sayısı ve raporlanan sayısı görünür.</li>
+</ul>
+
+<h3>6.4 Toplu İşlemler</h3>
+<ul>
+<li><b>🗑️ Seçilenleri Sil:</b> Seçili plan maddelerini sil.</li>
+<li><b>⚡ Seçilenlerden Faaliyet Oluştur:</b> Sadece seçili maddeler için faaliyet oluşturur.</li>
+</ul>
+</details></div>
+
+<div class="card"><details><summary>📸 7. Faaliyet Kaydetme</summary>
+
+<h3>7.1 Faaliyet Oluşturma — 3 Yöntem</h3>
+
+<h4>Yöntem 1: Tek Tek Manuel</h4>
+<div class="help-step"><b>1.</b> <b>📸 Faaliyetler</b> → <b>📋 Yeni Faaliyet</b> butonu.</div>
+<div class="help-step"><b>2.</b> Formu doldur → <b>💾 Kaydet</b>.</div>
+
+<h4>Yöntem 2: Çalışma Planından</h4>
+<div class="help-step"><b>1.</b> Çalışma Planı tablosunda <b>📋 Faaliyet</b> butonuna bas.</div>
+<div class="help-step"><b>2.</b> Form otomatik dolar → katılımcıları seç → <b>💾 Kaydet</b>.</div>
+
+<h4>Yöntem 3: Toplu Otomatik</h4>
+<div class="help-step"><b>⚡ Tüm Çalışma Planından Oluştur:</b> Tüm maddelerden faaliyet üretir.</div>
+<div class="help-step"><b>➕ Sadece Olmayanları Oluştur:</b> Faaliyeti olmayan maddelerden üretir (mükerrer yapmaz).</div>
+<div class="notice"><b>⚠️ Dikkat:</b> Toplu oluşturulan faaliyetler başlangıçta <b>"Raporlara dahil değil"</b> olarak işaretlenir. Raporlara girmesi için her birini tek tek açıp <b>"Raporlara dahil edilsin"</b> kutusunu işaretlemelisin.</div>
+
+<h3>7.2 Katılımcı Seçimi (Modal İçinde)</h3>
+<table style="font-size:13px">
+<tr><th>Buton</th><th>Ne Yapar</th></tr>
+<tr><td>🔍 Öğrenci ara</td><td>İsim yaz, filtrele</td></tr>
+<tr><td>✅ Tümünü Seç</td><td>Görünen tüm öğrencileri işaretle</td></tr>
+<tr><td>✖️ Temizle</td><td>Tüm işaretleri kaldır</td></tr>
+<tr><td>👥 Grup</td><td>Sadece seçili grubun üyelerini işaretle</td></tr>
+<tr><td>🌐 Grup Dışı</td><td>Seçili grup dışındaki herkesi işaretle</td></tr>
+</table>
+<p><b>Öğrenci grubu</b> dropdown'undan grup seçtiğinde o grubun üyeleri otomatik işaretlenir.</p>
+
+<h3>7.3 Fotoğraf Ekleme</h3>
+<ul>
+<li>Faaliyet modalında <b>Fotoğraflar</b> alanından bir veya birden fazla fotoğraf seç.</li>
+<li>Kaydettiğinde fotoğraflar <b>IndexedDB</b>'ye kaydedilir (tarayıcıda saklanır).</li>
+<li>Düzenleme modunda mevcut fotoğraflar <b>✕</b> ile tek tek silinebilir.</li>
+</ul>
+
+<h3>7.4 Faaliyet Listesi — Toplu İşlemler</h3>
+<ul>
+<li><b>🗑️ Seçilenleri Sil:</b> Faaliyet + fotoğrafları birlikte siler.</li>
+<li><b>✅ Raporlara Dahil Et:</b> Seçili faaliyetleri raporlara ekler.</li>
+<li><b>⛔ Raporlardan Çıkar:</b> Seçili faaliyetleri raporlardan çıkarır.</li>
+</ul>
+
+<h3>7.5 Rapor Durumu Göstergeleri</h3>
+<ul>
+<li><b>✅ Gerçekleşti:</b> Raporlara girer.</li>
+<li><b>⚠️ Rapor dışı:</b> Rapora girmez (kırmızı).</li>
+<li><b>⚠️ Düzenleyin:</b> Otomatik oluşturulmuş, henüz onaylanmamış.</li>
+</ul>
+</details></div>
+
+<div class="card"><details><summary>📊 8. Rapor Oluşturma ve Yazdırma</summary>
+
+<h3>8.1 Rapor Türleri</h3>
+<table style="font-size:13px">
+<tr><th>Tür</th><th>Kapsam</th></tr>
+<tr><td>Aylık</td><td>Seçtiğin ay içindeki faaliyetler</td></tr>
+<tr><td>Dönemlik</td><td>1. Dönem (Eylül-Ocak) veya 2. Dönem (Şubat-Haziran)</td></tr>
+<tr><td>Yıl Sonu</td><td>Kulüp bilgilerindeki eğitim-öğretim yılına ait tüm faaliyetler</td></tr>
+</table>
+
+<h3>8.2 Adım Adım Rapor Alma</h3>
+<div class="help-step"><b>1.</b> <b>📊 Raporlar</b> sekmesine git.</div>
+<div class="help-step"><b>2.</b> <b>Rapor türü</b> seç (Aylık / Dönemlik / Yıl Sonu).</div>
+<div class="help-step"><b>3.</b> Seçilen türe göre:
+  <ul><li>Aylık → <b>Ay</b> seç</li><li>Dönemlik → <b>Dönem</b> seç</li><li>Yıl Sonu → ek seçim gerekmez</li></ul>
+</div>
+<div class="help-step"><b>4.</b> <b>👁️ Önizle</b> → rapor ekranda görünür.</div>
+<div class="help-step"><b>5.</b> <b>🖨️ Yazdır / PDF</b> → tarayıcının yazdırma ekranı açılır.</div>
+<div class="help-step"><b>6.</b> Yazıcı seçiminde <b>"PDF olarak kaydet"</b> seçeneğini kullan.</div>
+
+<div class="notice"><b>💡 İpucu:</b> Raporda sadece <b>"Raporlara dahil"</b> işaretli faaliyetler görünür. Yani henüz gerçekleşmemiş planları raporda göstermezsin.</div>
+
+<h3>8.3 Raporda Neler Var?</h3>
+<ul>
+<li>Okul adı (üst başlık)</li>
+<li>Kulüp adı</li>
+<li>Rapor başlığı (ay/dönem/yıl)</li>
+<li>Danışman, okul müdürü, yıl, öğrenci sayısı</li>
+<li>Her faaliyet için: tarih, hafta, grup, açıklama, katılımcı listesi, fotoğraflar</li>
+<li>Alt kısımda <b>imza alanları</b> (danışman + okul müdürü)</li>
+</ul>
+</details></div>
+
+<div class="card"><details><summary>💾 9. Yedek Alma ve Geri Yükleme</summary>
+<p>Veriler tarayıcının <b>IndexedDB</b> veritabanında saklanır. Cihaz değiştirirken veya tarayıcı temizliğinde kaybolmasın diye <b>düzenli yedek almalısın</b>.</p>
+
+<h3>9.1 Yedek Alma</h3>
+<div class="help-step"><b>1.</b> <b>🏠 Ana Sayfa</b> sekmesine git.</div>
+<div class="help-step"><b>2.</b> <b>💾 Veri Yedekleme</b> kartındaki <b>⬇️ Yedek Al</b> butonuna bas.</div>
+<div class="help-step"><b>3.</b> <code>klup-dosyasi-yedek.json</code> adlı dosya indirilir.</div>
+<div class="help-step"><b>4.</b> Bu dosyayı güvenli bir yerde sakla (Drive, e-posta, USB).</div>
+
+<h3>9.2 Yedek Yükleme</h3>
+<div class="help-step"><b>1.</b> <b>💾 Veri Yedekleme</b> kartındaki <b>⬆️ Yedek Yükle</b> butonuna bas.</div>
+<div class="help-step"><b>2.</b> Daha önce indirdiğin <code>.json</code> dosyasını seç.</div>
+<div class="help-step"><b>3.</b> Tüm veriler geri yüklenir (mevcut veriler üzerine yazılır).</div>
+
+<div class="notice"><b>⚠️ Önemli:</b> Yedek dosyası fotoğrafları da içerir. Büyük fotoğraf arşivin varsa dosya boyutu büyüyebilir.</div>
+</details></div>
+
+<div class="card"><details><summary>🗑️ 10. Veri Silme İşlemleri</summary>
+
+<h3>10.1 Tek Tek Silme</h3>
+<p>Her liste öğesinin yanında <b>Sil</b> veya <b>🗑️ Sil</b> butonu vardır.</p>
+
+<h3>10.2 Toplu Silme</h3>
+<div class="help-step"><b>1.</b> Liste başındaki <b>Tümünü Seç</b> kutusunu işaretle (veya tek tek işaretle).</div>
+<div class="help-step"><b>2.</b> Üst araç çubuğundaki <b>🗑️ Seçilenleri Sil</b> butonuna bas.</div>
+<div class="help-step"><b>3.</b> Onay penceresi açılır → <b>Tamam</b>.</div>
+
+<h3>10.3 Tüm Verileri Silme</h3>
+<div class="help-step"><b>1.</b> <b>🏠 Ana Sayfa</b> → <b>🗑️ Tüm Verileri Sil</b> kartı.</div>
+<div class="help-step"><b>2.</b> <b>⚠️ Her Şeyi Sil</b> butonuna bas.</div>
+<div class="help-step"><b>3.</b> Çıkan <b>iki uyarıyı</b> da onayla.</div>
+<div class="notice"><b>⚠️ Bu işlem geri alınamaz!</b> Önceden yedek aldığından emin ol.</div>
+</details></div>
+
+<div class="card"><details><summary>📱 11. Telefonda / APK Olarak Kullanım</summary>
+
+<h3>11.1 PWA Olarak Kurma</h3>
+<div class="help-step"><b>Android (Chrome):</b> Adres çubuğundaki <b>⋮</b> → <b>Uygulamayı yükle</b>.</div>
+<div class="help-step"><b>iOS (Safari):</b> Paylaş butonu → <b>Ana Ekrana Ekle</b>.</div>
+<div class="help-step"><b>Masaüstü (Chrome):</b> Adres çubuğundaki <b>⊕</b> → <b>Yükle</b>.</div>
+
+<h3>11.2 APK Olarak Paketleme (PWA Builder)</h3>
+<div class="help-step"><b>1.</b> Projeyi HTTPS üzerinde yayınla (GitHub Pages, Netlify, Vercel).</div>
+<div class="help-step"><b>2.</b> <a href="https://www.pwabuilder.com" target="_blank" rel="noopener">pwabuilder.com</a> adresine git.</div>
+<div class="help-step"><b>3.</b> URL'yi gir → <b>Start</b>.</div>
+<div class="help-step"><b>4.</b> <b>Package for Stores</b> → Android (APK/AAB) seç.</div>
+<div class="help-step"><b>5.</b> İndir, telefona kur.</div>
+
+<h3>11.3 APK Kullanırken Dikkat</h3>
+<ul>
+<li>APK içinde tarayıcı özellikleri sınırlı olabilir; PDF önizlemesi çalışmayabilir.</li>
+<li>Yedek almayı unutma — APK'yı silip yeniden kurarsan veriler kaybolabilir.</li>
+</ul>
+</details></div>
+
+<div class="card"><details><summary>🔧 12. Sık Karşılaşılan Sorunlar ve Çözümleri</summary>
+
+<h3>12.1 Dosya Yüklenmiyor</h3>
+<ul>
+<li><b>Excel/PDF kütüphanesi yüklenemedi</b> hatası → İnternet bağlantısı gerekli (ilk seferde).</li>
+<li><b>.doc dosyası desteklenmiyor</b> → Word'de <b>Farklı Kaydet → .docx</b> yap.</li>
+<li><b>Taranmış PDF</b> → Metin katmanı olmadığı için veri çıkarılamaz.</li>
+</ul>
+
+<h3>12.2 Yıllık Plandan Veri Çıkmıyor</h3>
+<ul>
+<li>Excel'de başlık satırını kontrol et: <b>Hafta | Tarih | Kazanım | Faaliyet | Amaç</b> gibi olmalı.</li>
+<li>Başlık satırı ilk <b>10 satır</b> içinde olmalı.</li>
+<li>Metin ayırıcı olarak <code>|</code>, <code>;</code>, <code>Tab</code> veya <code>,</code> kullan.</li>
+</ul>
+
+<h3>12.3 Rapor Boş Görünüyor</h3>
+<ul>
+<li>Faaliyetlerin <b>"Raporlara dahil"</b> işaretli olduğundan emin ol (✅ simgesi).</li>
+<li>Seçtiğin tarih aralığında faaliyet olduğundan emin ol.</li>
+<li>Rapor türü ile tarihler uyumlu mu? (Aylık için ay seçildi mi?)</li>
+</ul>
+
+<h3>12.4 Veriler Kayboldu</h3>
+<ul>
+<li><b>Tarayıcı önbelleği temizlendiyse</b> veriler silinmiş olabilir → Yedekten geri yükle.</li>
+<li><b>Gizli mod</b> kullanıyorsan veriler kalıcı değildir.</li>
+<li><b>Farklı tarayıcı</b> verileri görmez (her tarayıcının kendi deposu var).</li>
+</ul>
+
+<h3>12.5 Uygulama Açılmıyor</h3>
+<ul>
+<li>Adres çubuğunda <b>https://</b> olduğundan emin ol (PWA için zorunlu).</li>
+<li>Service Worker'ı sıfırla: Chrome DevTools → Application → Service Workers → <b>Unregister</b>.</li>
+</ul>
+</details></div>
+
+<div class="card"><details><summary>💡 13. Pratik İpuçları ve Kısayollar</summary>
+<ul style="line-height:2">
+<li><b>⚡ Toplu işlem önceliği:</b> Önce toplu oluştur, sonra tek tek düzenle.</li>
+<li><b>👥 Grupları kullan:</b> Aynı öğrenci grubuyla birçok faaliyet yapacaksan mutlaka grup oluştur.</li>
+<li><b>💾 Yedek alışkanlığı:</b> Her önemli düzenlemeden sonra yedek al.</li>
+<li><b>🔍 Arama kutusu:</b> Faaliyet modalında öğrenci ararken sadece görünen öğrenciler seçilir.</li>
+<li><b>📊 Excel başlıkları:</b> Standart başlık isimleriyle hazırla, program otomatik tanır.</li>
+<li><b>🗓️ Tarih formatı:</b> Yıllık planda <code>15.09.2026</code> veya <code>2026-09-15</code> kullan.</li>
+<li><b>📝 Metin ayırıcı:</b> Kopyala-yapıştır için en kolay yöntem <code>|</code> (pipe) karakteridir.</li>
+<li><b>🖨️ PDF rapor:</b> Yazdırma ekranında "Hedef → PDF olarak kaydet" seç.</li>
+<li><b>📱 Telefon uyumu:</b> Tablolar yatay kaydırılabilir, sorun değil.</li>
+<li><b>🚫 Veri kaybı önleme:</b> Tarayıcı geçmişini temizlerken "site verileri" seçeneğini işaretleme.</li>
+</ul>
+</details></div>
+
+<div class="card"><details><summary>🧭 14. Tam Akış Özeti — Baştan Sona Örnek Senaryo</summary>
+
+<div class="help-step"><b>1.</b> <b>🏫 Kulüp:</b> Bilgileri gir → 💾 Kaydet</div>
+<div class="help-step"><b>2.</b> <b>👨‍🎓 Öğrenciler:</b> Listeyi yapıştır → 👥 Toplu Ekle</div>
+<div class="help-step"><b>3.</b> <b>👥 Gruplar:</b> 4 grup oluştur → ⚙️ Otomatik Grupla</div>
+<div class="help-step"><b>4.</b> <b>📅 Yıllık Plan:</b> PDF/Excel dosyayı sürükle-bırak → otomatik çıkar</div>
+<div class="help-step"><b>5.</b> <b>📝 Çalışma Planı:</b> Maddeleri gözden geçir, gerekirse düzenle</div>
+<div class="help-step"><b>6.</b> <b>📸 Faaliyetler:</b> ⚡ Toplu Faaliyet Oluştur</div>
+<div class="help-step"><b>7.</b> Her faaliyeti aç → Grup seç → ✅ Tümünü Seç → 📷 Fotoğraf ekle → ✅ Raporlara dahil → 💾 Kaydet</div>
+<div class="help-step"><b>8.</b> <b>📊 Raporlar:</b> Yıl Sonu → Önizle → PDF olarak kaydet</div>
+<div class="help-step"><b>9.</b> <b>💾 Ana Sayfa:</b> Yedek Al (JSON indir)</div>
+
+<div class="notice"><b>🎉 Tebrikler!</b> Artık kulüp dosyan hazır. Bu akışı her dönem sonunda tekrarlayabilirsin.</div>
+</details></div>
+
+<div class="card"><h2>📞 Yardım Sonrası</h2>
+<p>Programla ilgili sorun yaşarsan:</p>
+<ol>
+<li>Bu yardım sayfasındaki ilgili başlığı tekrar oku.</li>
+<li>Tarayıcı konsolunu aç (F12) → hata var mı kontrol et.</li>
+<li>Verilerini <b>Yedek Al</b> ile kaydet.</li>
+<li>Sayfayı yenile (F5) veya uygulamayı kapat-aç.</li>
+</ol>
+</div>
 </section>
 
 </main>
 
 <script>
-const DB_NAME='KlupDosyasiDB_v4', DB_VERSION=1;
+const DB_NAME='KlupDosyasiDB_v5', DB_VERSION=1;
 let db;
 let state={club:{name:'',advisor:'',school:'',year:'',principal:''},students:[],studentGroups:[],workplans:[],activities:[],annualItems:[]};
 
@@ -221,6 +650,7 @@ function setMeta(key,value){return new Promise((res,rej)=>{const r=tx('meta','re
 function getAllFiles(){return new Promise((res,rej)=>{const r=tx('files').getAll();r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
 function putFile(obj){return new Promise((res,rej)=>{const r=tx('files','readwrite').put(obj);r.onsuccess=()=>res();r.onerror=()=>rej(r.error)})}
 function delFile(id){return new Promise((res,rej)=>{const r=tx('files','readwrite').delete(id);r.onsuccess=()=>res();r.onerror=()=>rej(r.error)})}
+function clearFiles(){return new Promise((res,rej)=>{const r=tx('files','readwrite').clear();r.onsuccess=()=>res();r.onerror=()=>rej(r.error)})}
 
 /* ---------- Load ---------- */
 async function load(){
@@ -250,10 +680,38 @@ function show(id){document.querySelectorAll('section').forEach(x=>x.classList.re
 /* ---------- Club ---------- */
 function saveClub(){state.club={name:document.getElementById('clubName').value.trim(),advisor:document.getElementById('advisor').value.trim(),school:document.getElementById('school').value.trim(),principal:document.getElementById('principal').value.trim(),year:document.getElementById('schoolYear').value.trim()};saveState();alert('Kulüp bilgileri kaydedildi.')}
 
-/* ---------- Students ---------- */
+/* ============================================================
+   SEÇİM YÖNETİMİ
+   ============================================================ */
+const selection={students:new Set(),annual:new Set(),files:new Set(),workplans:new Set(),activities:new Set()};
+function updateCount(key){
+  const map={students:'studentsSelCount',annual:'annualSelCount',files:'filesSelCount',workplans:'wpSelCount',activities:'actSelCount'};
+  const el=document.getElementById(map[key]);
+  if(el)el.textContent=`${selection[key].size} seçili`;
+}
+
+/* ============================================================
+   ÖĞRENCİLER
+   ============================================================ */
 function addStudent(){let n=document.getElementById('studentName').value.trim();if(!n)return alert('Öğrenci adı yazın.');state.students.push({id:crypto.randomUUID(),name:n});document.getElementById('studentName').value='';saveState()}
 function addBulkStudents(){let a=document.getElementById('bulkStudents').value.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);a.forEach(n=>state.students.push({id:crypto.randomUUID(),name:n}));document.getElementById('bulkStudents').value='';saveState();alert(a.length+' öğrenci eklendi.')}
-function removeStudent(id){if(confirm('Öğrenci silinsin mi?')){state.students=state.students.filter(x=>x.id!==id);state.activities.forEach(a=>a.participants=a.participants.filter(x=>x!==id));saveState()}}
+function removeStudent(id){if(confirm('Öğrenci silinsin mi?')){state.students=state.students.filter(x=>x.id!==id);state.studentGroups.forEach(g=>g.studentIds=g.studentIds.filter(x=>x!==id));state.activities.forEach(a=>a.participants=(a.participants||[]).filter(x=>x!==id));selection.students.delete(id);saveState()}}
+function toggleSelectStudent(id,checked){if(checked)selection.students.add(id);else selection.students.delete(id);updateCount('students')}
+function toggleSelectAllStudents(checked){
+  if(checked)state.students.forEach(s=>selection.students.add(s.id));else selection.students.clear();
+  document.querySelectorAll('.student-cb').forEach(cb=>{cb.checked=checked});
+  updateCount('students');
+}
+function bulkDeleteStudents(){
+  if(!selection.students.size)return alert('Önce öğrenci seçin.');
+  if(!confirm(`${selection.students.size} öğrenci silinsin mi?`))return;
+  state.students=state.students.filter(s=>!selection.students.has(s.id));
+  state.studentGroups.forEach(g=>g.studentIds=g.studentIds.filter(x=>!selection.students.has(x)));
+  state.activities.forEach(a=>a.participants=(a.participants||[]).filter(x=>!selection.students.has(x)));
+  selection.students.clear();updateCount('students');saveState();
+}
+function inlineEditStudentName(id,val){let s=state.students.find(x=>x.id===id);if(s){s.name=val.trim()||s.name}}
+function inlineSaveAllStudents(){saveState();alert('Değişiklikler kaydedildi.')}
 async function importStudentsFromFile(){
   let f=document.getElementById('studentsImportFile').files[0];
   if(!f)return alert('Dosya seçin.');
@@ -263,7 +721,6 @@ async function importStudentsFromFile(){
     let wb=XLSX.read(buf,{type:'array'});
     let ws=wb.Sheets[wb.SheetNames[0]];
     let aoa=XLSX.utils.sheet_to_json(ws,{header:1,defval:''});
-    if(!aoa.length)return alert('Dosya boş.');
     let colSpec=(document.getElementById('studentsImportCol').value||'').trim();
     let colIdx=0;
     if(colSpec){
@@ -278,28 +735,35 @@ async function importStudentsFromFile(){
       let v=String(r[colIdx]??'').trim();
       if(!v)continue;
       if(/^(ad|isim|ad soyad|name|no)$/i.test(v))continue;
-      state.students.push({id:crypto.randomUUID(),name:v});
-      added++;
+      state.students.push({id:crypto.randomUUID(),name:v});added++;
     }
     await saveState();
     document.getElementById('studentsImportFile').value='';
     alert(`${added} öğrenci içe aktarıldı.`);
-  }catch(e){console.error(e);alert('Dosya okunamadı: '+e.message)}
-}
-
-/* ---------- Student Groups ---------- */
-function addStudentGroup(){let name=document.getElementById('groupName').value.trim();if(!name)return alert('Grup adı yazın.');state.studentGroups.push({id:crypto.randomUUID(),name,studentIds:[]});document.getElementById('groupName').value='';saveState()}
-function autoCreateGroups(){let n=parseInt(document.getElementById('autoGroupCount').value,10);if(!n||n<1)return alert('Grup sayısını girin.');state.studentGroups=[];for(let i=0;i<n;i++)state.studentGroups.push({id:crypto.randomUUID(),name:`Grup ${i+1}`,studentIds:[]});state.students.forEach((s,i)=>state.studentGroups[i%state.studentGroups.length].studentIds.push(s.id));saveState()}
-function saveGroup(id){let g=state.studentGroups.find(x=>x.id===id);if(!g)return;g.name=document.getElementById('gn_'+id).value.trim()||g.name;g.studentIds=[...document.querySelectorAll('.gm_'+id+':checked')].map(x=>x.value);saveState()}
-function deleteGroup(id){state.studentGroups=state.studentGroups.filter(x=>x.id!==id);saveState()}
-function renderStudentGroups(){
-  let box=document.getElementById('studentGroups');if(!box)return;
-  if(!state.studentGroups.length){box.innerHTML='<div class="empty">Henüz grup oluşturulmadı.</div>';return}
-  box.innerHTML=state.studentGroups.map(g=>`<div class="group-card"><div class="row"><div><label>Grup adı</label><input id="gn_${g.id}" value="${esc(g.name)}"></div><div><label>Öğrenciler</label><div class="group-students">${state.students.map(s=>`<label class="chip"><input class="gm_${g.id}" type="checkbox" value="${s.id}" ${g.studentIds.includes(s.id)?'checked':''}> ${esc(s.name)}</label>`).join('')}</div></div></div><div class="actions"><button class="success" onclick="saveGroup('${g.id}')">💾 Kaydet</button><button class="danger" onclick="deleteGroup('${g.id}')">Sil</button></div></div>`).join('');
+  }catch(e){alert('Hata: '+e.message)}
 }
 
 /* ============================================================
-   AKILLI DOSYA YÜKLEME — Otomatik Tür Algılama
+   ÖĞRENCİ GRUPLARI
+   ============================================================ */
+function addStudentGroup(){let name=document.getElementById('groupName').value.trim();if(!name)return alert('Grup adı yazın.');state.studentGroups.push({id:crypto.randomUUID(),name,studentIds:[]});document.getElementById('groupName').value='';saveState()}
+function autoCreateGroups(){let n=parseInt(document.getElementById('autoGroupCount').value,10);if(!n||n<1)return alert('Grup sayısı girin.');state.studentGroups=[];for(let i=0;i<n;i++)state.studentGroups.push({id:crypto.randomUUID(),name:`Grup ${i+1}`,studentIds:[]});state.students.forEach((s,i)=>state.studentGroups[i%state.studentGroups.length].studentIds.push(s.id));saveState()}
+function saveGroup(id){let g=state.studentGroups.find(x=>x.id===id);if(!g)return;g.name=document.getElementById('gn_'+id).value.trim()||g.name;g.studentIds=[...document.querySelectorAll('.gm_'+id+':checked')].map(x=>x.value);saveState()}
+function deleteGroup(id){if(!confirm('Grup silinsin mi?'))return;state.studentGroups=state.studentGroups.filter(x=>x.id!==id);saveState()}
+function bulkDeleteGroups(){
+  let checked=[...document.querySelectorAll('.group-cb:checked')].map(x=>x.value);
+  if(!checked.length)return alert('Önce grup seçin.');
+  if(!confirm(`${checked.length} grup silinsin mi?`))return;
+  state.studentGroups=state.studentGroups.filter(g=>!checked.includes(g.id));saveState();
+}
+function renderStudentGroups(){
+  let box=document.getElementById('studentGroups');if(!box)return;
+  if(!state.studentGroups.length){box.innerHTML='<div class="empty">Grup yok.</div>';return}
+  box.innerHTML=state.studentGroups.map(g=>`<div class="group-card"><div class="row"><div><label><input type="checkbox" class="group-cb" value="${g.id}"> Grup adı</label><input id="gn_${g.id}" value="${esc(g.name)}"></div><div><label>Öğrenciler</label><div class="group-students">${state.students.map(s=>`<label class="chip"><input class="gm_${g.id}" type="checkbox" value="${s.id}" ${g.studentIds.includes(s.id)?'checked':''}> ${esc(s.name)}</label>`).join('')}</div></div></div><div class="actions"><button class="success" onclick="saveGroup('${g.id}')">💾 Kaydet</button><button class="danger" onclick="deleteGroup('${g.id}')">Sil</button></div></div>`).join('');
+}
+
+/* ============================================================
+   AKILLI DOSYA YÜKLEME
    ============================================================ */
 function detectFileType(file){
   const name=(file.name||'').toLowerCase();
@@ -315,13 +779,10 @@ function detectFileType(file){
   if(name.endsWith('.txt')||type.startsWith('text/'))return 'txt';
   return 'unknown';
 }
-function fileTypeLabel(t){
-  return {image:'🖼️ Görsel',pdf:'📄 PDF',docx:'📝 Word (DOCX)',doc:'📝 Word (DOC - eski, desteklenmez)',xlsx:'📊 Excel (XLSX)',xls:'📊 Excel (XLS)',csv:'📋 CSV',json:'🔧 JSON',txt:'📃 Metin (TXT)',unknown:'❓ Bilinmeyen'}[t]||t;
-}
+function fileTypeLabel(t){return {image:'🖼️ Görsel',pdf:'📄 PDF',docx:'📝 DOCX',doc:'📝 DOC (desteklenmez)',xlsx:'📊 XLSX',xls:'📊 XLS',csv:'📋 CSV',json:'🔧 JSON',txt:'📃 TXT',unknown:'❓'}[t]||t}
 
-/* Excel'den yıllık plan kayıtları çıkar */
 async function parseAnnualFromExcel(file){
-  if(!window.XLSX)throw new Error('Excel kütüphanesi yüklenemedi. İnternet bağlantısını kontrol edin.');
+  if(!window.XLSX)throw new Error('Excel kütüphanesi yüklenemedi.');
   let buf=await file.arrayBuffer();
   let wb=XLSX.read(buf,{type:'array'});
   let rows=[];
@@ -334,24 +795,17 @@ async function parseAnnualFromExcel(file){
       if(h.some(x=>/hafta|tarih|kazan|faaliyet|etkinlik|amaç|açıklama|hedef/i.test(x))){headerRow=i;headers=h;break;}
     }
     for(let i=headerRow>=0?headerRow+1:0;i<aoa.length;i++){
-      let cells=aoa[i];
-      if(!cells.some(c=>normalizeCell(c)))continue;
-      let r=guessAnnualRow(cells,headers);
-      if(r)rows.push(r);
+      if(!aoa[i].some(c=>normalizeCell(c)))continue;
+      let r=guessAnnualRow(aoa[i],headers);if(r)rows.push(r);
     }
   }
   return rows;
 }
-
-/* PDF'den yıllık plan kayıtları çıkar */
 async function parseAnnualFromPDF(file){
-  if(!window.pdfjsLib)throw new Error('PDF kütüphanesi yüklenemedi. İnternet bağlantısını kontrol edin.');
+  if(!window.pdfjsLib)throw new Error('PDF kütüphanesi yüklenemedi.');
   pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
   let data=await file.arrayBuffer();
-  let pdf=await Promise.race([
-    pdfjsLib.getDocument({data}).promise,
-    new Promise((_,rej)=>setTimeout(()=>rej(new Error('PDF zaman aşımı')),20000))
-  ]);
+  let pdf=await Promise.race([pdfjsLib.getDocument({data}).promise,new Promise((_,rej)=>setTimeout(()=>rej(new Error('PDF zaman aşımı')),20000))]);
   let fullText='';
   for(let i=1;i<=pdf.numPages;i++){
     let page=await pdf.getPage(i);
@@ -360,17 +814,13 @@ async function parseAnnualFromPDF(file){
     items.sort((a,b)=>b.y-a.y||a.x-b.x);
     let lines=[],lastY=null,curLine='';
     for(const it of items){
-      if(lastY===null||Math.abs(it.y-lastY)>3){
-        if(curLine.trim())lines.push(curLine.trim());
-        curLine=it.str;lastY=it.y;
-      } else curLine+=' '+it.str;
+      if(lastY===null||Math.abs(it.y-lastY)>3){if(curLine.trim())lines.push(curLine.trim());curLine=it.str;lastY=it.y;}
+      else curLine+=' '+it.str;
     }
     if(curLine.trim())lines.push(curLine.trim());
     fullText+='\n'+lines.join('\n');
   }
-  // Önce satır bazlı ayırıcı olarak dene
   let rows=parseDelimitedAnnualText(fullText);
-  // Sonuç yoksa satır-satır tarama
   if(!rows.length){
     let lines=fullText.split(/\r?\n/).map(l=>l.trim()).filter(Boolean);
     let lastWeek='';
@@ -378,16 +828,11 @@ async function parseAnnualFromPDF(file){
       let wm=line.match(/(\d{1,2})\s*\.?\s*hafta/i);
       if(wm){lastWeek=`${wm[1]}. Hafta`;continue}
       let dm=parseDateFromText(line);
-      if(dm){
-        let title=line.replace(/\b\d{1,2}[.\/-]\d{1,2}[.\/-]\d{4}\b/,'').trim();
-        if(title)rows.push(makeAnnualItem({week:lastWeek,date:dm,outcome:title}));
-      }
+      if(dm){let title=line.replace(/\b\d{1,2}[.\/-]\d{1,2}[.\/-]\d{4}\b/,'').trim();if(title)rows.push(makeAnnualItem({week:lastWeek,date:dm,outcome:title}))}
     }
   }
   return rows;
 }
-
-/* Word (DOCX) yıllık plan kayıtları */
 async function parseAnnualFromDocx(file){
   if(!window.mammoth)throw new Error('Word kütüphanesi yüklenemedi.');
   let rows=await extractDocxRows(file);
@@ -395,196 +840,135 @@ async function parseAnnualFromDocx(file){
   let r=await mammoth.extractRawText({arrayBuffer:await file.arrayBuffer()});
   return parseDelimitedAnnualText(r.value||'');
 }
-
-/* Ana yükleme işleyicisi */
 async function handleAnnualSmartUpload(files){
   if(!files||!files.length)return;
   let status=document.getElementById('annualUploadStatus');
   let autoWorkPlan=document.getElementById('annualAutoWorkPlan').checked;
   status.innerHTML='';
-
   let totalNewRecords=0,totalWorkPlanAdded=0,processedFiles=0;
-
   for(const f of files){
     let type=detectFileType(f);
-    let row=document.createElement('div');
-    row.className='file-row';
-    row.innerHTML=`📎 <b>${esc(f.name)}</b> <span class="file-type">${fileTypeLabel(type)}</span> · <span class="muted">işleniyor...</span>`;
+    let row=document.createElement('div');row.className='file-row';
+    row.innerHTML=`📎 <b>${esc(f.name)}</b> <span class="file-type">${fileTypeLabel(type)}</span> · işleniyor...`;
     status.appendChild(row);
-
-    // 1. Dosyayı her durumda IndexedDB'ye kaydet
     let fileId=crypto.randomUUID();
-    try{
-      await putFile({id:fileId,kind:'annual',name:f.name,type:f.type,size:f.size,date:new Date().toISOString(),blob:f});
-    }catch(e){row.className='file-row warn';row.innerHTML=`⚠️ <b>${esc(f.name)}</b> · kaydedilemedi: ${esc(e.message)}`;continue}
-
-    // 2. Türüne göre parse et
+    try{await putFile({id:fileId,kind:'annual',name:f.name,type:f.type,size:f.size,date:new Date().toISOString(),blob:f});}
+    catch(e){row.className='file-row warn';row.innerHTML=`⚠️ <b>${esc(f.name)}</b> · kaydedilemedi`;continue}
     let rows=[];
     try{
-      if(type==='image'){
-        row.className='file-row info';
-        row.innerHTML=`🖼️ <b>${esc(f.name)}</b> <span class="file-type">Görsel</span> · kaydedildi (metin yok)`;
-        processedFiles++;
-        continue;
-      }
-      else if(type==='pdf'){rows=await parseAnnualFromPDF(f);}
-      else if(type==='docx'){rows=await parseAnnualFromDocx(f);}
-      else if(type==='doc'){row.className='file-row warn';row.innerHTML=`⚠️ <b>${esc(f.name)}</b> · Eski .doc formatı okunamıyor. Lütfen .docx olarak kaydedin.`;continue;}
-      else if(type==='xlsx'||type==='xls'){rows=await parseAnnualFromExcel(f);}
-      else if(type==='csv'||type==='txt'||type==='json'){
-        let text=await f.text();
-        rows=parseDelimitedAnnualText(text);
-      }
-      else{row.className='file-row warn';row.innerHTML=`⚠️ <b>${esc(f.name)}</b> · Bilinmeyen dosya türü`;continue;}
-    }catch(e){
-      row.className='file-row warn';
-      row.innerHTML=`⚠️ <b>${esc(f.name)}</b> · ayrıştırma hatası: ${esc(e.message)}`;
-      continue;
-    }
-
-    // 3. Tekrarları filtrele
+      if(type==='image'){row.className='file-row info';row.innerHTML=`🖼️ <b>${esc(f.name)}</b> · kaydedildi`;processedFiles++;continue;}
+      else if(type==='pdf')rows=await parseAnnualFromPDF(f);
+      else if(type==='docx')rows=await parseAnnualFromDocx(f);
+      else if(type==='doc'){row.className='file-row warn';row.innerHTML=`⚠️ <b>${esc(f.name)}</b> · .doc desteklenmez, .docx kullanın`;continue;}
+      else if(type==='xlsx'||type==='xls')rows=await parseAnnualFromExcel(f);
+      else if(type==='csv'||type==='txt'||type==='json'){let t=await f.text();rows=parseDelimitedAnnualText(t);}
+      else{row.className='file-row warn';row.innerHTML=`⚠️ <b>${esc(f.name)}</b> · bilinmeyen tür`;continue;}
+    }catch(e){row.className='file-row warn';row.innerHTML=`⚠️ <b>${esc(f.name)}</b> · hata: ${esc(e.message)}`;continue;}
     let seen=new Set(state.annualItems.map(r=>[r.week,r.date,r.outcome,r.activity,r.purpose].join('|').toLocaleLowerCase('tr-TR')));
     let newRows=rows.filter(r=>{let k=[r.week,r.date,r.outcome,r.activity,r.purpose].join('|').toLocaleLowerCase('tr-TR');if(seen.has(k))return false;seen.add(k);return true});
-
     if(newRows.length){
-      state.annualItems.push(...newRows);
-      totalNewRecords+=newRows.length;
-      row.className='file-row ok';
+      state.annualItems.push(...newRows);totalNewRecords+=newRows.length;
       let wpInfo='';
-      // 4. Çalışma planına ekle
       if(autoWorkPlan){
         let wpAdded=0;
         for(const r of newRows){
-          let title=r.activity||r.outcome;
-          if(!title)continue;
+          let title=r.activity||r.outcome;if(!title)continue;
           let exists=state.workplans.some(w=>w.week===r.week&&w.date===r.date&&String(w.title).toLowerCase()===String(title).toLowerCase());
           if(exists)continue;
-          state.workplans.push({
-            id:crypto.randomUUID(),
-            week:r.week||'',date:r.date||'',
-            title,desc:r.purpose||r.desc||'',
-            outcomeId:r.id,outcome:r.outcome||'',
-            annualItemId:r.id
-          });
-          wpAdded++;
+          state.workplans.push({id:crypto.randomUUID(),week:r.week||'',date:r.date||'',title,desc:r.purpose||r.desc||'',outcomeId:r.id,outcome:r.outcome||'',annualItemId:r.id});wpAdded++;
         }
         state.workplans.sort((a,b)=>(a.date||'').localeCompare(b.date||''));
         totalWorkPlanAdded+=wpAdded;
-        wpInfo=` · <span style="color:#039855">📝 ${wpAdded} çalışma planına eklendi</span>`;
+        wpInfo=` · 📝 ${wpAdded} çalışma planına eklendi`;
       }
-      row.innerHTML=`✅ <b>${esc(f.name)}</b> <span class="file-type">${fileTypeLabel(type)}</span> · <b>${newRows.length}</b> yıllık plan kaydı${wpInfo}`;
-    } else {
-      row.className='file-row info';
-      row.innerHTML=`ℹ️ <b>${esc(f.name)}</b> <span class="file-type">${fileTypeLabel(type)}</span> · yeni kayıt yok (dosya boş veya tümü zaten ekli)`;
-    }
+      row.className='file-row ok';
+      row.innerHTML=`✅ <b>${esc(f.name)}</b> <span class="file-type">${fileTypeLabel(type)}</span> · <b>${newRows.length}</b> kayıt${wpInfo}`;
+    } else {row.className='file-row info';row.innerHTML=`ℹ️ <b>${esc(f.name)}</b> · yeni kayıt yok`;}
     processedFiles++;
   }
-
   await saveState();
-
-  // Özet
-  let summary=document.createElement('div');
-  summary.className='upload-summary';
-  summary.innerHTML=`📊 <b>Özet:</b> ${processedFiles} dosya işlendi · ${totalNewRecords} yıllık plan kaydı · ${totalWorkPlanAdded} çalışma planı maddesi`;
+  let summary=document.createElement('div');summary.className='upload-summary';
+  summary.innerHTML=`📊 ${processedFiles} dosya · ${totalNewRecords} kayıt · ${totalWorkPlanAdded} çalışma planı`;
   status.appendChild(summary);
-
-  // Yükleme alanını sıfırla
-  let input=document.getElementById('annualSmartFile');
-  if(input)input.value='';
+  let input=document.getElementById('annualSmartFile');if(input)input.value='';
 }
 
-/* Dosya türü algılama önizlemesi (seçim yapıldığında) */
-function previewSelectedFileType(files){
-  if(!files||!files.length)return;
-  let status=document.getElementById('annualUploadStatus');
-  status.innerHTML='';
-  for(const f of files){
-    let t=detectFileType(f);
-    let row=document.createElement('div');
-    row.className='file-row info';
-    row.innerHTML=`🔍 Algılanan tür: <span class="file-type">${fileTypeLabel(t)}</span> — <b>${esc(f.name)}</b>`;
-    status.appendChild(row);
+/* ---------- Dosya Yönetimi ---------- */
+function toggleSelectFile(id,checked){if(checked)selection.files.add(id);else selection.files.delete(id);updateCount('files')}
+function toggleSelectAllFiles(checked){
+  let cbs=document.querySelectorAll('.file-cb');
+  cbs.forEach(cb=>{cb.checked=checked;if(checked)selection.files.add(cb.value);else selection.files.delete(cb.value)});
+  updateCount('files');
+}
+async function bulkDeleteFiles(){
+  if(!selection.files.size)return alert('Dosya seçin.');
+  if(!confirm(`${selection.files.size} dosya silinsin mi?`))return;
+  for(const id of selection.files)await delFile(id);
+  selection.files.clear();updateCount('files');renderAnnual();
+}
+async function bulkDownloadFiles(){
+  if(!selection.files.size)return alert('Dosya seçin.');
+  let all=await getAllFiles();
+  for(const id of selection.files){
+    let f=all.find(x=>x.id===id);if(!f)continue;
+    let u=URL.createObjectURL(f.blob),a=document.createElement('a');
+    a.href=u;a.download=f.name;a.click();
+    await new Promise(r=>setTimeout(r,300));
+    setTimeout(()=>URL.revokeObjectURL(u),2000);
   }
 }
-
-/* ---------- Annual Files Listesi ---------- */
-async function removeAnnual(id){if(confirm('Dosya silinsin mi?')){await delFile(id);renderAnnual()}}
+async function removeAnnual(id){if(!confirm('Dosya silinsin mi?')){return}await delFile(id);selection.files.delete(id);renderAnnual()}
 async function renderAnnual(){
   let fs=(await getAllFiles()).filter(x=>x.kind==='annual');
   document.getElementById('annualList').innerHTML=fs.map(x=>{
     let ext=x.name.includes('.')?x.name.split('.').pop().toUpperCase():'DOSYA';
-    return `<div class="item"><b>📎 ${esc(x.name)}</b><span class="file-type">${ext}</span><div class="muted">${Math.max(1,Math.round(x.size/1024))} KB · ${fmtDate((x.date||'').slice(0,10))}</div><div class="actions"><button class="light" onclick="viewFile('${x.id}')">👁️ Görüntüle</button><button class="secondary" onclick="downloadFile('${x.id}')">⬇️ İndir</button><button class="danger" onclick="removeAnnual('${x.id}')">Sil</button></div></div>`
-  }).join('')||'<div class="empty">Yıllık plan dosyası eklenmedi.</div>';
+    let checked=selection.files.has(x.id)?'checked':'';
+    return `<div class="item"><label style="display:flex;align-items:center;gap:10px"><input type="checkbox" class="file-cb" value="${x.id}" ${checked} onchange="toggleSelectFile('${x.id}',this.checked)"><b>📎 ${esc(x.name)}</b><span class="file-type">${ext}</span></label><div class="muted" style="margin-left:30px">${Math.max(1,Math.round(x.size/1024))} KB</div><div class="actions" style="margin-left:30px"><button class="light" onclick="viewFile('${x.id}')">👁️ Görüntüle</button><button class="secondary" onclick="downloadFile('${x.id}')">⬇️ İndir</button><button class="danger" onclick="removeAnnual('${x.id}')">Sil</button></div></div>`
+  }).join('')||'<div class="empty">Dosya yok.</div>';
 }
 
 /* ---------- File Viewer ---------- */
 async function viewFile(id){
-  let all=await getAllFiles(),f=all.find(x=>x.id===id); if(!f)return;
+  let all=await getAllFiles(),f=all.find(x=>x.id===id);if(!f)return;
   let box=document.getElementById('fileViewer'),title=document.getElementById('viewerTitle'),content=document.getElementById('viewerContent');
-  title.textContent='📂 '+f.name; content.innerHTML='<div class="notice">Dosya hazırlanıyor...</div>'; box.style.display='block'; box.scrollIntoView({behavior:'smooth',block:'start'});
+  title.textContent='📂 '+f.name;content.innerHTML='<div class="notice">Yükleniyor...</div>';box.style.display='block';box.scrollIntoView({behavior:'smooth',block:'start'});
   let u=URL.createObjectURL(f.blob),type=(f.type||'').toLowerCase(),name=f.name.toLowerCase();
   if(type.startsWith('image/')){
-    content.innerHTML=`<div class="file-preview image-preview"><div class="image-controls"><button class="light" onclick="zoomImage(1.25)">🔍 Yakınlaştır</button><button class="secondary" onclick="zoomImage(0.8)">🔎 Uzaklaştır</button><button class="secondary" onclick="resetImageZoom()">↺ %100</button><button class="secondary" onclick="fitImageToScreen()">↔ Sığdır</button></div><img id="viewerImage" src="${u}" alt="${esc(f.name)}" style="width:auto;height:auto;max-width:none;max-height:none"></div>`;
-    const img=document.getElementById('viewerImage');
-    img.onload=()=>{window.currentImageZoom=1;img.style.width=img.naturalWidth+'px';img.style.height=img.naturalHeight+'px';};
+    content.innerHTML=`<div class="file-preview image-preview"><img id="viewerImage" src="${u}" style="max-width:100%"></div>`;
   }
   else if(type==='application/pdf'||name.endsWith('.pdf')){
-    content.innerHTML='<div class="file-preview pdf-viewer"><div class="pdf-toolbar actions no-print"><button class="light" onclick="pdfZoom(1.2)">🔍 Yakınlaştır</button><button class="secondary" onclick="pdfZoom(0.83)">🔎 Uzaklaştır</button><button class="secondary" onclick="pdfFitWidth()">↔ Sığdır</button></div><div id="pdfStatus" class="notice">PDF hazırlanıyor...</div><div class="pdf-scroll"><div id="pdfPages"></div></div><div id="pdfFallback" style="display:none" class="notice"></div></div>';
-    window.currentPdfZoom=1;window.currentPdfPages=[];
-    const showPdfFallback=(msg)=>{
-      const st=document.getElementById('pdfStatus');if(st)st.remove();
-      const fb=document.getElementById('pdfFallback');if(!fb)return;
-      fb.style.display='block';
-      fb.innerHTML='<b>PDF önizlemesi açılamadı.</b><br>'+msg+'<div class="actions"><button class="light" onclick="openNativeFile(\''+f.id+'\')">📱 Cihazda Aç</button><button class="secondary" onclick="downloadFile(\''+f.id+'\')">⬇️ İndir</button></div>';
-    };
+    content.innerHTML='<div class="file-preview pdf-viewer"><div id="pdfStatus" class="notice">PDF yükleniyor...</div><div id="pdfPages"></div></div>';
     try{
-      if(!window.pdfjsLib){showPdfFallback('PDF kütüphanesi yüklenemedi.');}
-      else{
-        pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-        let data=await f.blob.arrayBuffer();
-        let pdf=await Promise.race([pdfjsLib.getDocument({data}).promise,new Promise((_,rej)=>setTimeout(()=>rej(new Error('zaman aşımı')),15000))]);
-        let pages=document.getElementById('pdfPages');
-        document.getElementById('pdfStatus').textContent=pdf.numPages+' sayfa görüntüleniyor...';
-        for(let pageNo=1;pageNo<=pdf.numPages;pageNo++){
-          let page=await pdf.getPage(pageNo);
-          let base=page.getViewport({scale:1});
-          let available=Math.max(320,(content.clientWidth||360)-56);
-          let fitScale=Math.max(1,Math.min(2.5,available/base.width));
-          let dpr=Math.min(3,Math.max(1,window.devicePixelRatio||1));
-          let scale=fitScale*window.currentPdfZoom;
-          let viewport=page.getViewport({scale});
-          let renderViewport=page.getViewport({scale:scale*dpr});
-          let wrap=document.createElement('div');wrap.className='pdf-page';
-          wrap.innerHTML='<div class="pdf-page-no">Sayfa '+pageNo+' / '+pdf.numPages+'</div>';
-          let canvas=document.createElement('canvas');
-          canvas.width=Math.ceil(renderViewport.width);canvas.height=Math.ceil(renderViewport.height);
-          canvas.style.width=Math.ceil(viewport.width)+'px';canvas.style.height=Math.ceil(viewport.height)+'px';canvas.style.display='block';
-          wrap.appendChild(canvas);pages.appendChild(wrap);
-          window.currentPdfPages.push({page,canvas,wrap,base,fitScale,dpr});
-          await page.render({canvasContext:canvas.getContext('2d',{alpha:false}),viewport:renderViewport}).promise;
-        }
-        const st=document.getElementById('pdfStatus');if(st)st.remove();
+      if(!window.pdfjsLib){content.innerHTML='<div class="notice">PDF kütüphanesi yüklenemedi.</div>';return}
+      pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+      let data=await f.blob.arrayBuffer();
+      let pdf=await pdfjsLib.getDocument({data}).promise;
+      let pages=document.getElementById('pdfPages');
+      for(let p=1;p<=pdf.numPages;p++){
+        let page=await pdf.getPage(p);
+        let vp=page.getViewport({scale:1.5});
+        let wrap=document.createElement('div');wrap.className='pdf-page';
+        let canvas=document.createElement('canvas');
+        canvas.width=vp.width;canvas.height=vp.height;canvas.style.maxWidth='100%';
+        wrap.appendChild(canvas);pages.appendChild(wrap);
+        await page.render({canvasContext:canvas.getContext('2d',{alpha:false}),viewport:vp}).promise;
       }
-    }catch(e){console.error(e);showPdfFallback('Güvenli geri dönüş kullanabilirsiniz.')}
+      document.getElementById('pdfStatus')?.remove();
+    }catch(e){content.innerHTML='<div class="notice">PDF açılamadı.</div>'}
   }
-  else if(type.startsWith('text/')||/\.(txt|csv|json|md)$/i.test(name)){try{let text=await f.blob.text();content.innerHTML=`<div class="file-preview"><pre>${esc(text)}</pre></div>`}catch(e){content.innerHTML='<div class="notice">Görüntülenemedi.</div>'}}
-  else if(name.endsWith('.docx')){if(window.mammoth){try{let r=await mammoth.convertToHtml({arrayBuffer:await f.blob.arrayBuffer()});content.innerHTML=`<div class="file-preview office-html">${r.value}</div>`}catch(e){content.innerHTML='<div class="notice">Word önizleme hatası.</div>'}}else content.innerHTML=`<div class="file-preview"><div class="notice">Word görüntüleyici yüklenemedi.</div></div>`}
-  else if(name.endsWith('.xlsx')||name.endsWith('.xls')){if(window.XLSX){try{let wb=XLSX.read(await f.blob.arrayBuffer(),{type:'array'});let html='';wb.SheetNames.forEach(n=>{html+=`<h3>${esc(n)}</h3>`+XLSX.utils.sheet_to_html(wb.Sheets[n],{editable:false})});content.innerHTML=`<div class="file-preview office-html">${html}</div>`}catch(e){content.innerHTML='<div class="notice">Excel önizleme hatası.</div>'}}else content.innerHTML=`<div class="file-preview"><div class="notice">Excel görüntüleyici yüklenemedi.</div></div>`}
-  else content.innerHTML=`<div class="file-preview"><div class="notice"><b>Bu dosya türü görüntülenemiyor.</b></div><div class="actions"><button class="secondary" onclick="openNativeFile('${f.id}')">📱 Cihazda Aç</button><button class="secondary" onclick="downloadFile('${f.id}')">⬇️ İndir</button></div></div>`;
+  else if(type.startsWith('text/')||/\.(txt|csv|json|md)$/i.test(name)){try{let t=await f.blob.text();content.innerHTML=`<div class="file-preview"><pre>${esc(t)}</pre></div>`}catch(e){content.innerHTML='<div class="notice">Görüntülenemedi.</div>'}}
+  else if(name.endsWith('.docx')){if(window.mammoth){try{let r=await mammoth.convertToHtml({arrayBuffer:await f.blob.arrayBuffer()});content.innerHTML=`<div class="file-preview office-html">${r.value}</div>`}catch(e){content.innerHTML='<div class="notice">Hata.</div>'}}else content.innerHTML='<div class="notice">Yüklenemedi.</div>'}
+  else if(name.endsWith('.xlsx')||name.endsWith('.xls')){if(window.XLSX){try{let wb=XLSX.read(await f.blob.arrayBuffer(),{type:'array'});let html='';wb.SheetNames.forEach(n=>{html+=`<h3>${esc(n)}</h3>`+XLSX.utils.sheet_to_html(wb.Sheets[n])});content.innerHTML=`<div class="file-preview office-html">${html}</div>`}catch(e){content.innerHTML='<div class="notice">Hata.</div>'}}else content.innerHTML='<div class="notice">Yüklenemedi.</div>'}
+  else content.innerHTML=`<div class="notice">Bu tür görüntülenemiyor.</div>`;
 }
-function zoomImage(factor){const img=document.getElementById('viewerImage');if(!img)return;window.currentImageZoom=(window.currentImageZoom||1)*factor;window.currentImageZoom=Math.max(.25,Math.min(5,window.currentImageZoom));img.style.width=(img.naturalWidth*window.currentImageZoom)+'px';img.style.height=(img.naturalHeight*window.currentImageZoom)+'px';}
-function resetImageZoom(){const img=document.getElementById('viewerImage');if(!img)return;window.currentImageZoom=1;img.style.width=img.naturalWidth+'px';img.style.height=img.naturalHeight+'px';}
-function fitImageToScreen(){const img=document.getElementById('viewerImage');if(!img)return;const box=img.parentElement;const maxW=Math.max(200,box.clientWidth-20),maxH=Math.max(200,window.innerHeight*.72);window.currentImageZoom=Math.min(maxW/img.naturalWidth,maxH/img.naturalHeight,1);img.style.width=(img.naturalWidth*window.currentImageZoom)+'px';img.style.height=(img.naturalHeight*window.currentImageZoom)+'px';}
-async function rerenderPdf(){const items=window.currentPdfPages||[];for(const x of items){const scale=x.fitScale*window.currentPdfZoom;const rv=x.page.getViewport({scale:scale*x.dpr});const v=x.page.getViewport({scale});x.canvas.width=Math.ceil(rv.width);x.canvas.height=Math.ceil(rv.height);x.canvas.style.width=Math.ceil(v.width)+'px';x.canvas.style.height=Math.ceil(v.height)+'px';await x.page.render({canvasContext:x.canvas.getContext('2d',{alpha:false}),viewport:rv}).promise;}}
-function pdfZoom(factor){window.currentPdfZoom=Math.max(.5,Math.min(3,(window.currentPdfZoom||1)*factor));rerenderPdf();}
-function pdfFitWidth(){window.currentPdfZoom=1;rerenderPdf();}
-async function openNativeFile(id){let all=await getAllFiles(),x=all.find(a=>a.id===id);if(!x)return;let u=URL.createObjectURL(x.blob);let a=document.createElement('a');a.href=u;a.target='_blank';a.rel='noopener';a.type=x.type||'application/pdf';a.click();setTimeout(()=>URL.revokeObjectURL(u),60000);}
-function closeFileViewer(){let c=document.getElementById('viewerContent');c.querySelectorAll('img,video,audio,iframe').forEach(el=>{if(el.src&&el.src.startsWith('blob:'))URL.revokeObjectURL(el.src)});document.getElementById('fileViewer').style.display='none';c.innerHTML=''}
+function closeFileViewer(){document.getElementById('fileViewer').style.display='none';document.getElementById('viewerContent').innerHTML=''}
 async function downloadFile(id){let all=await getAllFiles(),x=all.find(a=>a.id===id);if(!x)return;let u=URL.createObjectURL(x.blob),a=document.createElement('a');a.href=u;a.download=x.name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)}
 
-/* ---------- Parse Helpers ---------- */
+/* ============================================================
+   PARSE HELPERS
+   ============================================================ */
 function normalizeCell(v){return String(v??'').replace(/\s+/g,' ').trim()}
-function cleanHeader(v){return normalizeCell(v).toLocaleLowerCase('tr-TR').replace(/[ıİ]/g,'i').replace(/[ğĞ]/g,'g').replace(/[üÜ]/g,'u').replace(/[şŞ]/g,'s').replace(/[öÖ]/g,'o').replace(/[çÇ]/g,'c').replace(/[\n\r]+/g,' ')}
+function cleanHeader(v){return normalizeCell(v).toLocaleLowerCase('tr-TR').replace(/[ıİ]/g,'i').replace(/[ğĞ]/g,'g').replace(/[üÜ]/g,'u').replace(/[şŞ]/g,'s').replace(/[öÖ]/g,'o').replace(/[çÇ]/g,'c')}
 function headerType(v){
   let h=cleanHeader(v);
   if(/(^|\s)(hafta|hafta no|week)(\s|$)/i.test(h))return 'week';
@@ -594,33 +978,19 @@ function headerType(v){
   if(/amac|aciklama|neden|hedefi/i.test(h))return 'purpose';
   return '';
 }
-function detectOutcome(text){let t=normalizeCell(text);return t.replace(/^\s*(kazanım|öğrenme çıktısı|hedef|amaç|faaliyet|etkinlik|açıklama)\s*[:：-]?\s*/i,'').trim()}
+function detectOutcome(text){return normalizeCell(text).replace(/^\s*(kazanım|öğrenme çıktısı|hedef|amaç|faaliyet|etkinlik|açıklama)\s*[:：-]?\s*/i,'').trim()}
 function parseWeek(v){let t=normalizeCell(v);if(!t)return '';let m=t.match(/(\d{1,2})\s*\.?\s*hafta/i);if(m)return `${m[1]}. Hafta`;m=t.match(/hafta\s*[:\-]?\s*(\d{1,2})/i);if(m)return `${m[1]}. Hafta`;return t}
 function makeAnnualItem(o={}){return {id:o.id||crypto.randomUUID(),groupId:o.groupId||'',week:parseWeek(o.week||''),date:o.date||'',weekStart:o.weekStart||o.date||'',weekEnd:o.weekEnd||o.date||'',outcome:detectOutcome(o.outcome||''),activity:normalizeCell(o.activity||''),purpose:normalizeCell(o.purpose||''),desc:normalizeCell(o.desc||o.purpose||'')}}
-function groupAnnualItems(items){
-  let groups=[],map=new Map(),lastWeek='';
-  for(const raw of items){
-    let x=makeAnnualItem(raw);if(x.week)lastWeek=x.week;else if(lastWeek)x.week=lastWeek;
-    let key=x.week||'Hafta belirtilmemiş';
-    if(!map.has(key)){let g={id:crypto.randomUUID(),week:key,items:[]};map.set(key,g);groups.push(g)}
-    let g=map.get(key);x.groupId=g.id;g.items.push(x);
-  }
-  return groups;
-}
-function rebuildAnnualGroups(){
-  let groups=groupAnnualItems(state.annualItems),out=[];
-  groups.forEach(g=>g.items.forEach(x=>out.push({...x,groupId:g.id})));state.annualItems=out;return groups;
-}
 function guessAnnualRow(cells,headers=null){
   let vals=cells.map(normalizeCell),item={week:'',date:'',outcome:'',activity:'',purpose:'',desc:''};
   if(headers){
     cells.forEach((v,i)=>{
-      let type=headerType(headers[i]);
-      if(type==='week')item.week=parseWeek(v);
-      else if(type==='date')item.date=parseDateFromText(v)||v;
-      else if(type==='outcome')item.outcome=v;
-      else if(type==='activity')item.activity=v;
-      else if(type==='purpose')item.purpose=v;
+      let t=headerType(headers[i]);
+      if(t==='week')item.week=parseWeek(v);
+      else if(t==='date')item.date=parseDateFromText(v)||v;
+      else if(t==='outcome')item.outcome=v;
+      else if(t==='activity')item.activity=v;
+      else if(t==='purpose')item.purpose=v;
     });
   }
   if(!headers||!Object.values(item).some(Boolean)){
@@ -640,19 +1010,14 @@ function parseDelimitedAnnualText(text){
     let line=lines[li];if(headers&&li===0)continue;
     let cells=line.split(/\t|\||;|,\s+/).map(normalizeCell);
     let row=guessAnnualRow(cells,headers);
-    if(row){if(!row.week&&lastWeek)row.week=lastWeek;if(row.week)lastWeek=row.week;rows.push(row)}
-    else{
-      let date=parseDateFromText(line),title=line.replace(/\b\d{1,2}[.\/-]\d{1,2}[.\/-]\d{4}\b/,'').replace(/\b\d{4}[.\/-]\d{1,2}[.\/-]\d{1,2}\b/,'').replace(/^\s*[-–—:;|,]+\s*/,'').trim();
-      if(title.length>=3)rows.push(makeAnnualItem({week:lastWeek,date,outcome:title}));
-    }
+    if(row){if(!row.week&&lastWeek)row.week=lastWeek;if(row.week)lastWeek=row.week;rows.push(row);}
+    else{let d=parseDateFromText(line),t=line.replace(/\b\d{1,2}[.\/-]\d{1,2}[.\/-]\d{4}\b/,'').trim();if(t.length>=3)rows.push(makeAnnualItem({week:lastWeek,date:d,outcome:t}));}
   }
   return rows;
 }
 function parseDateFromText(line){
   let m=line.match(/\b(\d{1,2})[.\/-](\d{1,2})[.\/-](\d{4})\b/);if(m)return `${m[3]}-${String(m[2]).padStart(2,'0')}-${String(m[1]).padStart(2,'0')}`;
   m=line.match(/\b(\d{4})[.\/-](\d{1,2})[.\/-](\d{1,2})\b/);if(m)return `${m[1]}-${String(m[2]).padStart(2,'0')}-${String(m[3]).padStart(2,'0')}`;
-  m=line.match(/\b(\d{1,2})[.\/-](\d{1,2})\b/);
-  if(m){let y=state.club.year.match(/(20\d{2})/);if(y)return `${y[1]}-${String(m[2]).padStart(2,'0')}-${String(m[1]).padStart(2,'0')}`}
   return '';
 }
 async function extractDocxRows(file){
@@ -665,98 +1030,179 @@ async function extractDocxRows(file){
     let headers=hasHeaders?first:null;
     trs.slice(hasHeaders?1:0).forEach(tr=>{let cells=[...tr.children].map(x=>normalizeCell(x.textContent));let r=guessAnnualRow(cells,headers);if(r)rows.push(r)});
   });
-  if(!rows.length){let raw=doc.body.textContent||'';rows=parseDelimitedAnnualText(raw)}
+  if(!rows.length)rows=parseDelimitedAnnualText(doc.body.textContent||'');
   return rows;
 }
 async function extractAnnualPlanItems(){
-  let rows=[],text=document.getElementById('annualPlanText').value.trim();
-  if(text)rows=parseDelimitedAnnualText(text);
-  if(!rows.length)return alert('Metinden kayıt bulunamadı.');
+  let text=document.getElementById('annualPlanText').value.trim();
+  if(!text)return alert('Metin boş.');
+  let rows=parseDelimitedAnnualText(text);
+  if(!rows.length)return alert('Kayıt bulunamadı.');
   let seen=new Set(state.annualItems.map(r=>[r.week,r.date,r.outcome,r.activity,r.purpose].join('|').toLocaleLowerCase('tr-TR')));
   let newRows=rows.filter(r=>{let k=[r.week,r.date,r.outcome,r.activity,r.purpose].join('|').toLocaleLowerCase('tr-TR');if(seen.has(k))return false;seen.add(k);return true});
   state.annualItems.push(...newRows);
-  renderAnnualItems();saveState();
+  saveState();
   document.getElementById('annualParseInfo').textContent=`${newRows.length} yeni kayıt eklendi. Toplam: ${state.annualItems.length}.`;
+}
+
+/* ---------- Yıllık Plan Seçim ve Silme ---------- */
+function toggleSelectAnnual(id,checked){if(checked)selection.annual.add(id);else selection.annual.delete(id);updateCount('annual')}
+function toggleSelectAllAnnual(checked){
+  document.querySelectorAll('.annual-cb').forEach(cb=>{cb.checked=checked;if(checked)selection.annual.add(cb.value);else selection.annual.delete(cb.value)});
+  updateCount('annual');
+}
+function bulkDeleteAnnual(){
+  if(!selection.annual.size)return alert('Kayıt seçin.');
+  if(!confirm(`${selection.annual.size} kayıt silinsin mi?`))return;
+  state.annualItems=state.annualItems.filter(x=>!selection.annual.has(x.id));
+  state.workplans=state.workplans.filter(w=>!selection.annual.has(w.annualItemId));
+  selection.annual.clear();updateCount('annual');saveState();
+}
+function bulkAddAnnualToWorkPlan(){
+  if(!selection.annual.size)return alert('Kayıt seçin.');
+  let added=0;
+  for(const id of selection.annual){
+    let x=state.annualItems.find(a=>a.id===id);if(!x)continue;
+    let title=x.activity||x.outcome;if(!title)continue;
+    let exists=state.workplans.some(w=>w.week===x.week&&w.date===x.date&&String(w.title).toLowerCase()===String(title).toLowerCase());
+    if(exists)continue;
+    state.workplans.push({id:crypto.randomUUID(),week:x.week||'',date:x.date||'',title,desc:x.purpose||x.desc||'',outcomeId:x.id,outcome:x.outcome||'',annualItemId:x.id});
+    added++;
+  }
+  state.workplans.sort((a,b)=>(a.date||'').localeCompare(b.date||''));
+  saveState();
+  alert(`${added} kayıt çalışma planına eklendi.`);
+}
+function inlineEditAnnual(id,field,val){
+  let x=state.annualItems.find(a=>a.id===id);if(!x)return;
+  if(field==='week')x.week=parseWeek(val.trim());
+  else x[field]=val;
+}
+function inlineSaveAllAnnual(){saveState();alert('Değişiklikler kaydedildi.')}
+function saveAnnualItem(id){
+  ['week','date','outcome','activity','purpose','desc'].forEach(f=>{
+    let el=document.getElementById('ao_'+f+'_'+id);if(el)inlineEditAnnual(id,f,el.value);
+  });
+  saveState();
+}
+function deleteAnnualItem(id){if(!confirm('Kayıt silinsin mi?'))return;state.annualItems=state.annualItems.filter(x=>x.id!==id);state.workplans=state.workplans.filter(w=>w.annualItemId!==id);selection.annual.delete(id);saveState()}
+function addAnnualItemToWorkPlan(id){
+  let x=state.annualItems.find(a=>a.id===id);if(!x)return;
+  let title=x.activity||x.outcome;if(!title)return alert('Faaliyet/kazanım yok.');
+  let exists=state.workplans.some(w=>w.week===x.week&&w.date===x.date&&String(w.title).toLowerCase()===String(title).toLowerCase());
+  if(exists)return alert('Zaten var.');
+  state.workplans.push({id:crypto.randomUUID(),week:x.week||'',date:x.date||'',title,desc:x.purpose||x.desc||'',outcomeId:x.id,outcome:x.outcome||'',annualItemId:x.id});
+  state.workplans.sort((a,b)=>(a.date||'').localeCompare(b.date||''));
+  saveState();alert('Eklendi.');
 }
 function renderAnnualItems(){
   let box=document.getElementById('annualItemsEditor');if(!box)return;
   if(!state.annualItems.length){box.innerHTML='<div class="empty">Henüz kayıt yok.</div>';renderAnnualWeekGroups();populateWorkOutcomeSelect();populateAnnualWeekSelects();return;}
-  let groups=rebuildAnnualGroups();
-  box.innerHTML='<h3>✏️ Düzenlenebilir Kayıtlar</h3>'+groups.map(g=>`<div class="item"><b>📅 ${esc(g.week)}</b><span class="muted"> — ${g.items.length} kayıt</span></div>`).join('');
+  box.innerHTML='';
   renderAnnualWeekGroups();populateWorkOutcomeSelect();populateAnnualWeekSelects();
 }
 function renderAnnualWeekGroups(){
-  let box=document.getElementById('annualWeekGroups');if(!box)return;let groups=rebuildAnnualGroups();
-  if(!groups.length){box.innerHTML='<div class="empty">Henüz hafta grubu yok.</div>';return;}
-  box.innerHTML=groups.map(g=>`<details class="item" open><summary><b>📅 ${esc(g.week)}</b> <span class="muted">(${g.items.length} kayıt)</span></summary><div class="group-body">${g.items.map(x=>`<div class="item" style="margin-top:10px"><div class="row"><div><label>Hafta</label><input id="ao_week_${x.id}" value="${esc(x.week)}"></div><div><label>Tarih</label><input id="ao_date_${x.id}" type="date" value="${esc(x.date)}"></div></div><label>Kazanım</label><textarea id="ao_out_${x.id}">${esc(x.outcome)}</textarea><label>Faaliyet / Etkinlik</label><textarea id="ao_act_${x.id}">${esc(x.activity)}</textarea><label>Amaç</label><textarea id="ao_purpose_${x.id}">${esc(x.purpose)}</textarea><label>Faaliyet açıklaması</label><textarea id="ao_desc_${x.id}">${esc(x.desc||x.purpose)}</textarea><div class="actions"><button class="success" onclick="saveAnnualItem('${x.id}')">💾 Kaydet</button><button onclick="addAnnualItemToWorkPlan('${x.id}')">➡️ Çalışma Planına Aktar</button><button class="danger" onclick="deleteAnnualItem('${x.id}')">Sil</button></div></div>`).join('')}</div></details>`).join('');
+  let box=document.getElementById('annualWeekGroups');if(!box)return;
+  let items=state.annualItems;
+  if(!items.length){box.innerHTML='<div class="empty">Kayıt yok.</div>';return;}
+  let groups=[],map=new Map(),lastWeek='';
+  for(const raw of items){
+    let x=makeAnnualItem(raw);if(x.week)lastWeek=x.week;else if(lastWeek)x.week=lastWeek;
+    let key=x.week||'Hafta belirtilmemiş';
+    if(!map.has(key)){let g={id:crypto.randomUUID(),week:key,items:[]};map.set(key,g);groups.push(g)}
+    let g=map.get(key);g.items.push(x);
+  }
+  box.innerHTML=groups.map(g=>`<details class="item" open><summary><b>📅 ${esc(g.week)}</b> <span class="muted">(${g.items.length} kayıt)</span></summary>${g.items.map(x=>{
+    let checked=selection.annual.has(x.id)?'checked':'';
+    return `<div class="item" style="margin-top:10px">
+      <label style="display:flex;align-items:center;gap:8px"><input type="checkbox" class="annual-cb row-check" value="${x.id}" ${checked} onchange="toggleSelectAnnual('${x.id}',this.checked)"> <span class="muted">Bu kaydı seç</span></label>
+      <div class="row"><div><label>Hafta</label><input id="ao_week_${x.id}" value="${esc(x.week)}" oninput="inlineEditAnnual('${x.id}','week',this.value)"></div><div><label>Tarih</label><input id="ao_date_${x.id}" type="date" value="${esc(x.date)}" oninput="inlineEditAnnual('${x.id}','date',this.value)"></div></div>
+      <label>Kazanım</label><textarea id="ao_outcome_${x.id}" oninput="inlineEditAnnual('${x.id}','outcome',this.value)">${esc(x.outcome)}</textarea>
+      <label>Faaliyet</label><textarea id="ao_activity_${x.id}" oninput="inlineEditAnnual('${x.id}','activity',this.value)">${esc(x.activity)}</textarea>
+      <label>Amaç</label><textarea id="ao_purpose_${x.id}" oninput="inlineEditAnnual('${x.id}','purpose',this.value)">${esc(x.purpose)}</textarea>
+      <label>Açıklama</label><textarea id="ao_desc_${x.id}" oninput="inlineEditAnnual('${x.id}','desc',this.value)">${esc(x.desc||x.purpose)}</textarea>
+      <div class="actions"><button class="success" onclick="saveAnnualItem('${x.id}')">💾 Kaydet</button><button onclick="addAnnualItemToWorkPlan('${x.id}')">➡️ Çalışma Planına Aktar</button><button class="danger" onclick="deleteAnnualItem('${x.id}')">🗑️ Sil</button></div>
+    </div>`;
+  }).join('')}</details>`).join('');
 }
-function saveAnnualItem(id){let x=state.annualItems.find(a=>a.id===id);if(!x)return;x.week=parseWeek(document.getElementById('ao_week_'+id).value.trim());x.date=document.getElementById('ao_date_'+id).value;x.outcome=document.getElementById('ao_out_'+id).value.trim();x.activity=document.getElementById('ao_act_'+id).value.trim();x.purpose=document.getElementById('ao_purpose_'+id).value.trim();x.desc=document.getElementById('ao_desc_'+id).value.trim()||x.purpose;saveState()}
-function deleteAnnualItem(id){state.annualItems=state.annualItems.filter(x=>x.id!==id);saveState()}
-function addAnnualItemToWorkPlan(id){
-  saveAnnualItem(id);
-  let x=state.annualItems.find(a=>a.id===id);if(!x)return;
-  let title=x.activity||x.outcome;if(!title)return alert('Bu kayıtta faaliyet/kazanım yok.');
-  let exists=state.workplans.some(w=>w.week===x.week&&w.date===x.date&&String(w.title).toLowerCase()===String(title).toLowerCase());
-  if(exists)return alert('Bu kayıt zaten çalışma planında var.');
-  state.workplans.push({
-    id:crypto.randomUUID(),
-    week:x.week||'',date:x.date||'',
-    title,desc:x.purpose||x.desc||'',
-    outcomeId:x.id,outcome:x.outcome||'',
-    annualItemId:x.id
-  });
-  state.workplans.sort((a,b)=>(a.date||'').localeCompare(b.date||''));
-  saveState();
-  alert('Kayıt çalışma planına eklendi.');
-}
-function populateWorkOutcomeSelect(){let s=document.getElementById('wpOutcomeSelect');if(!s)return;s.innerHTML='<option value="">— Kazanımdan seç —</option>'+state.annualItems.map(x=>`<option value="${x.id}">${esc((x.week?x.week+' — ':'')+(x.outcome||x.activity||'Kayıt'))}</option>`).join('')}
+function populateWorkOutcomeSelect(){let s=document.getElementById('wpOutcomeSelect');if(!s)return;s.innerHTML='<option value="">— Seç —</option>'+state.annualItems.map(x=>`<option value="${x.id}">${esc((x.week?x.week+' — ':'')+(x.outcome||x.activity||'Kayıt'))}</option>`).join('')}
 function selectWorkOutcome(){let x=state.annualItems.find(a=>a.id===document.getElementById('wpOutcomeSelect').value);if(!x)return;document.getElementById('wpWeek').value=x.week||'';document.getElementById('wpDate').value=x.date||'';document.getElementById('wpTitle').value=x.activity||'';document.getElementById('wpDesc').value=x.purpose||x.desc||'';populateAnnualWeekSelects();document.getElementById('wpWeekSelect').value=x.week||'';populateAnnualDateSelect(x.week);document.getElementById('wpDateSelect').value=x.id}
-function populateAnnualWeekSelects(){let s=document.getElementById('wpWeekSelect');if(!s)return;let groups=rebuildAnnualGroups();s.innerHTML='<option value="">— Hafta seç —</option>'+groups.map(g=>`<option value="${esc(g.week)}">${esc(g.week)} (${g.items.length} kayıt)</option>`).join('');}
-function populateAnnualDateSelect(week){let s=document.getElementById('wpDateSelect');if(!s)return;let arr=state.annualItems.filter(x=>(x.week||'Hafta belirtilmemiş')===week);s.innerHTML='<option value="">— Tarih/kayıt seç —</option>'+arr.map(x=>`<option value="${x.id}">${esc(x.date?fmtDate(x.date):'Tarih yok')} — ${esc(x.activity||x.outcome||'Kayıt')}</option>`).join('');}
-function selectAnnualWeekForWorkPlan(){let week=document.getElementById('wpWeekSelect').value;if(!week){document.getElementById('wpDateSelect').innerHTML='<option value="">— Önce hafta seçin —</option>';return}document.getElementById('wpWeek').value=week;populateAnnualDateSelect(week);}
+function populateAnnualWeekSelects(){
+  let s=document.getElementById('wpWeekSelect');if(!s)return;
+  let weeks=[...new Set(state.annualItems.map(x=>x.week).filter(Boolean))].sort((a,b)=>{let na=parseInt(a)||0,nb=parseInt(b)||0;return na-nb});
+  s.innerHTML='<option value="">— Hafta seç —</option>'+weeks.map(w=>`<option value="${esc(w)}">${esc(w)}</option>`).join('');
+}
+function populateAnnualDateSelect(week){let s=document.getElementById('wpDateSelect');if(!s)return;let arr=state.annualItems.filter(x=>(x.week||'')===week);s.innerHTML='<option value="">— Seç —</option>'+arr.map(x=>`<option value="${x.id}">${esc(x.date?fmtDate(x.date):'Tarih yok')} — ${esc(x.activity||x.outcome||'')}</option>`).join('')}
+function selectAnnualWeekForWorkPlan(){let week=document.getElementById('wpWeekSelect').value;if(!week){document.getElementById('wpDateSelect').innerHTML='<option value="">— Önce hafta seçin —</option>';return}document.getElementById('wpWeek').value=week;populateAnnualDateSelect(week)}
 function selectAnnualDateForWorkPlan(){
   let id=document.getElementById('wpDateSelect').value;if(!id)return;
   let x=state.annualItems.find(a=>a.id===id);if(!x)return;
   document.getElementById('wpWeek').value=x.week||'';document.getElementById('wpDate').value=x.date||'';document.getElementById('wpOutcomeSelect').value=x.id;document.getElementById('wpTitle').value=x.activity||'';document.getElementById('wpDesc').value=x.purpose||x.desc||'';
   let existing=state.workplans.find(w=>w.outcomeId===x.id||(w.week===x.week&&w.date===x.date&&w.title===(x.activity||x.outcome)));
   if(existing){window.editingWorkPlanId=existing.id;return;}
-  let plan={id:crypto.randomUUID(),week:x.week||'',date:x.date||'',title:x.activity||x.outcome||'Yeni faaliyet',desc:x.purpose||x.desc||'',outcomeId:x.id,outcome:x.outcome||'',annualItemId:x.id};
-  state.workplans.push(plan);state.workplans.sort((a,b)=>(a.date||'').localeCompare(b.date||''));saveState();
-  window.editingWorkPlanId=plan.id;
+  let plan={id:crypto.randomUUID(),week:x.week||'',date:x.date||'',title:x.activity||x.outcome||'Faaliyet',desc:x.purpose||x.desc||'',outcomeId:x.id,outcome:x.outcome||'',annualItemId:x.id};
+  state.workplans.push(plan);state.workplans.sort((a,b)=>(a.date||'').localeCompare(b.date||''));saveState();window.editingWorkPlanId=plan.id;
 }
 function createWorkPlanFromAnnualText(){
   let rows=parseDelimitedAnnualText(document.getElementById('annualPlanText').value);
-  if(!rows.length)return alert('Metinden kayıt bulunamadı.');
+  if(!rows.length)return alert('Kayıt bulunamadı.');
   let added=0;
-  for(const r of rows){
-    let title=r.activity||r.outcome;if(!title)continue;
-    let exists=state.workplans.some(w=>w.week===r.week&&w.date===r.date&&String(w.title).toLowerCase()===String(title).toLowerCase());
-    if(exists)continue;
-    state.workplans.push({id:crypto.randomUUID(),week:r.week||'',date:r.date||'',title,desc:r.purpose||r.desc||'',outcomeId:null,outcome:r.outcome||''});
-    added++;
-  }
-  state.workplans.sort((a,b)=>(a.date||'').localeCompare(b.date||''));
-  saveState();
-  document.getElementById('annualParseInfo').textContent=`${added} madde çalışma planına eklendi.`;
+  for(const r of rows){let t=r.activity||r.outcome;if(!t)continue;if(state.workplans.some(w=>w.week===r.week&&w.date===r.date&&String(w.title).toLowerCase()===String(t).toLowerCase()))continue;state.workplans.push({id:crypto.randomUUID(),week:r.week||'',date:r.date||'',title:t,desc:r.purpose||r.desc||'',outcomeId:null,outcome:r.outcome||''});added++}
+  state.workplans.sort((a,b)=>(a.date||'').localeCompare(b.date||''));saveState();
+  document.getElementById('annualParseInfo').textContent=`${added} madde eklendi.`;
 }
 function clearAnnualPlanText(){document.getElementById('annualPlanText').value='';document.getElementById('annualParseInfo').textContent=''}
-function clearWorkPlanForm(){document.getElementById('wpWeek').value='';document.getElementById('wpDate').value='';document.getElementById('wpWeekSelect').value='';document.getElementById('wpDateSelect').innerHTML='<option value="">— Önce hafta seçin —</option>';document.getElementById('wpOutcomeSelect').value='';document.getElementById('wpTitle').value='';document.getElementById('wpDesc').value=''}
-function addWorkPlan(){let date=document.getElementById('wpDate').value,title=document.getElementById('wpTitle').value.trim();if(!title)return alert('Faaliyet adı zorunlu.');let outcomeId=document.getElementById('wpOutcomeSelect').value||null,outcome=state.annualItems.find(x=>x.id===outcomeId);state.workplans.push({id:crypto.randomUUID(),week:document.getElementById('wpWeek').value.trim(),date:date||outcome?.date||'',title,desc:document.getElementById('wpDesc').value.trim(),outcomeId,outcome:outcome?.outcome||'',annualItemId:outcome?.id||null});clearWorkPlanForm();saveState()}
-function editWorkPlan(id){let x=state.workplans.find(a=>a.id===id);if(!x)return;document.getElementById('wpWeek').value=x.week||'';document.getElementById('wpDate').value=x.date||'';document.getElementById('wpOutcomeSelect').value=x.outcomeId||'';document.getElementById('wpTitle').value=x.title||'';document.getElementById('wpDesc').value=x.desc||'';window.editingWorkPlanId=id;show('workplan');document.querySelector('#workplan .card')?.scrollIntoView({behavior:'smooth'})}
+
+/* ============================================================
+   ÇALIŞMA PLANI
+   ============================================================ */
+function clearWorkPlanForm(){['wpWeek','wpDate','wpOutcomeSelect','wpTitle','wpDesc'].forEach(id=>{let el=document.getElementById(id);if(el)el.value=''});document.getElementById('wpDateSelect').innerHTML='<option value="">— Önce hafta seçin —</option>';window.editingWorkPlanId=null}
+function addWorkPlan(){
+  let date=document.getElementById('wpDate').value,title=document.getElementById('wpTitle').value.trim();
+  if(!title)return alert('Faaliyet adı zorunlu.');
+  let outcomeId=document.getElementById('wpOutcomeSelect').value||null,outcome=state.annualItems.find(x=>x.id===outcomeId);
+  state.workplans.push({id:crypto.randomUUID(),week:document.getElementById('wpWeek').value.trim(),date:date||outcome?.date||'',title,desc:document.getElementById('wpDesc').value.trim(),outcomeId,outcome:outcome?.outcome||'',annualItemId:outcome?.id||null});
+  clearWorkPlanForm();saveState();
+}
+function editWorkPlan(id){
+  let x=state.workplans.find(a=>a.id===id);if(!x)return;
+  document.getElementById('wpWeek').value=x.week||'';document.getElementById('wpDate').value=x.date||'';document.getElementById('wpOutcomeSelect').value=x.outcomeId||'';document.getElementById('wpTitle').value=x.title||'';document.getElementById('wpDesc').value=x.desc||'';
+  window.editingWorkPlanId=id;show('workplan');document.querySelector('#workplan .card')?.scrollIntoView({behavior:'smooth'});
+}
 function updateOrAddWorkPlan(){
   if(window.editingWorkPlanId){
     let x=state.workplans.find(a=>a.id===window.editingWorkPlanId);
     if(x){
       x.week=document.getElementById('wpWeek').value.trim();x.date=document.getElementById('wpDate').value;x.outcomeId=document.getElementById('wpOutcomeSelect').value||null;
-      let o=state.annualItems.find(a=>a.id===x.outcomeId);
-      x.outcome=o?.outcome||x.outcome||'';x.title=document.getElementById('wpTitle').value.trim();x.desc=document.getElementById('wpDesc').value.trim();
+      let o=state.annualItems.find(a=>a.id===x.outcomeId);x.outcome=o?.outcome||x.outcome||'';
+      x.title=document.getElementById('wpTitle').value.trim();x.desc=document.getElementById('wpDesc').value.trim();
       x.annualItemId=o?.id||x.annualItemId||null;
-      window.editingWorkPlanId=null;clearWorkPlanForm();saveState();render();return;
+      clearWorkPlanForm();saveState();render();return;
     }
   }
   addWorkPlan();render();
 }
-function removeWorkPlan(id){if(!confirm('Bu kayıt silinsin mi?'))return;state.workplans=state.workplans.filter(x=>x.id!==id);saveState();render()}
+function removeWorkPlan(id){if(!confirm('Kayıt silinsin mi?'))return;state.workplans=state.workplans.filter(x=>x.id!==id);selection.workplans.delete(id);saveState();render()}
+function toggleSelectWorkPlan(id,checked){if(checked)selection.workplans.add(id);else selection.workplans.delete(id);updateCount('workplans')}
+function toggleSelectAllWorkPlans(checked){document.querySelectorAll('.wp-cb').forEach(cb=>{cb.checked=checked;if(checked)selection.workplans.add(cb.value);else selection.workplans.delete(cb.value)});updateCount('workplans')}
+function bulkDeleteWorkPlans(){
+  if(!selection.workplans.size)return alert('Kayıt seçin.');
+  if(!confirm(`${selection.workplans.size} çalışma planı silinsin mi?`))return;
+  state.workplans=state.workplans.filter(x=>!selection.workplans.has(x.id));
+  selection.workplans.clear();updateCount('workplans');saveState();
+}
+function bulkAddActivitiesFromSelectedWP(){
+  if(!selection.workplans.size)return alert('Kayıt seçin.');
+  let added=0,skipped=0;
+  for(const id of selection.workplans){
+    let w=state.workplans.find(x=>x.id===id);if(!w)continue;
+    if(state.activities.some(a=>a.workplanId===id)){skipped++;continue}
+    state.activities.push({id:crypto.randomUUID(),date:w.date||new Date().toISOString().slice(0,10),title:w.title||w.outcome||'Faaliyet',desc:w.desc||'',participants:[],photoIds:[],groupId:'',workplanId:w.id,week:w.week||'',completed:false,source:'auto'});
+    added++;
+  }
+  state.activities.sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+  saveState();alert(`${added} faaliyet oluşturuldu.${skipped?` ${skipped} atlandı.`:''}`);
+}
 function openActivityFromWorkPlan(id){
   let x=state.workplans.find(a=>a.id===id);if(!x)return;
   window.editingActivityId=null;
@@ -769,41 +1215,14 @@ function openActivityFromWorkPlan(id){
   document.getElementById('modalGroupSelect').value='';
   document.getElementById('modalParticipants').innerHTML='';
   document.getElementById('modalActPhotos').value='';
+  document.getElementById('modalExistingPhotos').innerHTML='';
   updateModalParticipantCount();
 }
 function workPlanActivityInfo(id){let list=state.activities.filter(a=>a.workplanId===id);let done=list.filter(a=>a.completed!==false).length;return {count:list.length,done}}
 
-/* ---------- Render ---------- */
-function fmtDate(s){if(!s)return '';let [y,m,d]=s.split('-');return `${d}.${m}.${y}`}
-function esc(s=''){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
-function render(){
-  document.getElementById('sStudents').textContent=state.students.length;
-  document.getElementById('sActivities').textContent=state.activities.length;
-  document.getElementById('sPlans').textContent=state.workplans.length;
-  document.getElementById('homeInfo').innerHTML=`<b>Kulüp:</b> ${esc(state.club.name)||'—'}<br><b>Danışman:</b> ${esc(state.club.advisor)||'—'}<br><b>Okul:</b> ${esc(state.club.school)||'—'}<br><b>Okul Müdürü:</b> ${esc(state.club.principal)||'—'}<br><b>Eğitim-öğretim yılı:</b> ${esc(state.club.year)||'—'}`;
-  document.getElementById('studentTable').innerHTML=state.students.map((s,i)=>`<tr><td>${i+1}</td><td>${esc(s.name)}</td><td><button class="danger" onclick="removeStudent('${s.id}')">Sil</button></td></tr>`).join('')||'<tr><td colspan="3">Öğrenci yok.</td></tr>';
-  populateWorkOutcomeSelect();
-  renderAnnualItems();
-  document.getElementById('workplanTable').innerHTML=state.workplans.map(x=>{let info=workPlanActivityInfo(x.id);return `<tr><td>${esc(x.week||'')}</td><td>${fmtDate(x.date)}</td><td>${esc(x.outcome||'')}</td><td>${esc(x.title)}</td><td>${esc(x.desc)}</td><td><div class="actions"><button class="success" onclick="openActivityFromWorkPlan('${x.id}')">📋 Faaliyet</button><button class="light" onclick="editWorkPlan('${x.id}')">✏️ Düzenle</button><button class="danger" onclick="removeWorkPlan('${x.id}')">Sil</button></div><div class="muted" style="margin-top:5px">${info.count?`Faaliyet: ${info.count} · Raporlanan: ${info.done}`:'Faaliyet yok'}</div></td></tr>`}).join('')||'<tr><td colspan="6">Plan yok.</td></tr>';
-  renderParticipants();
-  renderActivities();
-  renderAnnual();
-  renderStudentGroups();
-  populateModalSelectors();
-}
-async function renderActivities(){
-  let files=await getAllFiles();
-  document.getElementById('activityList').innerHTML=state.activities.map(a=>{
-    let names=a.participants.map(id=>state.students.find(s=>s.id===id)?.name).filter(Boolean).join(', ')||'Belirtilmedi';
-    let g=state.studentGroups.find(x=>x.id===a.groupId);
-    let ps=files.filter(f=>(a.photoIds||[]).includes(f.id));
-    let imgs=ps.map(f=>`<img class="activity-img" src="${URL.createObjectURL(f.blob)}" alt="${esc(f.name)}">`).join('');
-    let statusHtml=a.completed===false?'<span style="color:#d92d20">⚠️ Raporlara dahil değil</span>':a.completed===true?'✅ Gerçekleşti':(a.source==='auto'?'⚠️ Otomatik - düzenleyin':'Gerçekleşti');
-    return `<div class="item"><h3>${esc(a.title)}</h3><div><b>Tarih:</b> ${fmtDate(a.date)} ${a.week?`<b>Hafta:</b> ${esc(a.week)}`:''}</div><p>${esc(a.desc||'')}</p><div><b>Grup:</b> ${esc(g?.name||'')} &nbsp; <b>Katılanlar:</b> ${esc(names)}</div><div class="muted"><b>Rapor durumu:</b> ${statusHtml}</div><div class="photos">${imgs}</div><div class="actions no-print"><button class="light" onclick="editActivity('${a.id}')">✏️ Düzenle</button><button class="danger" onclick="removeActivity('${a.id}')">🗑️ Sil</button></div></div>`
-  }).join('')||'<div class="empty">Faaliyet yok.</div>';
-}
-
-/* ---------- Activities ---------- */
+/* ============================================================
+   FAALİYETLER
+   ============================================================ */
 function renderParticipants(){let box=document.getElementById('participants');if(!box)return;box.innerHTML=state.students.map(s=>`<label class="chip"><input class="ap" type="checkbox" value="${s.id}"> ${esc(s.name)}</label>`).join('')||'<span class="muted">Öğrenci yok.</span>'}
 function openActivityModal(){
   window.editingActivityId=null;
@@ -818,14 +1237,15 @@ function openActivityModal(){
   document.getElementById('modalActDesc').value='';
   document.getElementById('modalActWeek').value='';
   document.getElementById('modalParticipantSearch').value='';
+  document.getElementById('modalExistingPhotos').innerHTML='';
   updateModalParticipantCount();
 }
 function closeActivityModal(){document.getElementById('activityModal').style.display='none'}
 function populateModalSelectors(){
   let w=document.getElementById('modalWorkSelect'),g=document.getElementById('modalGroupSelect');
   if(!w||!g)return;
-  w.innerHTML='<option value="">— Çalışma planından seç —</option>'+state.workplans.map(x=>`<option value="${x.id}">${esc((x.week||'')+' — '+(x.title||'Faaliyet'))}</option>`).join('');
-  g.innerHTML='<option value="">— Grup seç —</option>'+state.studentGroups.map(x=>`<option value="${x.id}">${esc(x.name)} (${x.studentIds.length} öğrenci)</option>`).join('');
+  w.innerHTML='<option value="">— Seç —</option>'+state.workplans.map(x=>`<option value="${x.id}">${esc((x.week||'')+' — '+(x.title||'Faaliyet'))}</option>`).join('');
+  g.innerHTML='<option value="">— Grup seç —</option>'+state.studentGroups.map(x=>`<option value="${x.id}">${esc(x.name)} (${x.studentIds.length})</option>`).join('');
 }
 function modalWorkChanged(){
   let x=state.workplans.find(a=>a.id===document.getElementById('modalWorkSelect').value);if(!x)return;
@@ -861,9 +1281,9 @@ async function saveActivityFromModal(){
   window.editingActivityId=null;
   await saveState();
   closeActivityModal();
-  alert(editing?'Faaliyet güncellendi.':'Faaliyet kaydedildi.');
+  alert(editing?'Güncellendi.':'Kaydedildi.');
 }
-function editActivity(id){
+async function editActivity(id){
   let a=state.activities.find(x=>x.id===id);if(!a)return;
   window.editingActivityId=id;
   document.getElementById('activityModal').style.display='block';
@@ -878,39 +1298,22 @@ function editActivity(id){
   document.getElementById('modalParticipants').innerHTML=state.students.map(s=>`<label class="chip"><input class="mp" type="checkbox" value="${s.id}" ${(a.participants||[]).includes(s.id)?'checked':''}> ${esc(s.name)}</label>`).join('');
   document.getElementById('modalParticipantSearch').value='';
   filterModalParticipants();
+  await renderExistingPhotos(a);
 }
-async function removeActivity(id){if(!confirm('Faaliyet ve fotoğrafları silinsin mi?'))return;let all=await getAllFiles();for(const f of all.filter(x=>x.activityId===id))await delFile(f.id);state.activities=state.activities.filter(x=>x.id!==id);await saveState()}
-
-async function autoCreateActivitiesFromWorkplans(){
-  if(!state.workplans.length)return alert('Çalışma planında madde yok.');
-  if(!confirm(`Çalışma planındaki ${state.workplans.length} madde için faaliyet oluşturulsun mu?`))return;
-  await bulkCreateActivities(state.workplans);
+async function renderExistingPhotos(a){
+  let files=await getAllFiles();
+  let box=document.getElementById('modalExistingPhotos');
+  let ps=files.filter(f=>(a.photoIds||[]).includes(f.id));
+  if(!ps.length){box.innerHTML='';return}
+  box.innerHTML=ps.map(f=>`<div class="photo-wrap"><img src="${URL.createObjectURL(f.blob)}"><button class="photo-del" onclick="removeActivityPhoto('${a.id}','${f.id}')">✕</button></div>`).join('');
 }
-async function autoCreateActivitiesFromPendingWorkplans(){
-  if(!state.workplans.length)return alert('Çalışma planında madde yok.');
-  let pending=state.workplans.filter(w=>!state.activities.some(a=>a.workplanId===w.id));
-  if(!pending.length)return alert('Tüm maddelerin zaten faaliyeti var.');
-  if(!confirm(`Faaliyeti olmayan ${pending.length} madde için faaliyet oluşturulsun mu?`))return;
-  await bulkCreateActivities(pending);
-}
-async function bulkCreateActivities(list){
-  let created=0,skipped=0;
-  for(const w of list){
-    if(state.activities.some(a=>a.workplanId===w.id)){skipped++;continue}
-    state.activities.push({
-      id:crypto.randomUUID(),
-      date:w.date||new Date().toISOString().slice(0,10),
-      title:w.title||w.outcome||'Faaliyet',
-      desc:w.desc||'',participants:[],photoIds:[],groupId:'',
-      workplanId:w.id,week:w.week||'',completed:false,source:'auto'
-    });
-    created++;
-  }
-  state.activities.sort((a,b)=>(b.date||'').localeCompare(a.date||''));
-  await saveState();
-  let info=document.getElementById('autoActivityInfo');
-  if(info)info.textContent=`✅ ${created} faaliyet oluşturuldu${skipped?` · ${skipped} atlandı`:''}.`;
-  alert(`${created} faaliyet oluşturuldu.${skipped?`\n${skipped} madde zaten faaliyete sahipti.`:''}`);
+async function removeActivityPhoto(actId,photoId){
+  if(!confirm('Fotoğraf silinsin mi?'))return;
+  let a=state.activities.find(x=>x.id===actId);if(!a)return;
+  a.photoIds=(a.photoIds||[]).filter(x=>x!==photoId);
+  await delFile(photoId);
+  saveState();
+  renderExistingPhotos(a);
 }
 function filterModalParticipants(){
   let q=(document.getElementById('modalParticipantSearch')?.value||'').toLocaleLowerCase('tr-TR').trim();
@@ -920,17 +1323,10 @@ function filterModalParticipants(){
   });
   updateModalParticipantCount();
 }
-function selectAllModalParticipants(check){
-  document.querySelectorAll('#modalParticipants .mp').forEach(cb=>{
-    let chip=cb.closest('.chip');
-    if(!chip||chip.classList.contains('hidden'))return;
-    cb.checked=!!check;
-  });
-  updateModalParticipantCount();
-}
+function selectAllModalParticipants(check){document.querySelectorAll('#modalParticipants .mp').forEach(cb=>{let chip=cb.closest('.chip');if(!chip||chip.classList.contains('hidden'))return;cb.checked=!!check});updateModalParticipantCount()}
 function selectGroupStudentsOnly(){
   let groupId=document.getElementById('modalGroupSelect').value;
-  if(!groupId)return alert('Önce bir grup seçin.');
+  if(!groupId)return alert('Grup seçin.');
   let g=state.studentGroups.find(x=>x.id===groupId);if(!g)return;
   let set=new Set(g.studentIds);
   document.querySelectorAll('#modalParticipants .mp').forEach(cb=>{cb.checked=set.has(cb.value)});
@@ -946,58 +1342,164 @@ function selectAllStudentsExcludingGroup(){
 function updateModalParticipantCount(){
   let total=document.querySelectorAll('#modalParticipants .mp').length;
   let checked=document.querySelectorAll('#modalParticipants .mp:checked').length;
-  let el=document.getElementById('modalParticipantCount');
-  if(el)el.textContent=`Seçili: ${checked} / ${total} öğrenci`;
+  let el=document.getElementById('modalParticipantCount');if(el)el.textContent=`Seçili: ${checked} / ${total}`;
+}
+async function removeActivity(id){
+  if(!confirm('Faaliyet ve fotoğrafları silinsin mi?'))return;
+  let all=await getAllFiles();
+  for(const f of all.filter(x=>x.activityId===id))await delFile(f.id);
+  state.activities=state.activities.filter(x=>x.id!==id);
+  selection.activities.delete(id);
+  await saveState();
+}
+function toggleSelectActivity(id,checked){if(checked)selection.activities.add(id);else selection.activities.delete(id);updateCount('activities')}
+function toggleSelectAllActivities(checked){document.querySelectorAll('.act-cb').forEach(cb=>{cb.checked=checked;if(checked)selection.activities.add(cb.value);else selection.activities.delete(cb.value)});updateCount('activities')}
+async function bulkDeleteActivities(){
+  if(!selection.activities.size)return alert('Faaliyet seçin.');
+  if(!confirm(`${selection.activities.size} faaliyet silinsin mi?`))return;
+  let all=await getAllFiles();
+  for(const id of selection.activities){
+    for(const f of all.filter(x=>x.activityId===id))await delFile(f.id);
+  }
+  state.activities=state.activities.filter(a=>!selection.activities.has(a.id));
+  selection.activities.clear();updateCount('activities');await saveState();
+}
+function bulkToggleCompleted(completed){
+  if(!selection.activities.size)return alert('Faaliyet seçin.');
+  for(const id of selection.activities){let a=state.activities.find(x=>x.id===id);if(a)a.completed=completed}
+  saveState();
+}
+async function autoCreateActivitiesFromWorkplans(){
+  if(!state.workplans.length)return alert('Çalışma planı yok.');
+  if(!confirm(`${state.workplans.length} madde için faaliyet oluşturulsun mu?`))return;
+  await bulkCreateActivities(state.workplans);
+}
+async function autoCreateActivitiesFromPendingWorkplans(){
+  let pending=state.workplans.filter(w=>!state.activities.some(a=>a.workplanId===w.id));
+  if(!pending.length)return alert('Hepsi mevcut.');
+  if(!confirm(`${pending.length} madde için oluşturulsun mu?`))return;
+  await bulkCreateActivities(pending);
+}
+async function bulkCreateActivities(list){
+  let created=0,skipped=0;
+  for(const w of list){
+    if(state.activities.some(a=>a.workplanId===w.id)){skipped++;continue}
+    state.activities.push({id:crypto.randomUUID(),date:w.date||new Date().toISOString().slice(0,10),title:w.title||w.outcome||'Faaliyet',desc:w.desc||'',participants:[],photoIds:[],groupId:'',workplanId:w.id,week:w.week||'',completed:false,source:'auto'});
+    created++;
+  }
+  state.activities.sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+  await saveState();
+  alert(`${created} faaliyet oluşturuldu.${skipped?` ${skipped} atlandı.`:''}`);
+}
+
+/* ============================================================
+   RENDER
+   ============================================================ */
+function fmtDate(s){if(!s)return '';let [y,m,d]=s.split('-');return `${d}.${m}.${y}`}
+function esc(s=''){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function render(){
+  document.getElementById('sStudents').textContent=state.students.length;
+  document.getElementById('sActivities').textContent=state.activities.length;
+  document.getElementById('sPlans').textContent=state.workplans.length;
+  document.getElementById('homeInfo').innerHTML=`<b>Kulüp:</b> ${esc(state.club.name)||'—'}<br><b>Danışman:</b> ${esc(state.club.advisor)||'—'}<br><b>Okul:</b> ${esc(state.club.school)||'—'}<br><b>Okul Müdürü:</b> ${esc(state.club.principal)||'—'}<br><b>Yıl:</b> ${esc(state.club.year)||'—'}`;
+
+  document.getElementById('studentTable').innerHTML=state.students.map((s,i)=>{
+    let checked=selection.students.has(s.id)?'checked':'';
+    return `<tr><td><input type="checkbox" class="student-cb row-check" value="${s.id}" ${checked} onchange="toggleSelectStudent('${s.id}',this.checked)"></td><td>${i+1}</td><td><input class="inline-edit" value="${esc(s.name)}" onchange="inlineEditStudentName('${s.id}',this.value)"></td><td><button class="light" onclick="saveState()">💾</button><button class="danger" onclick="removeStudent('${s.id}')">Sil</button></td></tr>`;
+  }).join('')||'<tr><td colspan="4">Öğrenci yok.</td></tr>';
+
+  document.getElementById('workplanTable').innerHTML=state.workplans.map(x=>{
+    let info=workPlanActivityInfo(x.id);
+    let checked=selection.workplans.has(x.id)?'checked':'';
+    return `<tr>
+      <td><input type="checkbox" class="wp-cb row-check" value="${x.id}" ${checked} onchange="toggleSelectWorkPlan('${x.id}',this.checked)"></td>
+      <td>${esc(x.week||'')}</td><td>${fmtDate(x.date)}</td><td>${esc(x.outcome||'')}</td>
+      <td><input class="inline-edit" value="${esc(x.title||'')}" onchange="inlineEditWP('${x.id}','title',this.value)"></td>
+      <td><input class="inline-edit" value="${esc(x.desc||'')}" onchange="inlineEditWP('${x.id}','desc',this.value)"></td>
+      <td><div class="actions"><button class="success" onclick="openActivityFromWorkPlan('${x.id}')">📋 Faaliyet</button><button class="light" onclick="editWorkPlan('${x.id}')">✏️</button><button class="danger" onclick="removeWorkPlan('${x.id}')">Sil</button></div><div class="muted" style="margin-top:4px">${info.count?`F: ${info.count} · R: ${info.done}`:'Faaliyet yok'}</div></td>
+    </tr>`;
+  }).join('')||'<tr><td colspan="7">Plan yok.</td></tr>';
+
+  renderParticipants();
+  renderActivities();
+  renderAnnual();
+  renderStudentGroups();
+  populateModalSelectors();
+  updateCount('students');updateCount('workplans');updateCount('annual');updateCount('files');updateCount('activities');
+}
+function inlineEditWP(id,field,val){let x=state.workplans.find(a=>a.id===id);if(x){x[field]=val}}
+async function renderActivities(){
+  let files=await getAllFiles();
+  document.getElementById('activityList').innerHTML=state.activities.map(a=>{
+    let names=(a.participants||[]).map(id=>state.students.find(s=>s.id===id)?.name).filter(Boolean).join(', ')||'Belirtilmedi';
+    let g=state.studentGroups.find(x=>x.id===a.groupId);
+    let ps=files.filter(f=>(a.photoIds||[]).includes(f.id));
+    let imgs=ps.map(f=>`<div class="photo-wrap"><img src="${URL.createObjectURL(f.blob)}" alt="${esc(f.name)}"><button class="photo-del" onclick="removeActivityPhoto('${a.id}','${f.id}')">✕</button></div>`).join('');
+    let statusHtml=a.completed===false?'<span style="color:#d92d20">⚠️ Rapor dışı</span>':a.completed===true?'✅ Gerçekleşti':'⚠️ Düzenleyin';
+    let checked=selection.activities.has(a.id)?'checked':'';
+    return `<div class="item">
+      <label style="display:flex;align-items:center;gap:8px"><input type="checkbox" class="act-cb row-check" value="${a.id}" ${checked} onchange="toggleSelectActivity('${a.id}',this.checked)"> <b>${esc(a.title)}</b></label>
+      <div style="margin-left:30px"><b>Tarih:</b> ${fmtDate(a.date)} ${a.week?`<b>Hafta:</b> ${esc(a.week)}`:''}</div>
+      <p style="margin-left:30px">${esc(a.desc||'')}</p>
+      <div style="margin-left:30px"><b>Grup:</b> ${esc(g?.name||'')} · <b>Katılanlar:</b> ${esc(names)}</div>
+      <div class="muted" style="margin-left:30px"><b>Durum:</b> ${statusHtml}</div>
+      <div class="photos" style="margin-left:30px">${imgs}</div>
+      <div class="actions no-print" style="margin-left:30px"><button class="light" onclick="editActivity('${a.id}')">✏️ Düzenle</button><button class="danger" onclick="removeActivity('${a.id}')">🗑️ Sil</button></div>
+    </div>`;
+  }).join('')||'<div class="empty">Faaliyet yok.</div>';
 }
 
 /* ---------- Reports ---------- */
 function reportTypeChanged(){let t=document.getElementById('reportType').value;document.getElementById('monthlyBox').style.display=t==='monthly'?'block':'none';document.getElementById('termBox').style.display=t==='term'?'block':'none'}
-function printReport(){if(!document.getElementById('reportOutput').innerHTML.trim())return alert('Önce raporu önizleyin.');window.print()}
+function printReport(){if(!document.getElementById('reportOutput').innerHTML.trim())return alert('Önce önizleyin.');window.print()}
 function makeReportFilter(){
   let t=document.getElementById('reportType').value,arr=state.activities.filter(a=>a.completed!==false),title='Yıl Sonu Kulüp Faaliyet Raporu';
-  if(t==='monthly'){let m=document.getElementById('reportMonth').value;if(!m)return null;arr=arr.filter(a=>a.date.startsWith(m));title=`${m.slice(0,4)} / ${m.slice(5)} Aylık Kulüp Faaliyet Raporu`}
-  else if(t==='term'){let d=document.getElementById('reportTerm').value;arr=arr.filter(a=>{let m=+a.date.slice(5,7);return d==='1'?m>=9||m<=1:m>=2&&m<=6});title=d==='1'?'1. Dönem Kulüp Faaliyet Raporu':'2. Dönem Kulüp Faaliyet Raporu'}
+  if(t==='monthly'){let m=document.getElementById('reportMonth').value;if(!m)return null;arr=arr.filter(a=>a.date.startsWith(m));title=`${m.slice(0,4)} / ${m.slice(5)} Aylık Rapor`}
+  else if(t==='term'){let d=document.getElementById('reportTerm').value;arr=arr.filter(a=>{let m=+a.date.slice(5,7);return d==='1'?m>=9||m<=1:m>=2&&m<=6});title=d==='1'?'1. Dönem Raporu':'2. Dönem Raporu'}
   else{let y=state.club.year.match(/20\d{2}/)?.[0];if(y)arr=arr.filter(a=>a.date.startsWith(y)||a.date.startsWith(String(+y+1)))}
   return {arr,title};
 }
 async function makeReport(){
-  let q=makeReportFilter();if(!q)return alert('Rapor dönemi seçin.');
-  let files=await getAllFiles();
-  let {arr,title}=q;
-  let html=`<div class="report-page"><h1 style="text-align:center">${esc(state.club.school||'')}</h1><h2 style="text-align:center">${esc(state.club.name||'KULÜP')}</h2><h2 style="text-align:center">${title}</h2><div class="report-meta"><div><b>Danışman:</b> ${esc(state.club.advisor)}</div><div><b>Okul Müdürü:</b> ${esc(state.club.principal)}</div><div><b>Eğitim-öğretim yılı:</b> ${esc(state.club.year)}</div><div><b>Öğrenci sayısı:</b> ${state.students.length}</div></div><hr>`;
-  if(!arr.length)html+='<p>Bu dönemde gerçekleşmiş faaliyet bulunmamaktadır.</p>';
+  let q=makeReportFilter();if(!q)return alert('Dönem seçin.');
+  let files=await getAllFiles();let {arr,title}=q;
+  let html=`<div class="report-page"><h1 style="text-align:center">${esc(state.club.school||'')}</h1><h2 style="text-align:center">${esc(state.club.name||'KULÜP')}</h2><h2 style="text-align:center">${title}</h2><div class="report-meta"><div><b>Danışman:</b> ${esc(state.club.advisor)}</div><div><b>Okul Müdürü:</b> ${esc(state.club.principal)}</div><div><b>Yıl:</b> ${esc(state.club.year)}</div><div><b>Öğrenci:</b> ${state.students.length}</div></div><hr>`;
+  if(!arr.length)html+='<p>Faaliyet yok.</p>';
   for(let i=0;i<arr.length;i++){
-    let a=arr[i],names=a.participants.map(id=>state.students.find(s=>s.id===id)?.name).filter(Boolean).join(', ')||'Belirtilmedi',g=state.studentGroups.find(x=>x.id===a.groupId);
-    html+=`<article class="report-activity"><h3>${i+1}. ${esc(a.title)}</h3><p><b>Tarih:</b> ${fmtDate(a.date)} &nbsp; <b>Hafta:</b> ${esc(a.week||state.workplans.find(w=>w.id===a.workplanId)?.week||'')}</p><p><b>Grup:</b> ${esc(g?.name||'')}</p><p>${esc(a.desc||'')}</p><p><b>Katılan öğrenciler:</b> ${esc(names)}</p>`;
+    let a=arr[i],names=(a.participants||[]).map(id=>state.students.find(s=>s.id===id)?.name).filter(Boolean).join(', ')||'Belirtilmedi',g=state.studentGroups.find(x=>x.id===a.groupId);
+    html+=`<article class="report-activity"><h3>${i+1}. ${esc(a.title)}</h3><p><b>Tarih:</b> ${fmtDate(a.date)} ${a.week?`· <b>Hafta:</b> ${esc(a.week)}`:''}</p><p><b>Grup:</b> ${esc(g?.name||'')}</p><p>${esc(a.desc||'')}</p><p><b>Katılanlar:</b> ${esc(names)}</p>`;
     for(const f of files.filter(f=>a.photoIds?.includes(f.id))){html+=`<img class="report-photo" src="${URL.createObjectURL(f.blob)}">`}
     html+='</article>';
   }
-  html+=`<table style="margin-top:40px;width:100%;text-align:center"><tr><td style="height:90px"><b>Danışman Öğretmen</b><br>${esc(state.club.advisor||'')}</td><td><b>Okul Müdürü</b><br>${esc(state.club.principal||'')}</td></tr></table></div>`;
+  html+=`<table style="margin-top:40px;width:100%;text-align:center"><tr><td style="height:90px"><b>Danışman</b><br>${esc(state.club.advisor||'')}</td><td><b>Okul Müdürü</b><br>${esc(state.club.principal||'')}</td></tr></table></div>`;
   document.getElementById('reportOutput').innerHTML=html;
 }
 
-/* ---------- Backup ---------- */
-async function exportBackup(){let files=await getAllFiles();let encoded=[];for(const f of files){encoded.push({id:f.id,kind:f.kind,name:f.name,type:f.type,size:f.size,date:f.date,activityId:f.activityId||null,data:await blobToDataURL(f.blob)})}let out={version:4,state,files:encoded,created:new Date().toISOString()};let blob=new Blob([JSON.stringify(out)],{type:'application/json'}),u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download='klup-dosyasi-yedek.json';a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)}
+/* ---------- Backup & Wipe ---------- */
+async function exportBackup(){let files=await getAllFiles();let encoded=[];for(const f of files){encoded.push({id:f.id,kind:f.kind,name:f.name,type:f.type,size:f.size,date:f.date,activityId:f.activityId||null,data:await blobToDataURL(f.blob)})}let out={version:5,state,files:encoded,created:new Date().toISOString()};let blob=new Blob([JSON.stringify(out)],{type:'application/json'}),u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download='klup-dosyasi-yedek.json';a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)}
 function blobToDataURL(blob){return new Promise((res,rej)=>{let r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(blob)})}
 function dataURLToBlob(data){let [head,b64]=data.split(',');let mime=(head.match(/:(.*?);/)||[])[1]||'application/octet-stream';let bin=atob(b64),arr=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)arr[i]=bin.charCodeAt(i);return new Blob([arr],{type:mime})}
-async function importBackup(file){if(!file)return;try{let x=JSON.parse(await file.text());if(!x.state||!Array.isArray(x.files))throw Error();state=x.state;for(const f of x.files)await putFile({...f,blob:dataURLToBlob(f.data)});await setMeta('state',state);await load();alert('Yedek başarıyla yüklendi.')}catch(e){alert('Yedek dosyası okunamadı.')}}
+async function importBackup(file){if(!file)return;try{let x=JSON.parse(await file.text());if(!x.state||!Array.isArray(x.files))throw Error();state=x.state;for(const f of x.files)await putFile({...f,blob:dataURLToBlob(f.data)});await setMeta('state',state);await load();alert('Yedek yüklendi.')}catch(e){alert('Yedek okunamadı.')}}
+async function wipeAllData(){
+  if(!confirm('TÜM VERİLER silinecek! Emin misiniz?'))return;
+  if(!confirm('SON UYARI: Bu işlem geri alınamaz!'))return;
+  state={club:{name:'',advisor:'',school:'',year:'',principal:''},students:[],studentGroups:[],workplans:[],activities:[],annualItems:[]};
+  await clearFiles();await setMeta('state',state);
+  selection.students.clear();selection.annual.clear();selection.files.clear();selection.workplans.clear();selection.activities.clear();
+  document.getElementById('clubName').value='';document.getElementById('advisor').value='';document.getElementById('school').value='';document.getElementById('principal').value='';document.getElementById('schoolYear').value='';
+  render();alert('Tüm veriler silindi.');
+}
 
-/* ---------- Drop Zone Kurulumu ---------- */
+/* ---------- Drop Zone ---------- */
 function setupDropZone(){
-  let dz=document.getElementById('annualDropZone');
-  if(!dz)return;
+  let dz=document.getElementById('annualDropZone');if(!dz)return;
   ['dragenter','dragover'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();e.stopPropagation();dz.classList.add('drag-over')}));
   ['dragleave','drop'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();e.stopPropagation();dz.classList.remove('drag-over')}));
-  dz.addEventListener('drop',e=>{
-    if(e.dataTransfer&&e.dataTransfer.files&&e.dataTransfer.files.length){
-      handleAnnualSmartUpload(e.dataTransfer.files);
-    }
-  });
+  dz.addEventListener('drop',e=>{if(e.dataTransfer&&e.dataTransfer.files.length)handleAnnualSmartUpload(e.dataTransfer.files)});
 }
 
 /* ---------- Init ---------- */
 if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
-window.addEventListener('DOMContentLoaded',()=>{setupDropZone();});
+window.addEventListener('DOMContentLoaded',setupDropZone);
 load();
 </script>
 </body>
